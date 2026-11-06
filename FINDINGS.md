@@ -91,4 +91,8 @@ Stack: `@copilotkit/react-core`/`runtime` 1.84.1, `@copilotkit/sdk-js` 1.84.1, `
 
 - #30 [Reasoning Messages](https://docs.copilotkit.ai/langgraph-typescript/custom-look-and-feel/reasoning-messages) has the same problem as #11: frontend code only, and with the showcase reasoning agent the reasoning block and answer render, then the chat shows `Cannot send 'RUN_FINISHED' while text messages are still active`.
 
+- #31 [In-app agent write](https://docs.copilotkit.ai/langgraph-typescript/shared-state/in-app-agent-write): clicking the page's "Toggle Language" (`agent.setState({ language: ... })`) shows `Language: spanish` for about a second, then it flips back to `english` before the next message; the agent then answers in English. The write doesn't persist into the run (seen in CI clip `LANGGRAPH-react-50-InAppAgentWrite`).
+
+- #32 [State and actions](https://docs.copilotkit.ai/langgraph-typescript/generative-ui/components/state-and-actions): with the page's `state` + `bind` + `functions` + `events` catalog (the page splits it over three blocks; merged in the harness), asking for product cards gets an empty assistant message and no ProductCard renders. The same agent renders cards with the plain Catalogs catalog.
+
 ## Build-only (`tsc` / `next build`; `npm run dev` runs fine)

@@ -16,7 +16,7 @@ good = set()
 for lf in os.listdir(LOGS):
     if lf.startswith('record') and lf.endswith('.log'):
         good |= set(re.findall(r'RECORDING SUCCESSFUL\]: .*?(LANGGRAPH-react-[\w-]+)\.webm', open(os.path.join(LOGS, lf), encoding='utf8', errors='ignore').read()))
-EXPECTED_FAIL = {'ReasoningMessages', 'A2UIStyling'}  # doc defect #30 is the "failure"
+EXPECTED_FAIL = {'ReasoningMessages', 'A2UIStyling', 'Reasoning', 'RenderAgentState', 'InAppAgentWrite', 'ComponentsStateActions'}  # doc defect #30 is the "failure"
 clips = {}
 for d in (UPLOAD, ROOT + '/LangGraph-vue/autorecorder/videos', VID):
     if os.path.isdir(d):
@@ -79,7 +79,7 @@ react = [
     R('Fully Headless UI', 'custom-look-and-feel/headless-ui', cell(OK, [L('HeadlessUI', 'Fully Headless UI - JS')])),
     R('Reasoning', 'generative-ui/reasoning', cell(WARN, [L('Reasoning', 'Reasoning - JS')], [
         'Issue: the page shows only frontend code, no agent / model.',
-        'With the showcase agent the run fails: in the clip no answer renders and the chat shows a runtime error. (Earlier runs got the answer, then "Cannot send RUN_FINISHED while text messages are still active".)'])),
+        'With the showcase agent the answer renders, then the chat shows "Cannot send RUN_FINISHED while text messages are still active".'])),
     R('Reasoning Messages', 'custom-look-and-feel/reasoning-messages', cell(WARN, [L('ReasoningMessages', 'Reasoning Messages - JS')], [
         'Issue: same as Reasoning, RUN_FINISHED error banner after the answer. No backend code on the page.'])),
     R('Multimodal Attachments', 'multimodal-attachments', cell(OK, [L('Multimodal', 'Multimodal Attachments - JS')])),
@@ -105,7 +105,7 @@ react = [
         'Note: Product and ProductRow are used but never defined. Needs an agent that uses the run tools/context (quickstart agent does not).'])),
     R('Catalogs', 'generative-ui/components/catalogs', cell(OK, [L('ComponentsCatalogs', 'Catalogs - JS')])),
     R('Standard catalog', 'generative-ui/components/standard-catalog', cell(OK, [L('ComponentsStandardCatalog', 'Standard catalog - JS')])),
-    R('State and actions', 'generative-ui/components/state-and-actions', cell(OK, [L('ComponentsStateActions', 'State and actions - JS')], [
+    R('State and actions', 'generative-ui/components/state-and-actions', cell(WARN, [L('ComponentsStateActions', 'Issue')], ['Issue: with the state + functions catalog the agent sends an empty reply; no ProductCard renders.', 
         'Note: the catalog is split over separate blocks on the page, had to merge them into one.'])),
     R('Theming', 'generative-ui/components/theming', cell(OK, [L('ComponentsTheming', 'Theming - JS')])),
     R('Transports', 'generative-ui/components/transports', cell(OK, [L('ComponentsTransports', 'Transports - JS')], [
@@ -136,7 +136,7 @@ react = [
     R('State Streaming', 'shared-state/streaming', cell(OK, [L('StateStreaming', 'State Streaming -JS')])),
     R('Agent read-only context', 'shared-state/agent-readonly', cell(OK, [L('AgentReadOnly', 'Agent read-only context -JS')])),
     R('In-app agent read', 'shared-state/in-app-agent-read', cell(OK, [L('InAppAgentRead', 'In-app agent read - JS')], ['Minor Issue: RunnableConfig used without import, node body elided.'])),
-    R('In-app agent write', 'shared-state/in-app-agent-write', cell(OK, [L('InAppAgentWrite', 'In-app agent write - JS')])),
+    R('In-app agent write', 'shared-state/in-app-agent-write', cell(WARN, [L('InAppAgentWrite', 'Issue')], ['Issue: Toggle Language (agent.setState) shows "spanish" for a moment, then the state flips back to "english"; the agent still answers in English.'])),
     R('Predictive state updates', 'shared-state/predictive-state-updates', cell(OK, [L('PredictiveState', 'Predictive state updates - JS')])),
     R('Workflow Execution', 'shared-state/workflow-execution', cell(BAD, [L('WorkflowExecution', 'Issue')], [], block=(
         'Workflow Execution', 'TS agent has missing imports (ReferenceError: StateGraph is not defined), calls an undefined modelWithTools, and the "Divide state to Input and Output" step is empty.'))),

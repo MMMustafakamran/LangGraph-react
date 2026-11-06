@@ -88,6 +88,13 @@ jobs:
             (cd autorecorder && timeout 300 npx playwright install --with-deps chromium) && break
             echo "playwright install attempt $i failed or stalled; retrying"; sleep 10
           done
+          # The deps step above can time out after the system packages but before the browser
+          # download finishes; make sure the Chromium build itself is there.
+          for i in 1 2 3; do
+            (cd autorecorder && timeout 300 npx playwright install chromium) && break
+            echo "chromium download attempt $i failed; retrying"; sleep 10
+          done
+          (cd autorecorder && node -e "const {chromium}=require('playwright'); require('fs').accessSync(chromium.executablePath()); console.log('chromium ok:', chromium.executablePath())")
           command -v xvfb-run
 
       - name: Write env files (secret from repo settings, never logged)
