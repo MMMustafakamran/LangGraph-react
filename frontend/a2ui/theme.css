@@ -1,0 +1,30 @@
+/* Doc: generative-ui/a2ui/styling "Full example", verbatim */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+.a2ui-surface {
+  /* Colors */
+  --primary: #111111;
+  --primary-foreground: #ffffff;
+  --card: #ffffff;
+  --border: #e0e0e0;
+  --radius: 12px;
+  --foreground: #111111;
+  --input: #d4d4d4;
+  --background: #fafafa;
+
+  /* Typography */
+  font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, system-ui, sans-serif !important;
+  letter-spacing: -0.01em;
+}
+
+/* Image constraints */
+.a2ui-surface img {
+  max-width: 28px;
+  max-height: 28px;
+  border-radius: 4px;
+}
+
+/* Streaming card width */
+.a2ui-surface .a2ui-card {
+  min-width: 280px;
+}

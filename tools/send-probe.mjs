@@ -1,0 +1,20 @@
+// HARNESS probe: mimic the recorder's send (type, click chatSubmit) and log runtime requests.
+import { createRequire } from 'node:module';
+const require = createRequire('C:/Users/QS/Desktop/Copilotkit/Antigravity-react/autorecorder/package.json');
+const { chromium } = require('playwright');
+const [route, prompt, submitSel] = process.argv.slice(2);
+const b = await chromium.launch(); const p = await b.newPage({ viewport: { width: 1920, height: 1080 } });
+const reqs = []; p.on('request', r => { if (r.url().includes('/api/')) reqs.push(r.method() + ' ' + r.url().replace('http://localhost:3050', '')); });
+p.on('response', r => { if (r.url().includes('/api/') && r.status() >= 400) reqs.push('  -> ' + r.status() + ' ' + r.url().replace('http://localhost:3050', '')); });
+await p.goto('http://localhost:3050' + route, { waitUntil: 'load' });
+const ta = p.locator('textarea, [contenteditable="true"]').first(); await ta.waitFor({ timeout: 90000 }); await p.waitForTimeout(4000);
+const btns = await p.locator(submitSel).evaluateAll(els => els.map(e => `${e.tagName} aria=${e.getAttribute('aria-label')} type=${e.getAttribute('type')} dis=${e.disabled} vis=${!!e.offsetParent} txt=${(e.innerText||'').slice(0,20)}`));
+console.log('submit matches:', btns);
+reqs.length = 0;
+await ta.click(); await p.keyboard.type(prompt, { delay: 20 }); await p.waitForTimeout(500);
+console.log('value before click:', await ta.inputValue().catch(() => '?'));
+await p.locator(submitSel).first().click({ timeout: 5000 }).catch(e => console.log('click err', e.message.slice(0, 120)));
+await p.waitForTimeout(20000);
+console.log('requests after send:\n ' + reqs.join('\n '));
+console.log('body:', (await p.evaluate(() => document.body.innerText)).slice(0, 250).replace(/\n/g, ' | '));
+await b.close();

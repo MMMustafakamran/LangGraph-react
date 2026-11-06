@@ -1,0 +1,13 @@
+/* Doc: generative-ui/a2ui/styling "Dark mode", verbatim */
+.dark .a2ui-surface,
+@media (prefers-color-scheme: dark) {
+  .a2ui-surface {
+    --primary: #e5e5e5;
+    --primary-foreground: #111111;
+    --card: #1a1a1a;
+    --border: #333333;
+    --foreground: #e5e5e5;
+    --input: #444444;
+    --background: #111111;
+  }
+}

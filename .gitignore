@@ -1,0 +1,18 @@
+# secrets
+.env
+.env.*
+!.env.example
+# deps / builds
+node_modules/
+.next/
+.langgraph_api/
+dist/
+# recordings and scratch (clips go to Loom / CI artifacts, not git)
+*.webm
+*.mp4
+autorecorder/videos/
+clips-staging/
+staging/
+logs/
+*.log
+frontend-create-next-app.git.bak/
