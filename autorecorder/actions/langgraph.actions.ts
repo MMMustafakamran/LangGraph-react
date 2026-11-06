@@ -781,3 +781,93 @@ const keyboardSend: PageActionHandler = async (page, config, _root, ctx) => {
   await sleep(2500);
 };
 export const runKeyboardSendAction: PageActionHandler = keyboardSend;
+
+// ---------------------------------------------------------------------------------------------
+// Scripted takes: pages whose feature only shows after an interaction (change a setting, attach a
+// file, toggle state) or whose doc page must be shown failing before the harness route. Added
+// after the clip review of 2026-11-07 found clips that never exercised the feature.
+// ---------------------------------------------------------------------------------------------
+type Step =
+  | { goto: string; holdMs?: number }
+  | { click: string; holdMs?: number }
+  | { select: number; value: string }
+  | { prompt: string }
+  | { waitText: string; timeoutMs?: number }
+  | { waitGone: string; timeoutMs?: number }
+  | { holdMs: number };
+
+const BASE = process.env.FRONTEND_URL || 'http://localhost:3050';
+
+function scripted(steps: Step[]): PageActionHandler {
+  return async (page, config, root, ctx) => {
+    for (const s of steps) {
+      if ('goto' in s) {
+        await page.goto(BASE + s.goto, { waitUntil: 'load' }).catch(() => {});
+        await sleep(s.holdMs ?? 4000);
+      } else if ('click' in s) {
+        const el = page.getByText(s.click, { exact: false }).first();
+        await el.waitFor({ state: 'visible', timeout: 60000 });
+        await glideClick(page, el);
+        await sleep(s.holdMs ?? 1500);
+      } else if ('select' in s) {
+        const el = page.locator('select').nth(s.select);
+        await glideTo(page, el, 600);
+        await el.selectOption(s.value);
+        await sleep(1200);
+      } else if ('prompt' in s) {
+        await keyboardSend(page, { ...config, prompt: s.prompt }, root, ctx);
+      } else if ('waitText' in s) {
+        const ok = await page.getByText(s.waitText, { exact: false }).first()
+          .waitFor({ state: 'visible', timeout: s.timeoutMs ?? 120000 }).then(() => true).catch(() => false);
+        if (!ok) ctx.fail(`Expected "${s.waitText}" on screen; it never appeared.`);
+        await sleep(2500);
+      } else if ('waitGone' in s) {
+        await page.getByText(s.waitGone, { exact: false }).first()
+          .waitFor({ state: 'hidden', timeout: s.timeoutMs ?? 240000 }).catch(() => ctx.fail(`"${s.waitGone}" never finished.`));
+        await sleep(4000);
+      } else {
+        await sleep(s.holdMs);
+      }
+    }
+  };
+}
+
+export const SCRIPTED: Record<string, PageActionHandler> = {
+  'agent-config': withFix(scripted([
+    { select: 0, value: 'enthusiastic' },
+    { select: 1, value: 'beginner' },
+    { select: 2, value: 'detailed' },
+    { prompt: 'Explain what an API is.' },
+  ])),
+  multimodal: scripted([
+    { click: 'Try with sample image', holdMs: 3000 },
+    { prompt: 'What is in this image?' },
+  ]),
+  'in-app-write': scripted([
+    { click: 'Toggle Language', holdMs: 1500 },
+    { waitText: 'spanish', timeoutMs: 10000 },
+    { prompt: 'Hi, who are you?' },
+  ]),
+  'chat-controls': scripted([
+    { click: 'Ask the assistant', holdMs: 2500 },
+    { prompt: 'Say hi in five words.' },
+    { goto: '/prebuilt-components/chat-controls/feedback', holdMs: 5000 },
+    { prompt: 'Give me a link to the React docs and a short heading.' },
+  ]),
+  'frontend-cards': withFinding(scripted([
+    { goto: '/generative-ui/frontend-cards', holdMs: 12000 },
+    { goto: '/generative-ui/frontend-cards/harness', holdMs: 6000 },
+    { click: 'Simulate deployment message', holdMs: 1000 },
+    { waitText: 'Deployment finished', timeoutMs: 15000 },
+  ])),
+  'rendering-in-app': withFinding(scripted([
+    { goto: '/shared-state/rendering-in-app', holdMs: 12000 },
+    { goto: '/shared-state/rendering-in-app/harness', holdMs: 6000 },
+    { waitText: 'Project launch', timeoutMs: 30000 },
+    { prompt: 'Hi! What can you see?' },
+  ])),
+  'a2ui-advanced': scripted([
+    { prompt: 'Show me my sales dashboard for this quarter.' },
+    { waitGone: 'Building interface', timeoutMs: 300000 },
+  ]),
+};

@@ -183,7 +183,7 @@ export const PAGES = definePages([
   },
   {
     id: 'chat-controls', name: 'Prebuilt Components - Chat Controls', videoName: 'ChatControls',
-    docPath: 'prebuilt-components/chat-controls', route: 'prebuilt-components/chat-controls/feedback',
+    docPath: 'prebuilt-components/chat-controls', route: 'prebuilt-components/chat-controls/open-state',
     ideFile: 'frontend/app/prebuilt-components/chat-controls/feedback/page.tsx', startLine: 1, endLine: 32,
     prompt: "Give me a link to the React docs and a short heading.",
   },

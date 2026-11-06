@@ -23,6 +23,7 @@ import {
   runTempNotePickSlotAction,
   runFrontendCardsAction,
   runKeyboardSendAction,
+  SCRIPTED,
 } from './langgraph.actions';
 
 /** Keys are page ids from `config/pages.config.ts`. Doctor flags any orphans. */
@@ -63,6 +64,8 @@ export const ACTION_MAP: Record<string, PageActionHandler> = {
   'tool-based': runTempNoteAction,
   'reasoning-messages': runStandardWithFinding,
   'rendering-in-app': runStandardWithFinding,
+  // Scripted takes override the entries above.
+  ...SCRIPTED,
 };
 
 export async function executePageAction(

@@ -16,7 +16,7 @@ good = set()
 for lf in os.listdir(LOGS):
     if lf.startswith('record') and lf.endswith('.log'):
         good |= set(re.findall(r'RECORDING SUCCESSFUL\]: .*?(LANGGRAPH-react-[\w-]+)\.webm', open(os.path.join(LOGS, lf), encoding='utf8', errors='ignore').read()))
-EXPECTED_FAIL = {'ReasoningMessages'}  # doc defect #30 is the "failure"
+EXPECTED_FAIL = {'ReasoningMessages', 'A2UIStyling'}  # doc defect #30 is the "failure"
 clips = {}
 for d in (UPLOAD, ROOT + '/LangGraph-vue/autorecorder/videos', VID):
     if os.path.isdir(d):
@@ -79,7 +79,7 @@ react = [
     R('Fully Headless UI', 'custom-look-and-feel/headless-ui', cell(OK, [L('HeadlessUI', 'Fully Headless UI - JS')])),
     R('Reasoning', 'generative-ui/reasoning', cell(WARN, [L('Reasoning', 'Reasoning - JS')], [
         'Issue: the page shows only frontend code, no agent / model.',
-        'With the showcase agent the answer renders, then the chat shows "Cannot send RUN_FINISHED while text messages are still active".'])),
+        'With the showcase agent the run fails: in the clip no answer renders and the chat shows a runtime error. (Earlier runs got the answer, then "Cannot send RUN_FINISHED while text messages are still active".)'])),
     R('Reasoning Messages', 'custom-look-and-feel/reasoning-messages', cell(WARN, [L('ReasoningMessages', 'Reasoning Messages - JS')], [
         'Issue: same as Reasoning, RUN_FINISHED error banner after the answer. No backend code on the page.'])),
     R('Multimodal Attachments', 'multimodal-attachments', cell(OK, [L('Multimodal', 'Multimodal Attachments - JS')])),
@@ -110,13 +110,14 @@ react = [
     R('Theming', 'generative-ui/components/theming', cell(OK, [L('ComponentsTheming', 'Theming - JS')])),
     R('Transports', 'generative-ui/components/transports', cell(OK, [L('ComponentsTransports', 'Transports - JS')], [
         'Note: only says what a LangGraph Python agent needs, nothing for a TS agent.'])),
-    R('Markdown mode', 'generative-ui/components/markdown-mode', cell(OK, [L('ComponentsMarkdownMode', 'Markdown mode - JS')], [
+    R('Markdown mode', 'generative-ui/components/markdown-mode', cell(WARN, [L('ComponentsMarkdownMode', 'Issue')], [
+        'Issue: the agent replies "here is a card with a seats slider" but no card renders, only the text.',
         'Note: only says what a LangGraph Python agent needs, nothing for a TS agent.'])),
     R('Adopt from A2UI', 'generative-ui/components/from-a2ui', cell(OK, [L('ComponentsFromA2UI', 'Adopt from A2UI - JS')], [
         'Note: the Airport / Arrow components are not shown, had to write them.'])),
     S('A2UI', 'Sub-Section', 'Sub-Section'),
-    R('A2UI', 'generative-ui/a2ui', cell(OK, [L('A2UI', 'A2UI - JS')], ['Minor Issue: "How it works" shows only the Python SDK helpers on the TS page.'])),
-    R('Dynamic Schema A2UI', 'generative-ui/a2ui/dynamic-schema', cell(OK, [L('A2UIDynamicSchema', 'Dynamic Schema -JS')])),
+    R('A2UI', 'generative-ui/a2ui', cell(WARN, [L('A2UI', 'Issue')], ['Issue: KPI cards render, but both charts fail: "Unable to display PieChart / BarChart: title: Invalid input".', 'Minor Issue: "How it works" shows only the Python SDK helpers on the TS page.'])),
+    R('Dynamic Schema A2UI', 'generative-ui/a2ui/dynamic-schema', cell(WARN, [L('A2UIDynamicSchema', 'Issue')], ['Issue: the Card and BarChart fail: "Unable to display Card: title: Invalid input" / "BarChart: description: Invalid input". Only the text and the Export CSV button render.'])),
     R('Fixed Schema A2UI', 'generative-ui/a2ui/fixed-schema', cell(OK, [L('A2UIFixedSchema', 'Fixed Schema -JS')])),
     R('A2UI Advanced', 'generative-ui/a2ui/advanced', cell(OK, [L('A2UIAdvanced', 'A2UI Advanced - JS')], ['Note: step 3 page.tsx uses CopilotChat without importing it.'])),
     R('A2UI Styling', 'generative-ui/a2ui/styling', cell(BAD, [L('A2UIStyling', 'Issue')], [], block=(
