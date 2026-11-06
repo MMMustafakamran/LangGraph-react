@@ -81,8 +81,14 @@ jobs:
           npm ci --prefix agent --no-audit --no-fund
           npm ci --prefix frontend --no-audit --no-fund
           npm ci --prefix autorecorder --no-audit --no-fund
-          sudo apt-get update -qq && sudo apt-get install -y -qq xvfb ffmpeg > /dev/null
-          (cd autorecorder && npx playwright install --with-deps chromium)
+          # apt mirrors sometimes stall on runners: fail fast and retry instead of hanging.
+          echo 'Acquire::Retries "3"; Acquire::http::Timeout "30"; Acquire::https::Timeout "30";' | sudo tee /etc/apt/apt.conf.d/99net-timeouts > /dev/null
+          # --with-deps installs xvfb and the browser libraries; Playwright ships its own ffmpeg.
+          for i in 1 2 3; do
+            (cd autorecorder && timeout 300 npx playwright install --with-deps chromium) && break
+            echo "playwright install attempt $i failed or stalled; retrying"; sleep 10
+          done
+          command -v xvfb-run
 
       - name: Write env files (secret from repo settings, never logged)
         if: steps.sel.outputs.pages != ''
