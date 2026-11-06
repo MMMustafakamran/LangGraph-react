@@ -51,6 +51,7 @@ Stack: `@copilotkit/react-core`/`runtime` 1.84.1, `@copilotkit/sdk-js` 1.84.1, `
 **#22 Following the page, no card is ever added, and the page crashes.**
 - **Doc:** `app/page.tsx` is `<CopilotKit runtimeUrl="/api/copilotkit" renderActivityMessages={[eventCardRenderer]}><CopilotChat /></CopilotKit>` with no agent, and no `"use client"`. `DeploymentWatcher` (`useAgent()` with no id) is never mounted by any snippet, and it opens `new WebSocket("wss://example.com/deployments")`.
 - **Error:** `useAgent: Agent 'default' not found after runtime sync (runtimeUrl=/api/copilotkit). Known agents: [sample_agent, ...]` ("This page couldn't load"); the socket fails with `Unexpected response code: 404`.
+- **Also:** mounting the doc's `DeploymentWatcher` crashes the page even under `<CopilotKit agent="sample_agent">`: its `useAgent()` (no id) still resolves to `"default"` (`Agent 'default' not found after runtime sync`), a few seconds after load. The provider's `agent` prop doesn't change what `useAgent()` with no id returns.
 - **Confirmed by harness:** with `agent="sample_agent"` and a button that calls the same `agent.addMessage({ role: "activity", activityType: "app-event-card", ... })`, the "Deployment finished" card renders in the transcript.
 
 ## Minor notes

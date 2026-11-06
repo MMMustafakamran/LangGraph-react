@@ -138,6 +138,7 @@ jobs:
           name: clips-shard-${{ matrix.shard }}
           path: |
             autorecorder/videos/*.webm
+            autorecorder/videos/*.timeline.json
             autorecorder/videos/RECORD_RESULTS.json
             autorecorder/videos/logs/
             logs/

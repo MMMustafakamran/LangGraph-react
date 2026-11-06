@@ -146,6 +146,22 @@ export async function typeInNotepad(
   let col = 1;
 
   for (const ch of text) {
+    // '\b' is a backspace: remove the character before the caret (lets callers type a typo and fix it).
+    if (ch === '\b') {
+      col = Math.max(1, col - 1);
+      await page.evaluate(
+        (a: { textId: string; caretId: string; posId: string; l: number; col: number }) => {
+          const caret = document.getElementById(a.caretId);
+          const prev = caret?.previousSibling;
+          if (prev && prev.parentNode) prev.parentNode.removeChild(prev);
+          const pos = document.getElementById(a.posId);
+          if (pos) pos.textContent = 'Ln ' + a.l + ', Col ' + a.col;
+        },
+        { textId: TEXT_ID, caretId: CARET_ID, posId: POS_ID, l: line, col },
+      );
+      await sleep(90 + Math.random() * 70);
+      continue;
+    }
     if (ch === '\n') {
       line += 1;
       col = 1;

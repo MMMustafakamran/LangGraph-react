@@ -6,6 +6,7 @@ import { glideClick, glideTo } from './glide-click';
 import { runStandardAction } from '../core/actions';
 import { closeNotepad, openNotepad, typeInNotepad } from '../core/overlays/notepad';
 import { clickTaskbarApp, ensureOverlays, waitForHydration } from '../core/overlays/taskbar';
+import { mark } from '../core/timeline';
 
 /**
  * Finding clips end with the finding typed into Notepad, so a viewer who skips the doc and code
@@ -187,6 +188,7 @@ export async function showDocEvidence(
   await sleep(1500);
 
   for (const item of items) {
+    mark('evidence', item.text);
     if (item.clickTab) {
       const tab = page.getByRole('tab', { name: item.clickTab, exact: true }).first();
       if (await tab.isVisible().catch(() => false)) {
@@ -320,9 +322,11 @@ export async function writeFinding(page: Page, id: string, config?: PageRecordCo
   const body = FINDING_NOTES[id];
   if (!body) return;
   if (config) await showDocEvidence(page, config).catch((e) => console.warn(`   ⚠️ Doc evidence step failed: ${String(e).slice(0, 120)}`));
+  mark('notepad');
   await openNotepad(page, `finding-${id}.txt`);
-  await typeInNotepad(page, body, TYPING);
+  await typeInNotepad(page, humanizeNote(body), TYPING);
   await closeNotepad(page, 4000);
+  mark('notepad-closed');
 }
 
 /** Wrap any page action so the finding (doc evidence + Notepad) always closes the take. */
@@ -354,6 +358,7 @@ const promptOrError: PageActionHandler = async (page, config, root, ctx) => {
     waitForAgentResponseCompletion(page, 2500, msgCount).then(() => false),
   ]).catch(() => false);
   if (errored) {
+    mark('error');
     await showErrorBanner(page);
     ctx.fail('The run failed with an error banner (see the details shown in the clip).');
     return;
@@ -388,6 +393,7 @@ const frontendTools: PageActionHandler = async (page, config, _root, ctx) => {
     errorBanner(page).waitFor({ state: 'visible', timeout: 60000 }).then(() => false),
   ]).catch(() => false);
   if (!changed) {
+    mark('error');
     await showErrorBanner(page);
     ctx.fail('change_background never ran: the background did not change.');
     return;
@@ -424,6 +430,7 @@ function pickSlotAction(slotLabel: string): PageActionHandler {
       errorBanner(page).waitFor({ state: 'visible', timeout: 90000 }).then(() => false),
     ]).catch(() => false);
     if (!appeared) {
+      mark('error');
       await showErrorBanner(page);
       ctx.fail(`The time picker never appeared (no "${slotLabel}" button).`);
       return;
@@ -587,9 +594,11 @@ function withFix(handler: PageActionHandler): PageActionHandler {
       await showDocEvidence(page, config, FIX_EVIDENCE[config.id]).catch((e) =>
         console.warn(`   ⚠️ Doc evidence step failed: ${String(e).slice(0, 120)}`),
       );
+      mark('notepad');
       await openNotepad(page, `fix-${config.id}.txt`);
-      await typeInNotepad(page, FIX_NOTES[config.id], TYPING);
+      await typeInNotepad(page, humanizeNote(FIX_NOTES[config.id]), TYPING);
       await closeNotepad(page, 4000);
+      mark('notepad-closed');
     }
   };
 }
@@ -695,6 +704,7 @@ const frontendCards: PageActionHandler = async (page, _config, _root, ctx) => {
   const btn = page.getByText('Simulate deployment message').first();
   await btn.waitFor({ state: 'visible', timeout: 60000 });
   await sleep(2500);
+  mark('click');
   await glideClick(page, btn);
   const ok = await page.getByText('Deployment finished').first().waitFor({ state: 'visible', timeout: 15000 }).then(() => true).catch(() => false);
   if (!ok) ctx.fail('The activity card did not appear after the button click.');
@@ -774,6 +784,7 @@ const keyboardSend: PageActionHandler = async (page, config, _root, ctx) => {
     return null;
   });
   if (errored) {
+    mark('error');
     await showErrorBanner(page);
     ctx.fail('The run failed with an error banner (see the details shown in the clip).');
     return;
@@ -871,3 +882,40 @@ export const SCRIPTED: Record<string, PageActionHandler> = {
     { waitGone: 'Building interface', timeoutMs: 300000 },
   ]),
 };
+
+/**
+ * Make a Notepad note look typed by a person (owner instruction 2026-11-07):
+ * - no long URLs typed in one go: "https://example.com/x" becomes "example.com/x";
+ * - a few typos fixed with backspace ('\b', handled by typeInNotepad) a couple of keys later;
+ * - one or two small misspellings left in (plain words only, never code, names or numbers).
+ * Deterministic per note, so a re-record types the same thing.
+ */
+export function humanizeNote(text: string): string {
+  let seed = 0;
+  for (const c of text) seed = (seed * 31 + c.charCodeAt(0)) >>> 0;
+  const rnd = () => ((seed = (seed * 1103515245 + 12345) >>> 0) / 4294967296);
+  const NEAR: Record<string, string> = { a: 's', s: 'a', e: 'r', r: 'e', t: 'r', o: 'i', i: 'o', n: 'm', m: 'n', h: 'j', d: 's', l: 'k', u: 'y', c: 'v' };
+  const plain = (w: string) => /^[a-z]{4,}$/.test(w); // lowercase letters only: no code, names, numbers
+  const noUrls = text.replace(/(https?|wss?):\/\//g, '');
+  let fixes = 0, left = 0;
+  const out: string[] = [];
+  const tokens = noUrls.split(/(\s+)/);
+  tokens.forEach((tok, idx) => {
+    if (!plain(tok)) { out.push(tok); return; }
+    const r = rnd();
+    if (r < 0.09 && fixes < 4) {
+      // Hit a neighbouring key, type a couple more letters, notice, back up and retype.
+      const i = 1 + Math.floor(rnd() * (tok.length - 2));
+      const wrong = NEAR[tok[i]] ?? tok[i];
+      const tail = tok.slice(i + 1, i + 1 + 1 + Math.floor(rnd() * 2));
+      out.push(tok.slice(0, i) + wrong + tail + '\b'.repeat(1 + tail.length) + tok.slice(i));
+      fixes++;
+    } else if (r > 0.965 && left < 2 && idx > 2) {
+      // A small slip left in: two letters swapped.
+      const i = 1 + Math.floor(rnd() * (tok.length - 2));
+      out.push(tok.slice(0, i) + tok[i + 1] + tok[i] + tok.slice(i + 2));
+      left++;
+    } else out.push(tok);
+  });
+  return out.join('');
+}

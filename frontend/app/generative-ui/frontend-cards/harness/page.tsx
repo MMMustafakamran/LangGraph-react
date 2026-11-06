@@ -4,7 +4,7 @@
 // the watcher, and adds a button that pushes the same activity message the watcher would.
 import { CopilotKit, CopilotChat, useAgent } from "@copilotkit/react-core/v2";
 import { eventCardRenderer } from "../event-card";
-import { DeploymentWatcher } from "../deployment-watcher";
+// import { DeploymentWatcher } from "../deployment-watcher"; // see note below
 
 function SimulateDeployment() {
   const { agent } = useAgent({ agentId: "sample_agent" });
@@ -29,7 +29,7 @@ function SimulateDeployment() {
 export default function Page() {
   return (
     <CopilotKit runtimeUrl="/api/copilotkit" agent="sample_agent" renderActivityMessages={[eventCardRenderer]}>
-      <DeploymentWatcher />
+      {/* HARNESS: the doc's DeploymentWatcher is NOT mounted here: its useAgent() (no id) looks for "default" even under agent="sample_agent" and crashes the page (FINDINGS.md #22). */}
       <SimulateDeployment />
       <CopilotChat agentId="sample_agent" />
     </CopilotKit>

@@ -2,6 +2,7 @@ import { existsSync, mkdirSync, rmSync, unlinkSync } from 'node:fs';
 import { basename, join } from 'node:path';
 import { chromium, type Browser, type BrowserContext, type Page } from 'playwright';
 import { executePageAction } from '../actions';
+import { mark, saveTimeline, startTimeline } from './timeline';
 import { diagnoseError } from './diagnostics';
 import { PROJECT } from '../config/project.config';
 import { SELECTORS } from '../config/selectors.config';
@@ -383,6 +384,7 @@ export class RecordingEngine {
     }
 
     const page = await context.newPage();
+    startTimeline(); // the video starts with this page
 
     // about:blank computes to rgba(0,0,0,0) and paints pure black regardless of
     // --background-color, so the residual lead-in reads as a black screen.
@@ -426,6 +428,7 @@ export class RecordingEngine {
       try {
         if (existsSync(finalWebm)) unlinkSync(finalWebm);
         await video.saveAs(finalWebm);
+        saveTimeline(finalWebm.replace(/[.]webm$/, '.timeline.json'), baseFilename);
         await video.delete().catch(() => {});
         if (announceSuccess) {
           console.log(`\n🎥 [RECORDING SUCCESSFUL]: ${finalWebm}\n`);
@@ -957,12 +960,14 @@ export class RecordingEngine {
         throw new DocOnlyDone();
       }
 
+      mark('doc');
       const docNote = await this.showDocPage(page, config.docUrl, 'vscode', timeouts);
       if (docNote) warnings.push(docNote);
 
       // ----------------------------------------------------
       // STEP 2: SHOW PROJECT CODE IN VS CODE IDE WITH SNIPPET SELECTION
       // ----------------------------------------------------
+      mark('ide');
       const hasExtraTabs = Boolean(config.extraTabs && config.extraTabs.length > 0);
       console.log(
         `\n💻 Step 2: Displaying Project Code in VS Code IDE (${config.ideFile}: lines ${config.startLine}-${config.endLine})...`,
@@ -1020,6 +1025,7 @@ export class RecordingEngine {
       // ----------------------------------------------------
       // STEP 3: FRONTEND DEMO PAGE & TAILORED ACTION EXECUTION
       // ----------------------------------------------------
+      mark('demo');
       console.log(`\n🚀 Step 3: Opening Demo (${config.demoUrl})...`);
       console_ = captureConsole(page);
       try {
@@ -1080,6 +1086,7 @@ export class RecordingEngine {
         await sleep(1000);
 
         // Dispatch specific demo actions
+        mark('action');
         await executePageAction(page, config, this.rootDir, ctx);
 
         if (actionFailures.length > 0) {
