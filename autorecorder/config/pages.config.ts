@@ -108,7 +108,7 @@ export const PAGES = definePages([
     ideFile: 'frontend/app/generative-ui/components/providers.tsx', startLine: 1, endLine: 14,
     extraTabs: [{ filePath: 'frontend/app/generative-ui/components/page.tsx', startLine: 1, endLine: 7 }],
     prompt: 'Compare the Starter, Team, and Enterprise plans in a table',
-    timeouts: { replyStartMs: 180000, replyStreamMs: 180000 },
+    timeouts: { replyStartMs: 20000, replyStreamMs: 20000 }, // page crashes at once; don't wait 3 min on camera
   },
   {
     id: 'mcp-apps', name: 'Generative UI - MCP Apps', videoName: 'McpApps',
@@ -445,7 +445,7 @@ export const PAGES = definePages([
   },
   {
     id: 'configurable', name: 'Agent Capabilities - Configurable', videoName: 'Configurable',
-    docPath: 'configurable', route: '', docOnly: true,
+    docPath: 'configurable', route: '', docOnly: true, docViewDurationMs: 45000,
     ideFile: 'frontend/VERSIONS.md', startLine: 1, endLine: 5,
     prompt: '-',
   },

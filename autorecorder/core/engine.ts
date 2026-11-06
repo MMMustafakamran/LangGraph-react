@@ -951,6 +951,7 @@ export class RecordingEngine {
       // take is done -- and the taskbar click into VS Code is skipped, since
       // there is no VS Code segment to click into.
       if (config.docOnly) {
+        mark('doc');
         const docNote = await this.showDocPage(page, config.docUrl, 'chrome', timeouts);
         if (docNote) warnings.push(docNote);
         console.log(`   📄 Page is doc-only (empty section). Pausing for viewing...`);
