@@ -9,10 +9,15 @@ on:
   workflow_dispatch:
     inputs:
       pages:
-        description: 'Recorder page ids, comma-separated (split across 3 shards)'
+        description: 'Recorder page ids, comma-separated (split round-robin across the shards)'
         required: true
         type: string
         default: 'a2ui-fixed,components-catalogs,components-surfaces,components-theming,hashbrown,state-rendering,components-standard-catalog,components-from-a2ui,components-state-actions,components-markdown-mode,rendering-in-app,in-app-read,agent-readonly,workflow-execution,readables-prebuilt,multimodal,subgraphs,configurable,guardrails'
+      shards:
+        description: 'How many parallel runners to split the pages across (1-20; free account limit is 20 jobs at once)'
+        required: true
+        type: number
+        default: 8
       a2ui_styling:
         description: 'Also record A2UI Styling in its own shard (its doc CSS breaks every route while mounted)'
         type: boolean
@@ -26,14 +31,29 @@ permissions:
   contents: read
 
 jobs:
+  plan:
+    name: Plan shards
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.m.outputs.matrix }}
+    steps:
+      - id: m
+        env:
+          N: ${{ inputs.shards }}
+        run: |
+          set -euo pipefail
+          N=$(( N < 1 ? 1 : (N > 20 ? 20 : N) ))
+          echo "matrix=$(python3 -c "import json,sys; n=int(sys.argv[1]); print(json.dumps([str(i) for i in range(1,n+1)] + ['styling']))" $N)" >> "$GITHUB_OUTPUT"
+
   record:
     name: Shard ${{ matrix.shard }}
+    needs: plan
     runs-on: ubuntu-latest
     timeout-minutes: 90
     strategy:
       fail-fast: false
       matrix:
-        shard: [1, 2, 3, styling]
+        shard: ${{ fromJSON(needs.plan.outputs.matrix) }}
     env:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       LANGGRAPH_DEPLOYMENT_URL: http://localhost:8050
@@ -46,17 +66,19 @@ jobs:
           PAGES: ${{ inputs.pages }}
           SHARD: ${{ matrix.shard }}
           STYLING: ${{ inputs.a2ui_styling }}
+          NSHARDS: ${{ inputs.shards }}
         run: |
           set -euo pipefail
           if [ "$SHARD" = "styling" ]; then
             [ "$STYLING" = "true" ] && echo "pages=a2ui-styling" >> "$GITHUB_OUTPUT" || echo "pages=" >> "$GITHUB_OUTPUT"
             exit 0
           fi
+          NSHARDS=$(( NSHARDS < 1 ? 1 : (NSHARDS > 20 ? 20 : NSHARDS) ))
           IFS=',' read -ra ALL <<< "$PAGES"
           MINE=()
           for i in "${!ALL[@]}"; do
             p="$(echo "${ALL[$i]}" | xargs)"
-            [ -n "$p" ] && [ $(( i % 3 + 1 )) -eq "$SHARD" ] && MINE+=("$p")
+            [ -n "$p" ] && [ "$p" != "a2ui-styling" ] && [ $(( i % NSHARDS + 1 )) -eq "$SHARD" ] && MINE+=("$p")
           done
           echo "pages=$(IFS=,; echo "${MINE[*]:-}")" >> "$GITHUB_OUTPUT"
 
