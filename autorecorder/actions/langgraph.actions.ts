@@ -750,6 +750,7 @@ const keyboardSend: PageActionHandler = async (page, config, _root, ctx) => {
   await input.waitFor({ state: 'visible', timeout: 60000 });
   await sleep(2000);
   const before = await getAssistantMessageCount(page);
+  const surfacesBefore = await page.evaluate(() => document.querySelectorAll('[data-generative-ui-surface], .a2ui-surface').length).catch(() => 0);
   await glideClick(page, input);
   await sleep(300);
   await page.keyboard.type(config.prompt, { delay: 45 });
@@ -759,6 +760,15 @@ const keyboardSend: PageActionHandler = async (page, config, _root, ctx) => {
   const errored = await Promise.race([
     errorBanner(page).waitFor({ state: 'visible', timeout: 180000 }).then(() => true),
     waitForAgentResponseCompletion(page, 2500, before).then(() => false),
+    // Generative-UI pages often answer with a surface only (no assistant text), which the
+    // text-based reply check never sees. A new surface counts as the reply.
+    page
+      .waitForFunction(
+        (n) => document.querySelectorAll('[data-generative-ui-surface], .a2ui-surface').length > n,
+        surfacesBefore,
+        { timeout: 180000, polling: 500 },
+      )
+      .then(async () => { await sleep(6000); return false; }),
   ]).catch((e) => {
     ctx.fail(`No reply after a keyboard send: ${String(e).slice(0, 160)}`);
     return null;

@@ -16,3 +16,4 @@ staging/
 logs/
 *.log
 frontend-create-next-app.git.bak/
+ci-artifacts/

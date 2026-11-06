@@ -75,6 +75,7 @@ jobs:
 
       - name: Install dependencies
         if: steps.sel.outputs.pages != ''
+        timeout-minutes: 15
         run: |
           set -euo pipefail
           npm ci --prefix agent --no-audit --no-fund
