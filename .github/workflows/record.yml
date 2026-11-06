@@ -17,7 +17,7 @@ on:
         description: 'How many parallel runners to split the pages across (1-20; free account limit is 20 jobs at once)'
         required: true
         type: number
-        default: 8
+        default: 5
       a2ui_styling:
         description: 'Also record A2UI Styling in its own shard (its doc CSS breaks every route while mounted)'
         type: boolean
