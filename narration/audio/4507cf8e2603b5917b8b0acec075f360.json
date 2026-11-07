@@ -1,0 +1,10 @@
+{
+ "text": "Yeah.",
+ "model": "s2.1-pro-free",
+ "refSha256": "73f31de31c9b70eab35767550cdc1052f9487bdd5951c69a3619e53d653f8710",
+ "duration": 0.557,
+ "file": "4507cf8e2603b5917b8b0acec075f360.mp3",
+ "clip": "LANGGRAPH-react-52-WorkflowExecution",
+ "at": "notepad-closed",
+ "imported_from": "7169a9fe242bf153.wav"
+}

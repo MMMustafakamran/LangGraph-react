@@ -1,0 +1,10 @@
+{
+ "text": "And the quickstart only has sample agent, so it crashes.",
+ "model": "s2.1-pro-free",
+ "refSha256": "73f31de31c9b70eab35767550cdc1052f9487bdd5951c69a3619e53d653f8710",
+ "duration": 4.04,
+ "file": "bcf1ed83030f34138042012f260295f5.mp3",
+ "clip": "LANGGRAPH-react-62-RenderAgentState",
+ "at": "notepad2",
+ "imported_from": "b1f1580c94d4c60b.wav"
+}

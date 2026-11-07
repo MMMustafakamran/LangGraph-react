@@ -1,0 +1,46 @@
+{
+ "clip": "LANGGRAPH-react-04-UseInterrupt",
+ "source": "frames",
+ "marks": [
+  {
+   "t": 0,
+   "label": "doc"
+  },
+  {
+   "t": 10,
+   "label": "doc2"
+  },
+  {
+   "t": 18,
+   "label": "ide"
+  },
+  {
+   "t": 34,
+   "label": "demo"
+  },
+  {
+   "t": 50,
+   "label": "demo2"
+  },
+  {
+   "t": 66,
+   "label": "demo3"
+  },
+  {
+   "t": 82,
+   "label": "evidence"
+  },
+  {
+   "t": 98,
+   "label": "notepad"
+  },
+  {
+   "t": 110,
+   "label": "notepad2"
+  },
+  {
+   "t": 121,
+   "label": "notepad-closed"
+  }
+ ]
+}

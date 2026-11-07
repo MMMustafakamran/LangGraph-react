@@ -1,0 +1,10 @@
+{
+ "text": "This is my project, with the agent from the doc.",
+ "model": "s2.1-pro-free",
+ "refSha256": "73f31de31c9b70eab35767550cdc1052f9487bdd5951c69a3619e53d653f8710",
+ "duration": 3.529,
+ "file": "0c6314f316d023a272bfb4bfe1aa2725.mp3",
+ "clip": "LANGGRAPH-react-52-WorkflowExecution",
+ "at": "ide",
+ "imported_from": "db1dc1d01d1163e9.wav"
+}

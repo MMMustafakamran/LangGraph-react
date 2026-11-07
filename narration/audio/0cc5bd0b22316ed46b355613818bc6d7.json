@@ -1,0 +1,10 @@
+{
+ "text": "So when the page loads, umm, it crashes. It says agent default was not found.",
+ "model": "s2.1-pro-free",
+ "refSha256": "73f31de31c9b70eab35767550cdc1052f9487bdd5951c69a3619e53d653f8710",
+ "duration": 5.851,
+ "file": "0cc5bd0b22316ed46b355613818bc6d7.mp3",
+ "clip": "LANGGRAPH-react-62-RenderAgentState",
+ "at": "demo",
+ "imported_from": "9d806bc4c7186c17.wav"
+}

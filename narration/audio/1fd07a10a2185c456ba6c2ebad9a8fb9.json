@@ -1,0 +1,10 @@
+{
+ "text": "But it says it can't access my orders. The tool never gets called. Kindly look into it.",
+ "model": "s2.1-pro-free",
+ "refSha256": "73f31de31c9b70eab35767550cdc1052f9487bdd5951c69a3619e53d653f8710",
+ "duration": 5.991,
+ "file": "1fd07a10a2185c456ba6c2ebad9a8fb9.mp3",
+ "clip": "LANGGRAPH-react-17-WebMCP",
+ "at": "reply",
+ "imported_from": "1dc17286c51a5e91.wav"
+}

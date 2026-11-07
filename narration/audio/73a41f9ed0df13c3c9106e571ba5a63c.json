@@ -1,0 +1,10 @@
+{
+ "text": "So look here. The code calls model with tools, which is never defined anywhere. And StateGraph, START and the message classes, umm, aren't imported at all.",
+ "model": "s2.1-pro-free",
+ "refSha256": "73f31de31c9b70eab35767550cdc1052f9487bdd5951c69a3619e53d653f8710",
+ "duration": 11.564,
+ "file": "73a41f9ed0df13c3c9106e571ba5a63c.mp3",
+ "clip": "LANGGRAPH-react-52-WorkflowExecution",
+ "at": "evidence#1",
+ "imported_from": "e4d6602b2a79425e.wav"
+}

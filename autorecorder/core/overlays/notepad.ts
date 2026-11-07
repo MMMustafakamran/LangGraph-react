@@ -1,6 +1,7 @@
 import { type Page } from 'playwright';
 import { humanClick, humanGlide, sleep } from './cursor';
 import { keystrokeDelay, type TypeRhythm } from './human';
+import { keyframe, logAction } from '../timeline';
 
 /**
  * A Windows 11 Notepad window, drawn inside the page.
@@ -186,6 +187,14 @@ export async function typeInNotepad(
 
     await sleep(keystrokeDelay(ch, opts));
   }
+  // The text as it ends up on screen (typos and their backspaces resolved), for events.jsonl.
+  const typed: string[] = [];
+  for (const ch of text) {
+    if (ch === '\b') typed.pop();
+    else typed.push(ch);
+  }
+  logAction('type', 'notepad', 'ok', { text: typed.join('').slice(0, 400) });
+  keyframe('notepad-typed');
 }
 
 /** Leaves the window up long enough to read, then closes it. */

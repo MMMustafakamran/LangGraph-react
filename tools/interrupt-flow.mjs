@@ -1,6 +1,6 @@
 // HARNESS: Interrupt Flow — send a message, answer the interrupt form, read the reply.
 import { createRequire } from 'node:module';
-const require = createRequire('C:/Users/QS/Desktop/Copilotkit/Antigravity-react/autorecorder/package.json');
+const require = createRequire(new URL('../autorecorder/package.json', import.meta.url));
 const { chromium } = require('playwright');
 const b = await chromium.launch(); const p = await b.newPage({ viewport: { width: 1400, height: 900 } });
 const errs = []; p.on('console', m => { if (m.type() === 'error' && !/Date.now|ERR_/.test(m.text())) errs.push(m.text().slice(0, 300)); });

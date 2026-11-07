@@ -1,0 +1,10 @@
+{
+ "text": "Moving on to the demo. So first, the page didn't even compile, because standard UI needs maplibre gl, and no step installs it. After installing it myself, the page loads, but then it crashes saying, uh, agent default was not found. So you can't see any generated UI at all. This is with a normal quickstart app, which is exactly what the page says you can use, if you only do step three. So the error you see here is basically what anyone following the page would hit. And umm, there's nothing on the page that tells you why, or what to change, so you're kind of stuck at this point.",
+ "model": "s2.1-pro-free",
+ "refSha256": "73f31de31c9b70eab35767550cdc1052f9487bdd5951c69a3619e53d653f8710",
+ "duration": 36.468,
+ "file": "58f4f5e010529fb6adf63910279e1635.mp3",
+ "clip": "LANGGRAPH-react-13-Components",
+ "at": "demo",
+ "imported_from": "dc74d48b01b6dcbd.wav"
+}

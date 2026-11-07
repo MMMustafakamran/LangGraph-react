@@ -1,6 +1,6 @@
 # Installed versions (LangGraph JS harness)
 
-Generated 2026-11-05. Node v26.7.0, @langchain/langgraph-cli via npx.
+Generated 2026-11-07. Node v26.7.0, @langchain/langgraph-cli via npx.
 
 | Where | Package | Declared | Installed |
 |---|---|---|---|

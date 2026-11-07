@@ -66,10 +66,12 @@ const runtime = new CopilotRuntime({
       // Batch 3: Agent App Context (doc code) + Governed Actions (uses frontend_tools_harness above).
       app_context: "app_context",
       app_context_prebuilt: "app_context_prebuilt",
+      // HARNESS: Threads Drawer page uses <CopilotKitProvider> with no agentId, so it resolves to "default".
+      default: "sample_agent",
     }),
   },
   // DOC CALLOUT "Running without the Intelligence Platform?": intelligence + identifyUser dropped
-  // (no CPK_INTELLIGENCE_API_KEY). Verbatim version: ../verbatim/quickstart-route.with-intelligence.ts
+  // (no CPK_INTELLIGENCE_API_KEY). Verbatim version: reference/verbatim/quickstart-route.with-intelligence.ts (repo root)
 });
 
 const handler = createCopilotRuntimeHandler({

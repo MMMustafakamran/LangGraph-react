@@ -1,0 +1,10 @@
+{
+ "text": "So it should call the tool here, uh, and list the shipped orders.",
+ "model": "s2.1-pro-free",
+ "refSha256": "73f31de31c9b70eab35767550cdc1052f9487bdd5951c69a3619e53d653f8710",
+ "duration": 4.876,
+ "file": "1910637bd418d70e4d7095e481354a6c.mp3",
+ "clip": "LANGGRAPH-react-17-WebMCP",
+ "at": "demo2",
+ "imported_from": "4f09c4a7091c423b.wav"
+}

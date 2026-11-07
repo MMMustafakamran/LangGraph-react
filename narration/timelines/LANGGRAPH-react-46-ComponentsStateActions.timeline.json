@@ -1,0 +1,42 @@
+{
+ "clip": "LANGGRAPH-react-46-ComponentsStateActions",
+ "source": "frames",
+ "marks": [
+  {
+   "t": 0,
+   "label": "doc"
+  },
+  {
+   "t": 10,
+   "label": "ide"
+  },
+  {
+   "t": 19,
+   "label": "demo"
+  },
+  {
+   "t": 32,
+   "label": "demo2"
+  },
+  {
+   "t": 48,
+   "label": "wait"
+  },
+  {
+   "t": 68,
+   "label": "wait2"
+  },
+  {
+   "t": 88,
+   "label": "wait3"
+  },
+  {
+   "t": 104,
+   "label": "wait4"
+  },
+  {
+   "t": 122,
+   "label": "error"
+  }
+ ]
+}

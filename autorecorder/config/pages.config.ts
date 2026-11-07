@@ -13,7 +13,24 @@
 import { definePages } from '../core/types';
 
 /** Registered but not recorded, with the reason printed on every run. */
-export const SKIP_RECORDING: Record<string, string> = {};
+export const SKIP_RECORDING: Record<string, string> = {
+  'agent-config': 'not in the team testing doc LangGraph list (owner, 2026-11-08)',
+  'reasoning-messages': 'not in the team testing doc LangGraph list (owner, 2026-11-08)',
+  'a2ui': 'not in the team testing doc LangGraph list (owner, 2026-11-08)',
+  'a2ui-advanced': 'not in the team testing doc LangGraph list (owner, 2026-11-08)',
+  'a2ui-styling': 'not in the team testing doc LangGraph list (owner, 2026-11-08)',
+  'display': 'not in the team testing doc LangGraph list (owner, 2026-11-08)',
+  'frontend-cards': 'not in the team testing doc LangGraph list (owner, 2026-11-08)',
+  'interactive': 'not in the team testing doc LangGraph list (owner, 2026-11-08)',
+  'interrupt-flow': 'not in the team testing doc LangGraph list (owner, 2026-11-08)',
+  'inspector': 'not in the team testing doc LangGraph list (owner, 2026-11-08)',
+  'prebuilt-overview': 'not in the team testing doc LangGraph list (owner, 2026-11-08)',
+  'programmatic-control': 'not in the team testing doc LangGraph list (owner, 2026-11-08)',
+  'shared-state': 'not in the team testing doc LangGraph list (owner, 2026-11-08)',
+  'in-app-read': 'not in the team testing doc LangGraph list (owner, 2026-11-08)',
+  'predictive-state': 'not in the team testing doc LangGraph list (owner, 2026-11-08)',
+  'workflow-execution': 'not in the team testing doc LangGraph list (owner, 2026-11-08)',
+};
 
 export const PAGES = definePages([
   {
@@ -454,5 +471,32 @@ export const PAGES = definePages([
     docPath: 'guardrails', route: '', docOnly: true,
     ideFile: 'frontend/VERSIONS.md', startLine: 1, endLine: 5,
     prompt: '-',
+  },
+  // --- Added 2026-11-08: Voice + Threads (team doc "Threads" row) ---
+  {
+    id: 'voice', name: 'Voice', videoName: 'Voice',
+    docPath: 'voice', route: 'voice',
+    ideFile: 'frontend/app/voice/page.tsx', startLine: 1, endLine: 22,
+    extraTabs: [
+      { filePath: 'frontend/app/api/copilotkit-voice/[[...slug]]/route.ts', startLine: 1, endLine: 89 },
+      { filePath: 'frontend/app/voice/sample-audio-button.tsx', startLine: 1, endLine: 17 },
+    ],
+    prompt: 'What is the weather in Tokyo?',
+  },
+  {
+    id: 'prebuilt-components-copilot-threads-drawer', name: 'Prebuilt Components - Threads Drawer', videoName: 'ThreadsDrawer',
+    docPath: 'prebuilt-components/copilot-threads-drawer', route: 'threads-drawer',
+    ideFile: 'frontend/app/threads-drawer/page.tsx', startLine: 1, endLine: 20,
+    prompt: 'Say hi in five words.',
+  },
+  {
+    id: 'headless-threads', name: 'Headless Threads', videoName: 'HeadlessThreads',
+    docPath: 'headless-threads', route: 'headless-threads',
+    ideFile: 'frontend/app/api/copilotkit-threads/[[...slug]]/route.ts', startLine: 1, endLine: 52,
+    extraTabs: [
+      { filePath: 'frontend/app/headless-threads/ThreadSidebar.tsx', startLine: 1, endLine: 32 },
+      { filePath: 'frontend/app/headless-threads/App.tsx', startLine: 1, endLine: 17 },
+    ],
+    prompt: 'Say hi in five words.',
   },
 ]);

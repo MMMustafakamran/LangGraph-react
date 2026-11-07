@@ -1,0 +1,54 @@
+{
+ "clip": "LANGGRAPH-react-06-InterruptFlow",
+ "source": "frames",
+ "marks": [
+  {
+   "t": 0,
+   "label": "doc"
+  },
+  {
+   "t": 11,
+   "label": "doc2"
+  },
+  {
+   "t": 22,
+   "label": "doc3"
+  },
+  {
+   "t": 34,
+   "label": "ide"
+  },
+  {
+   "t": 50,
+   "label": "demo"
+  },
+  {
+   "t": 64,
+   "label": "demo2"
+  },
+  {
+   "t": 78,
+   "label": "demo3"
+  },
+  {
+   "t": 94,
+   "label": "evidence"
+  },
+  {
+   "t": 112,
+   "label": "evidence2"
+  },
+  {
+   "t": 136,
+   "label": "notepad"
+  },
+  {
+   "t": 150,
+   "label": "notepad2"
+  },
+  {
+   "t": 166,
+   "label": "notepad-closed"
+  }
+ ]
+}

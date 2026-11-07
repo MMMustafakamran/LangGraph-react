@@ -1,0 +1,38 @@
+{
+ "clip": "LANGGRAPH-react-13-Components",
+ "finding": "9,10",
+ "segments": [
+  {
+   "at": "doc",
+   "text": "Ok so, this is the components and surfaces page in the CopilotKit docs, for LangGraph TypeScript. And umm, I have implemented this page in my project."
+  },
+  {
+   "at": "ide",
+   "text": "This is my project, with the exact provider code from step three."
+  },
+  {
+   "at": "demo",
+   "text": "Moving on to the demo. So first, the page didn't even compile, because standard UI needs maplibre gl, and no step installs it. After installing it myself, the page loads, but then it crashes saying, uh, agent default was not found. So you can't see any generated UI at all. This is with a normal quickstart app, which is exactly what the page says you can use, if you only do step three. So the error you see here is basically what anyone following the page would hit. And umm, there's nothing on the page that tells you why, or what to change, so you're kind of stuck at this point."
+  },
+  {
+   "at": "evidence#1",
+   "text": "So look at the install line here. There's no maplibre in it, but the standard catalog needs it, so the page just doesn't compile."
+  },
+  {
+   "at": "evidence#2",
+   "text": "And this says, already have CopilotKit running, do step three only. But step three alone crashes a quickstart app."
+  },
+  {
+   "at": "evidence#3",
+   "text": "Because the provider here has no agent ID. So it looks for an agent called default, and the quickstart only registers sample agent. Umm, and even with the agent set, the quickstart agent doesn't use the run's tools."
+  },
+  {
+   "at": "notepad",
+   "text": "So quick summary. Standard UI needs maplibre, which no step installs. Doing step three only crashes, because there's no agent ID, so it looks for default. And even then, the quickstart agent ignores the run's tools, so nothing renders. And the page never says how to wire a LangGraph agent for this. So uh, following the page, you never get to see a single component."
+  },
+  {
+   "at": "notepad-closed",
+   "text": "So yeah, that's what's broken on this page. That's the problem here, please have a look at it."
+  }
+ ]
+}

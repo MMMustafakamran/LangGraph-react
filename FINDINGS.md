@@ -1,5 +1,5 @@
 # Findings — LangGraph-react (LangGraph JS / TypeScript)
-Open doc defects only. Logged without prior approval for this assignment; the user reviews at the end. Numbers are stable IDs (code cites `FINDINGS.md #N`), so gaps are removed findings.
+Open doc defects only. A finding is proposed first and added only after the owner approves it (Claude Code proposes after the daily review and the owner approves locally: `.qa/instructions/QA-RULES.md` section 6). Numbers are stable IDs (code cites `FINDINGS.md #N`), so gaps are removed findings.
 Stack: `@copilotkit/react-core`/`runtime` 1.84.1, `@copilotkit/sdk-js` 1.84.1, `@langchain/langgraph` 1.7.0, `@langchain/core` 1.3.4, `@langchain/openai` 1.8.0, `zod` 3.25.76 (transitive), `@langchain/langgraph-cli` 1.6.0 (npx), `next` 16.4.5, `react` 19.3.0, Node 26.7.0, Windows 11. Docs: https://docs.copilotkit.ai/langgraph-typescript (snapshot 2026-11-05)
 
 ## Dev blockers (seen with `npm run dev` and normal use of the page)

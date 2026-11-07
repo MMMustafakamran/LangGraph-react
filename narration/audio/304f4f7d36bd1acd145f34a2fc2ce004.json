@@ -1,0 +1,10 @@
+{
+ "text": "So look at the install line here. There's no maplibre in it, but the standard catalog needs it, so the page just doesn't compile.",
+ "model": "s2.1-pro-free",
+ "refSha256": "73f31de31c9b70eab35767550cdc1052f9487bdd5951c69a3619e53d653f8710",
+ "duration": 8.684,
+ "file": "304f4f7d36bd1acd145f34a2fc2ce004.mp3",
+ "clip": "LANGGRAPH-react-13-Components",
+ "at": "evidence#1",
+ "imported_from": "d92cf0d0dd139274.wav"
+}

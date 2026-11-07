@@ -1,0 +1,30 @@
+{
+ "clip": "LANGGRAPH-react-17-WebMCP",
+ "source": "frames",
+ "marks": [
+  {
+   "t": 0,
+   "label": "doc"
+  },
+  {
+   "t": 8,
+   "label": "doc2"
+  },
+  {
+   "t": 15,
+   "label": "ide"
+  },
+  {
+   "t": 22,
+   "label": "demo"
+  },
+  {
+   "t": 30,
+   "label": "demo2"
+  },
+  {
+   "t": 39,
+   "label": "reply"
+  }
+ ]
+}

@@ -2,7 +2,7 @@ import { existsSync, mkdirSync, rmSync, unlinkSync } from 'node:fs';
 import { basename, join } from 'node:path';
 import { chromium, type Browser, type BrowserContext, type Page } from 'playwright';
 import { executePageAction } from '../actions';
-import { mark, saveTimeline, startTimeline } from './timeline';
+import { endTimeline, mark, saveTimeline, setTimelinePage, startTimeline } from './timeline';
 import { diagnoseError } from './diagnostics';
 import { PROJECT } from '../config/project.config';
 import { SELECTORS } from '../config/selectors.config';
@@ -384,7 +384,7 @@ export class RecordingEngine {
     }
 
     const page = await context.newPage();
-    startTimeline(); // the video starts with this page
+    startTimeline(page); // the video starts with this page; logs console/network/navigation too
 
     // about:blank computes to rgba(0,0,0,0) and paints pure black regardless of
     // --background-color, so the residual lead-in reads as a black screen.
@@ -413,6 +413,8 @@ export class RecordingEngine {
     subdir?: string,
   ): Promise<string> {
     const video = page.video();
+    // Last frame and outstanding probes while the page can still answer them. Logging only.
+    await endTimeline().catch(() => {});
     await page.close().catch(() => {});
     await context.close().catch(() => {});
 
@@ -776,12 +778,14 @@ export class RecordingEngine {
     let finalSavedFilename = '';
 
     const { browser, context, page } = await this.openStage(req.docUrl);
+    setTimelinePage(req.id, req.docUrl);
 
     try {
       // ----------------------------------------------------
       // STEP 1: THE DOC PAGE THIS FLOW IS EVIDENCE FOR
       // ----------------------------------------------------
       if (req.docUrl) {
+        mark('doc');
         const note = await this.showDocPage(
           page,
           req.docUrl,
@@ -795,6 +799,7 @@ export class RecordingEngine {
       // STEP 1b: THE CODE THE FINDING IS ABOUT
       // ----------------------------------------------------
       if (req.ideTabs?.length) {
+        mark('ide');
         console.log(`\n💻 Step 1b: Showing ${req.ideTabs.length} file(s) in VS Code...`);
         await this.showIde(page, req.ideTabs, PROJECT.frontendUrl, {
           dwellMs: req.ideDwellMs ?? 3800,
@@ -808,6 +813,7 @@ export class RecordingEngine {
       // STEP 2: TERMINAL WINDOW REPLAYING THE CAPTURED SESSION
       // ----------------------------------------------------
       for (const [i, segment] of req.segments.entries()) {
+        mark('terminal', segment.title);
         console.log(
           `\n⌨️  Step 2.${i + 1}: Replaying ${segment.title ?? 'terminal cast'} ` +
             `(${segment.cast.events.length} events, ${castDuration(segment.cast).toFixed(1)}s)...`,
@@ -825,9 +831,11 @@ export class RecordingEngine {
       // ----------------------------------------------------
       if (req.notepad) {
         console.log(`\n📝 Step 3: Writing the finding in Notepad...`);
+        mark('notepad');
         await openNotepad(page, req.notepad.filename);
         await typeInNotepad(page, req.notepad.body, { charDelayMs: req.notepad.charDelayMs });
         await closeNotepad(page);
+        mark('notepad-closed');
       }
     } catch (e) {
       recordError = `CLI replay failed: ${diagnoseError(e, 'cli-replay')}`;
@@ -925,6 +933,7 @@ export class RecordingEngine {
     }
 
     const { browser, context, page } = await this.openStage(config.docUrl);
+    setTimelinePage(config.id, config.docUrl);
 
     // Console errors, page errors and failed backend requests, kept rather than
     // printed and forgotten. They go on the result so the summary and the
@@ -1000,6 +1009,7 @@ export class RecordingEngine {
       // STEP 2b: THE DEV SERVER BOOTING, IN A TERMINAL
       // ----------------------------------------------------
       if (service) {
+        mark('terminal', 'dev server boot');
         console.log(
           `\n⌨️  Step 2b: Replaying dev server boot (${service.bootSeconds}s to ready)...`,
         );
@@ -1129,6 +1139,7 @@ export class RecordingEngine {
       // same text goes to videos/logs/<id>.error.log. Never lets an evidence
       // problem hide the original failure.
       if (recordError) {
+        mark('failure', recordError.slice(0, 160));
         await this.showFailureEvidence(page, config.id, recordError, console_?.entries ?? [], logSources, logsDir);
       }
 

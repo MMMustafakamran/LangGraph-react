@@ -6,7 +6,14 @@ import { glideClick, glideTo } from './glide-click';
 import { runStandardAction } from '../core/actions';
 import { closeNotepad, openNotepad, typeInNotepad } from '../core/overlays/notepad';
 import { clickTaskbarApp, ensureOverlays, waitForHydration } from '../core/overlays/taskbar';
-import { mark } from '../core/timeline';
+import { checkpoint, describe, logAction, mark, probeText, tracked } from '../core/timeline';
+import { SELECTORS } from '../config/selectors.config';
+
+/** Probe: the last assistant message's text (null when there is none). Read-only. */
+const lastReply = (page: Page) => () => probeText(page.locator(SELECTORS.assistantMessage).last());
+/** Probe: the error banner's text once its details are open (null when there is no banner). */
+const bannerText = (page: Page) => () =>
+  probeText(page.getByText(/^(Show|Hide) Details$/).first().locator('xpath=ancestor::*[3]'));
 
 /**
  * Finding clips end with the finding typed into Notepad, so a viewer who skips the doc and code
@@ -198,6 +205,7 @@ export async function showDocEvidence(
       }
     }
     const target = await findEvidence(page, item.text);
+    void checkpoint('evidence', `doc shows "${item.text}"`, () => (target ? probeText(target) : null));
     if (!target) {
       console.warn(`   ⚠️ Evidence not found on the doc page: "${item.text}"`);
       continue;
@@ -242,6 +250,7 @@ async function wheelIntoView(page: Page, target: Locator, text?: string): Promis
     await sleep(250 + Math.random() * 450);
   }
   await sleep(600);
+  logAction('scroll', text ?? describe(target));
 }
 
 interface TextSpan { sx: number; sy: number; ex: number; ey: number }
@@ -315,6 +324,7 @@ async function dragSelect(page: Page, target: Locator, text: string): Promise<vo
   await humanGlide(page, pts.ex + 2, pts.ey, 34);
   await sleep(120);
   await page.mouse.up();
+  logAction('select-text', text);
 }
 
 /** Type a page's finding into Notepad at the end of its take, after showing it on the doc. */
@@ -360,9 +370,11 @@ const promptOrError: PageActionHandler = async (page, config, root, ctx) => {
   if (errored) {
     mark('error');
     await showErrorBanner(page);
+    void checkpoint('error', 'run error details visible', bannerText(page));
     ctx.fail('The run failed with an error banner (see the details shown in the clip).');
     return;
   }
+  void checkpoint('reply', 'agent reply rendered', lastReply(page));
   await sleep(2500);
 };
 
@@ -392,13 +404,21 @@ const frontendTools: PageActionHandler = async (page, config, _root, ctx) => {
       .then(() => true),
     errorBanner(page).waitFor({ state: 'visible', timeout: 60000 }).then(() => false),
   ]).catch(() => false);
+  void checkpoint(
+    'tool',
+    `change_background ran: background differs from "${before ?? ''}"`,
+    () => bg.getAttribute('data-background-value', { timeout: 1500 }),
+    { ok: (seen) => seen !== null && seen !== before },
+  );
   if (!changed) {
     mark('error');
     await showErrorBanner(page);
+    void checkpoint('error', 'run error details visible', bannerText(page));
     ctx.fail('change_background never ran: the background did not change.');
     return;
   }
   await settle(page, msgCount, ctx);
+  void checkpoint('reply', 'agent reply rendered', lastReply(page));
   await sleep(2500);
 };
 
@@ -429,9 +449,11 @@ function pickSlotAction(slotLabel: string): PageActionHandler {
       slot.waitFor({ state: 'visible', timeout: 90000 }).then(() => true),
       errorBanner(page).waitFor({ state: 'visible', timeout: 90000 }).then(() => false),
     ]).catch(() => false);
+    void checkpoint('interrupt', `interrupt prompt visible ("${slotLabel}" button)`, () => probeText(slot));
     if (!appeared) {
       mark('error');
       await showErrorBanner(page);
+      void checkpoint('error', 'run error details visible', bannerText(page));
       ctx.fail(`The time picker never appeared (no "${slotLabel}" button).`);
       return;
     }
@@ -439,6 +461,7 @@ function pickSlotAction(slotLabel: string): PageActionHandler {
     await glideClick(page, slot);
     await sleep(1500);
     await settle(page, msgCount, ctx);
+    void checkpoint('reply', 'run resumed: agent reply after the pick', lastReply(page));
     await sleep(3000);
   };
 }
@@ -447,7 +470,7 @@ function pickSlotAction(slotLabel: string): PageActionHandler {
 const sharedState: PageActionHandler = async (page, config, _root, ctx) => {
   const name = page.locator('[data-testid="pref-name"]');
   await glideClick(page, name);
-  await name.pressSequentially('Zara', { delay: 120 });
+  await tracked('type', describe(name), () => name.pressSequentially('Zara', { delay: 120 }), { text: 'Zara' });
   await name.blur();
   await sleep(1200);
   const msgCount = await sendPrompt(page, config.prompt, { timeoutMs: 15000 });
@@ -457,8 +480,10 @@ const sharedState: PageActionHandler = async (page, config, _root, ctx) => {
     .waitFor({ state: 'visible', timeout: 90000 })
     .then(() => true)
     .catch(() => false);
+  void checkpoint('tool', 'set_notes wrote a note to the notes panel', () => probeText(page.locator('[data-testid="notes-list"]')));
   if (!noted) ctx.fail('set_notes never updated the notes panel.');
   await settle(page, msgCount, ctx);
+  void checkpoint('reply', 'agent reply rendered', lastReply(page));
   await glideTo(page, page.locator('[data-testid="notes-list"]'), 2500);
 };
 
@@ -467,17 +492,21 @@ const interruptFlow: PageActionHandler = async (page, config, _root, ctx) => {
   await sendPrompt(page, config.prompt, { timeoutMs: 15000 });
   const input = page.locator('input[name="response"]');
   const asked = await input.waitFor({ state: 'visible', timeout: 90000 }).then(() => true).catch(() => false);
+  void checkpoint('interrupt', 'interrupt form visible (input[name="response"])', () => input.isVisible());
   if (!asked) {
     ctx.fail('The interrupt form never appeared.');
     return;
   }
   await glideClick(page, input);
-  await input.pressSequentially('Nova', { delay: 140 });
+  await tracked('type', describe(input), () => input.pressSequentially('Nova', { delay: 140 }), { text: 'Nova' });
   await sleep(600);
   await glideClick(page, page.getByRole('button', { name: 'Submit' }));
   await sleep(8000);
   const msgCount = await sendPrompt(page, 'What is your name?', { timeoutMs: 15000 });
   await settle(page, msgCount, ctx);
+  void checkpoint('reply', 'reply mentions the submitted name "Nova"', lastReply(page), {
+    ok: (seen) => !!seen && /nova/i.test(seen),
+  });
   if ((await page.getByText('Nova', { exact: false }).count()) < 1) ctx.warn('The reply does not mention the submitted name.');
   await sleep(2500);
 };
@@ -486,7 +515,9 @@ const interruptFlow: PageActionHandler = async (page, config, _root, ctx) => {
 const inspector: PageActionHandler = async (page, config, _root, ctx) => {
   const msgCount = await sendPrompt(page, config.prompt, { timeoutMs: 15000 });
   await settle(page, msgCount, ctx);
+  void checkpoint('reply', 'agent reply rendered', lastReply(page));
   const el = page.locator('cpk-web-inspector');
+  void checkpoint('inspector', '<cpk-web-inspector> present on the page', async () => (await el.count()) > 0);
   if ((await el.count()) === 0) {
     ctx.fail('No <cpk-web-inspector> on the page.');
     return;
@@ -497,6 +528,7 @@ const inspector: PageActionHandler = async (page, config, _root, ctx) => {
     const link = el.getByText(pane, { exact: true }).first();
     if (await link.isVisible().catch(() => false)) {
       await glideClick(page, link);
+      void checkpoint('inspector', `inspector pane "${pane}" opened`, async () => link.isVisible());
       await sleep(3500);
     } else if (pane !== 'Frontend Tools') {
       ctx.warn(`Inspector pane "${pane}" not found.`);
@@ -580,6 +612,7 @@ const subagentsDemo: PageActionHandler = async (page, config, root, ctx) => {
     .waitFor({ state: 'visible', timeout: 240000 })
     .then(() => true)
     .catch(() => false);
+  void checkpoint('tool', 'sub-agent delegation logged ("N calls", N >= 1)', () => probeText(page.getByText(/^[1-9]\d* calls?$/i)));
   if (!delegated) ctx.fail('No sub-agent delegation appeared in the log (still 0 calls after 4 min).');
   // Let the remaining sub-agents finish on camera.
   await page.getByText(/supervisor running/i).first().waitFor({ state: 'hidden', timeout: 240000 }).catch(() => {});
@@ -707,6 +740,7 @@ const frontendCards: PageActionHandler = async (page, _config, _root, ctx) => {
   mark('click');
   await glideClick(page, btn);
   const ok = await page.getByText('Deployment finished').first().waitFor({ state: 'visible', timeout: 15000 }).then(() => true).catch(() => false);
+  void checkpoint('card', 'activity card "Deployment finished" visible', () => probeText(page.getByText('Deployment finished')));
   if (!ok) ctx.fail('The activity card did not appear after the button click.');
   await sleep(3000);
 };
@@ -764,9 +798,11 @@ const keyboardSend: PageActionHandler = async (page, config, _root, ctx) => {
   await glideClick(page, input);
   await sleep(300);
   await page.keyboard.type(config.prompt, { delay: 45 });
+  logAction('type', describe(input), 'ok', { text: config.prompt });
   await sleep(400);
   if (!(await input.inputValue().catch(() => config.prompt)).trim()) await input.fill(config.prompt);
   await page.keyboard.press('Enter');
+  logAction('key', 'Enter');
   const errored = await Promise.race([
     errorBanner(page).waitFor({ state: 'visible', timeout: 180000 }).then(() => true),
     waitForAgentResponseCompletion(page, 2500, before).then(() => false),
@@ -786,9 +822,16 @@ const keyboardSend: PageActionHandler = async (page, config, _root, ctx) => {
   if (errored) {
     mark('error');
     await showErrorBanner(page);
+    void checkpoint('error', 'run error details visible', bannerText(page));
     ctx.fail('The run failed with an error banner (see the details shown in the clip).');
     return;
   }
+  // A reply is either assistant text or a new generative-UI surface; record both.
+  void checkpoint('reply', 'agent reply rendered', lastReply(page), { ok: () => errored === false });
+  void checkpoint('surface', 'generative-UI surface rendered (if this page renders one)', async () => {
+    const n = await page.evaluate(() => document.querySelectorAll('[data-generative-ui-surface], .a2ui-surface').length).catch(() => 0);
+    return n > surfacesBefore ? `${n - surfacesBefore} new surface(s)` : null;
+  });
   await sleep(2500);
 };
 export const runKeyboardSendAction: PageActionHandler = keyboardSend;
@@ -805,6 +848,7 @@ type Step =
   | { prompt: string }
   | { waitText: string; timeoutMs?: number }
   | { waitGone: string; timeoutMs?: number }
+  | { press: string; holdMs?: number }
   | { holdMs: number };
 
 const BASE = process.env.FRONTEND_URL || 'http://localhost:3050';
@@ -813,6 +857,8 @@ function scripted(steps: Step[]): PageActionHandler {
   return async (page, config, root, ctx) => {
     for (const s of steps) {
       if ('goto' in s) {
+        // A second route is a new demo segment for narration (demo#2, demo#3 ...).
+        mark('demo', s.goto);
         await page.goto(BASE + s.goto, { waitUntil: 'load' }).catch(() => {});
         await sleep(s.holdMs ?? 4000);
       } else if ('click' in s) {
@@ -823,18 +869,27 @@ function scripted(steps: Step[]): PageActionHandler {
       } else if ('select' in s) {
         const el = page.locator('select').nth(s.select);
         await glideTo(page, el, 600);
-        await el.selectOption(s.value);
+        await tracked('select', describe(el), () => el.selectOption(s.value), { value: s.value });
         await sleep(1200);
+      } else if ('press' in s) {
+        // Send what is already in the composer (e.g. text the page itself inserted).
+        await page.locator('textarea').first().focus().catch(() => {});
+        await tracked('press', s.press, () => page.keyboard.press(s.press));
+        await sleep(s.holdMs ?? 1500);
       } else if ('prompt' in s) {
         await keyboardSend(page, { ...config, prompt: s.prompt }, root, ctx);
       } else if ('waitText' in s) {
         const ok = await page.getByText(s.waitText, { exact: false }).first()
           .waitFor({ state: 'visible', timeout: s.timeoutMs ?? 120000 }).then(() => true).catch(() => false);
+        void checkpoint('text', `"${s.waitText}" visible`, () => probeText(page.getByText(s.waitText, { exact: false })));
         if (!ok) ctx.fail(`Expected "${s.waitText}" on screen; it never appeared.`);
         await sleep(2500);
       } else if ('waitGone' in s) {
         await page.getByText(s.waitGone, { exact: false }).first()
           .waitFor({ state: 'hidden', timeout: s.timeoutMs ?? 240000 }).catch(() => ctx.fail(`"${s.waitGone}" never finished.`));
+        const gone = s.waitGone;
+        void checkpoint('done', `"${gone}" finished (no longer visible)`, async () =>
+          !(await page.getByText(gone, { exact: false }).first().isVisible().catch(() => false)));
         await sleep(4000);
       } else {
         await sleep(s.holdMs);
@@ -877,6 +932,17 @@ export const SCRIPTED: Record<string, PageActionHandler> = {
     { waitText: 'Project launch', timeoutMs: 30000 },
     { prompt: 'Hi! What can you see?' },
   ])),
+  // Voice: the doc's "Try a sample audio" button drops the sample phrase into the composer.
+  // The root layout's CopilotKitProvider (quickstart providers.tsx) mounts its own web inspector
+  // over the sample button, the overlap the doc's enableInspector comment describes. A person
+  // hides it with the inspector's own "Hide Inspector for a day" control, then clicks the button.
+  voice: scripted([
+    { holdMs: 4000 },
+    { click: 'Try a sample audio', holdMs: 1500 },
+    { click: 'Hide Inspector for a day', holdMs: 1500 },
+    { click: 'Try a sample audio', holdMs: 2500 },
+    { press: 'Enter', holdMs: 40000 },
+  ]),
   'a2ui-advanced': scripted([
     { prompt: 'Show me my sales dashboard for this quarter.' },
     { waitGone: 'Building interface', timeoutMs: 300000 },

@@ -1,0 +1,38 @@
+{
+ "clip": "LANGGRAPH-react-62-RenderAgentState",
+ "source": "frames",
+ "marks": [
+  {
+   "t": 0,
+   "label": "doc"
+  },
+  {
+   "t": 10,
+   "label": "ide"
+  },
+  {
+   "t": 22,
+   "label": "demo"
+  },
+  {
+   "t": 44,
+   "label": "demo2"
+  },
+  {
+   "t": 62,
+   "label": "evidence"
+  },
+  {
+   "t": 78,
+   "label": "notepad"
+  },
+  {
+   "t": 90,
+   "label": "notepad2"
+  },
+  {
+   "t": 102,
+   "label": "error"
+  }
+ ]
+}

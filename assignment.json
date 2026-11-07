@@ -1,0 +1,1946 @@
+{
+ "framework": "LangGraph JS",
+ "ui": "react",
+ "repo": "LangGraph-react",
+ "docBase": "https://docs.copilotkit.ai/langgraph-typescript/",
+ "versions": {
+  "@copilotkit/react-core": "1.84.1",
+  "@copilotkit/runtime": "1.84.1",
+  "@copilotkit/sdk-js": "1.84.1",
+  "@langchain/langgraph": "1.7.0",
+  "@langchain/core": "1.3.4",
+  "@langchain/openai": "1.8.0",
+  "zod": "3.25.76",
+  "@langchain/langgraph-cli": "1.6.0",
+  "next": "16.4.5",
+  "react": "19.3.0"
+ },
+ "testedContext": {
+  "os": "Microsoft Windows 11 Pro",
+  "packageManager": "npm 11 (Node 26.7.0)"
+ },
+ "report": {
+  "style": "team",
+  "h1": "LangGraph",
+  "title": "LangGraph JS testing",
+  "quickstartHeading": "Quickstarts",
+  "quickstartHeader": null,
+  "clipsToUpload": true,
+  "guidesHeading": "React Guides",
+  "columns": [
+   "Page/Section",
+   "LangGraph.python",
+   "LangGraph.js"
+  ],
+  "resultColumn": 2
+ },
+ "sections": [
+  {
+   "label": "Basics",
+   "cells": [
+    "Section",
+    "Section"
+   ]
+  },
+  {
+   "label": "Chat",
+   "cells": [
+    "Sub section",
+    "Sub Section"
+   ]
+  },
+  {
+   "label": "Prebuilt Components",
+   "cells": [
+    "",
+    ""
+   ]
+  },
+  {
+   "label": "Custom Look and Feel",
+   "cells": [
+    "Sub section",
+    "Sub section"
+   ]
+  },
+  {
+   "label": "Built Generative UI",
+   "cells": [
+    "Section",
+    "Section"
+   ]
+  },
+  {
+   "label": "Controlled",
+   "cells": [
+    "Sub-Section",
+    "Sub-Section"
+   ]
+  },
+  {
+   "label": "Declarative",
+   "cells": [
+    "Sub-Section",
+    "Sub-Section"
+   ]
+  },
+  {
+   "label": "A2UI",
+   "cells": [
+    "Sub-Section",
+    "Sub-Section"
+   ]
+  },
+  {
+   "label": "Interactivity",
+   "cells": [
+    "Section",
+    "Section"
+   ]
+  },
+  {
+   "label": "Shared State",
+   "cells": [
+    "Section",
+    "Section"
+   ]
+  },
+  {
+   "label": "Agent Capabilities",
+   "cells": [
+    "Section",
+    "Section"
+   ]
+  },
+  {
+   "label": "LangGraph",
+   "cells": [
+    "Sub Section",
+    "Sub Section"
+   ]
+  },
+  {
+   "label": "Debugging",
+   "cells": [
+    "Section",
+    "Section"
+   ]
+  }
+ ],
+ "pages": [
+  {
+   "id": "quickstart",
+   "label": "JS (React)",
+   "kind": "quickstart",
+   "group": null,
+   "child": false,
+   "docPath": "quickstart",
+   "reachable": "sidebar",
+   "status": "⚠️",
+   "findings": [
+    2
+   ],
+   "notes": [
+    "Minor Issue: ",
+    "1) The route as published needs CPK_INTELLIGENCE_API_KEY, every request 500s without it. The \"Running without the Intelligence Platform?\" callout fixes it.",
+    "2) Next.js error on every page: Date.now() in a Client Component (providers.tsx)."
+   ],
+   "block": null,
+   "links": [
+    {
+     "text": "Quickstart - JS",
+     "clip": "LANGGRAPH-react-01-Quickstart",
+     "loom": "https://www.loom.com/share/73024d5d793c4f878d64e153f681dcfb",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "prebuilt-components-chat",
+   "label": "CopilotChat",
+   "kind": "guide",
+   "group": "Prebuilt Components",
+   "child": false,
+   "docPath": "prebuilt-components/chat",
+   "reachable": "sidebar",
+   "status": "✅",
+   "findings": [],
+   "notes": [],
+   "block": null,
+   "links": [
+    {
+     "text": "CopilotChat - JS",
+     "clip": "LANGGRAPH-react-22-PrebuiltChat",
+     "loom": "https://www.loom.com/share/6aa2d7a990884d7b9094b1579ec9f41d",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "prebuilt-components-sidebar",
+   "label": "CopilotSidebar",
+   "kind": "guide",
+   "group": "Prebuilt Components",
+   "child": false,
+   "docPath": "prebuilt-components/sidebar",
+   "reachable": "sidebar",
+   "status": "✅",
+   "findings": [],
+   "notes": [],
+   "block": null,
+   "links": [
+    {
+     "text": "CopilotSidebar - JS",
+     "clip": "LANGGRAPH-react-24-PrebuiltSidebar",
+     "loom": "https://www.loom.com/share/c91c5777e6434a1996657b5ba2f0b535",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "prebuilt-components-popup",
+   "label": "CopilotPopup",
+   "kind": "guide",
+   "group": "Prebuilt Components",
+   "child": false,
+   "docPath": "prebuilt-components/popup",
+   "reachable": "sidebar",
+   "status": "✅",
+   "findings": [],
+   "notes": [],
+   "block": null,
+   "links": [
+    {
+     "text": "CopilotPopup - JS",
+     "clip": "LANGGRAPH-react-23-PrebuiltPopup",
+     "loom": "https://www.loom.com/share/7a3e9a5d40974064a0b5ec666f5b0e71",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "prebuilt-components-chat-controls",
+   "label": "Open,Close and Feedback",
+   "kind": "guide",
+   "group": "Prebuilt Components",
+   "child": false,
+   "docPath": "prebuilt-components/chat-controls",
+   "reachable": "sidebar",
+   "status": "✅",
+   "findings": [],
+   "notes": [],
+   "block": null,
+   "links": [
+    {
+     "text": "Open,Close and Feedback - JS",
+     "clip": "LANGGRAPH-react-25-ChatControls",
+     "loom": "https://www.loom.com/share/5cba429248314e278b99d11e5d5140ee",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "prebuilt-components-copilot-threads-drawer",
+   "label": "Threads",
+   "kind": "guide",
+   "group": "Prebuilt Components",
+   "child": false,
+   "docPath": "prebuilt-components/copilot-threads-drawer",
+   "reachable": "sidebar",
+   "status": "N/A",
+   "findings": [],
+   "notes": [
+    "Note: Not tested, Threads needs the Intelligence Platform (skipped)."
+   ],
+   "block": null,
+   "links": [],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "custom-look-and-feel-css",
+   "label": "Css Customization",
+   "kind": "guide",
+   "group": "Custom Look and Feel",
+   "child": false,
+   "docPath": "custom-look-and-feel/css",
+   "reachable": "sidebar",
+   "status": "✅",
+   "findings": [],
+   "notes": [],
+   "block": null,
+   "links": [
+    {
+     "text": "Css Customization - JS",
+     "clip": "LANGGRAPH-react-26-CSS",
+     "loom": "https://www.loom.com/share/c200a682da3f4d8283aa4023324cf32c",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "custom-look-and-feel-markdown",
+   "label": "Markdown",
+   "kind": "guide",
+   "group": "Custom Look and Feel",
+   "child": false,
+   "docPath": "custom-look-and-feel/markdown",
+   "reachable": "sidebar",
+   "status": "✅",
+   "findings": [],
+   "notes": [],
+   "block": null,
+   "links": [
+    {
+     "text": "Markdown - JS",
+     "clip": "LANGGRAPH-react-29-Markdown",
+     "loom": "https://www.loom.com/share/f79baf97f8ef4307afd7d4e733ef60bc",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "custom-look-and-feel-slots",
+   "label": "Slots",
+   "kind": "guide",
+   "group": "Custom Look and Feel",
+   "child": false,
+   "docPath": "custom-look-and-feel/slots",
+   "reachable": "sidebar",
+   "status": "✅",
+   "findings": [],
+   "notes": [],
+   "block": null,
+   "links": [
+    {
+     "text": "Slots - JS",
+     "clip": "LANGGRAPH-react-27-Slots",
+     "loom": "https://www.loom.com/share/6c8f2c3363ad4604860046e679f0ee36",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "custom-look-and-feel-headless-ui",
+   "label": "Fully Headless UI",
+   "kind": "guide",
+   "group": "Custom Look and Feel",
+   "child": false,
+   "docPath": "custom-look-and-feel/headless-ui",
+   "reachable": "sidebar",
+   "status": "✅",
+   "findings": [],
+   "notes": [],
+   "block": null,
+   "links": [
+    {
+     "text": "Fully Headless UI - JS",
+     "clip": "LANGGRAPH-react-28-HeadlessUI",
+     "loom": "https://www.loom.com/share/3e451f349bde4cd79728f78afae64b04",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "generative-ui-reasoning",
+   "label": "Reasoning",
+   "kind": "guide",
+   "group": "Custom Look and Feel",
+   "child": false,
+   "docPath": "generative-ui/reasoning",
+   "reachable": "sidebar",
+   "status": "⚠️",
+   "findings": [
+    11
+   ],
+   "notes": [
+    "Issue: the page shows only frontend code, no agent / model.",
+    "With the showcase agent the answer renders, then the chat shows \"Cannot send RUN_FINISHED while text messages are still active\"."
+   ],
+   "block": null,
+   "links": [
+    {
+     "text": "Reasoning - JS",
+     "clip": "LANGGRAPH-react-12-Reasoning",
+     "loom": "https://www.loom.com/share/5a922c14014d4ba989e696549b165566",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "custom-look-and-feel-reasoning-messages",
+   "label": "Reasoning Messages",
+   "kind": "guide",
+   "group": "Custom Look and Feel",
+   "child": false,
+   "docPath": "custom-look-and-feel/reasoning-messages",
+   "reachable": "sidebar",
+   "status": "⚠️",
+   "findings": [
+    30
+   ],
+   "notes": [
+    "Issue: same as Reasoning, RUN_FINISHED error banner after the answer. No backend code on the page."
+   ],
+   "block": null,
+   "links": [
+    {
+     "text": "Reasoning Messages - JS",
+     "clip": "LANGGRAPH-react-30-ReasoningMessages",
+     "loom": "https://www.loom.com/share/e9807d79aa0049e284f1c04c6cdc38a4",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   },
+   "excluded": "not in the team testing doc's LangGraph list (owner, 2026-11-08)"
+  },
+  {
+   "id": "multimodal-attachments",
+   "label": "Multimodal Attachments",
+   "kind": "guide",
+   "group": "Custom Look and Feel",
+   "child": false,
+   "docPath": "multimodal-attachments",
+   "reachable": "sidebar",
+   "status": "✅",
+   "findings": [],
+   "notes": [],
+   "block": null,
+   "links": [
+    {
+     "text": "Multimodal Attachments - JS",
+     "clip": "LANGGRAPH-react-56-Multimodal",
+     "loom": "https://www.loom.com/share/4d1649bf6db2442eaae658803f057dab",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "voice",
+   "label": "Voice",
+   "kind": "guide",
+   "group": "Custom Look and Feel",
+   "child": false,
+   "docPath": "voice",
+   "reachable": "sidebar",
+   "status": "✅",
+   "findings": [],
+   "notes": [],
+   "block": null,
+   "links": [
+    {
+     "text": "Voice - JS",
+     "clip": null,
+     "loom": null,
+     "narration": null,
+     "pendingVideo": "Voice"
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "frontend-tools",
+   "label": "Frontend Tools",
+   "kind": "guide",
+   "group": "Custom Look and Feel",
+   "child": false,
+   "docPath": "frontend-tools",
+   "reachable": "sidebar",
+   "status": "✅",
+   "findings": [
+    1
+   ],
+   "notes": [
+    "Note: the agent code on the page has temperature: 0, gpt-5-mini rejects it (400). Recorded with it removed."
+   ],
+   "block": null,
+   "links": [
+    {
+     "text": "Frontend Tools - JS",
+     "clip": "LANGGRAPH-react-18-FrontendTools-Fixed",
+     "loom": "https://www.loom.com/share/1998babf159f49ebab7c7cea414969a1",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "generative-ui-tool-based",
+   "label": "Components as Tools",
+   "kind": "guide",
+   "group": "Controlled",
+   "child": true,
+   "docPath": "generative-ui/tool-based",
+   "reachable": "sidebar",
+   "status": "✅",
+   "findings": [],
+   "notes": [
+    "Note: the agent code on the page has temperature: 0, gpt-5-mini rejects it (400). The demo agent runs without it."
+   ],
+   "block": null,
+   "links": [
+    {
+     "text": "Components as Tools - JS",
+     "clip": "LANGGRAPH-react-58-ComponentsAsTools",
+     "loom": "https://www.loom.com/share/105faeffac3d45f388b48f8e810726ab",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "generative-ui-tool-rendering",
+   "label": "Tool Call Rendering",
+   "kind": "guide",
+   "group": "Controlled",
+   "child": true,
+   "docPath": "generative-ui/tool-rendering",
+   "reachable": "sidebar",
+   "status": "✅",
+   "findings": [],
+   "notes": [],
+   "block": null,
+   "links": [
+    {
+     "text": "Tool Call Rendering - JS",
+     "clip": "LANGGRAPH-react-09-ToolRendering",
+     "loom": "https://www.loom.com/share/de2429f917374abf97601525c90cb08f",
+     "narration": null
+    },
+    {
+     "text": "Default catch-all - JS",
+     "clip": "LANGGRAPH-react-10-ToolRenderingDefault",
+     "loom": "https://www.loom.com/share/721bab804a18407e83bbbaec886f12aa",
+     "narration": null
+    },
+    {
+     "text": "Custom catch-all - JS",
+     "clip": "LANGGRAPH-react-11-ToolRenderingCustom",
+     "loom": "https://www.loom.com/share/038d907429c94411aac86792c23b2282",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "generative-ui-state-rendering",
+   "label": "State Rendering",
+   "kind": "guide",
+   "group": "Controlled",
+   "child": true,
+   "docPath": "generative-ui/state-rendering",
+   "reachable": "sidebar",
+   "status": "✅",
+   "findings": [],
+   "notes": [],
+   "block": null,
+   "links": [
+    {
+     "text": "State Rendering - JS",
+     "clip": "LANGGRAPH-react-59-StateRendering",
+     "loom": "https://www.loom.com/share/12f447e76ed24f98b53edf6440c1ddb6",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "generative-ui-display",
+   "label": "Display components",
+   "kind": "guide",
+   "group": "Controlled",
+   "child": true,
+   "docPath": "generative-ui/display",
+   "reachable": "none",
+   "status": "✅",
+   "findings": [
+    1
+   ],
+   "notes": [
+    "Note: the agent code on the page has temperature: 0, gpt-5-mini rejects it (400). The demo agent runs without it."
+   ],
+   "block": null,
+   "links": [
+    {
+     "text": "Display components - JS",
+     "clip": "LANGGRAPH-react-31-Display",
+     "loom": "https://www.loom.com/share/488ce536c380437ebb2188cb84eaf53d",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   },
+   "excluded": "not in the team testing doc's LangGraph list (owner, 2026-11-08)"
+  },
+  {
+   "id": "generative-ui-interactive",
+   "label": "Interactive components",
+   "kind": "guide",
+   "group": "Controlled",
+   "child": true,
+   "docPath": "generative-ui/interactive",
+   "reachable": "none",
+   "status": "✅",
+   "findings": [
+    1,
+    24
+   ],
+   "notes": [
+    "Note: the agent code on the page has temperature: 0, gpt-5-mini rejects it (400). The demo agent runs without it.",
+    "Note: the page says \"Not supported on LangGraph (TypeScript)\" but it works."
+   ],
+   "block": null,
+   "links": [
+    {
+     "text": "Interactive components - JS",
+     "clip": "LANGGRAPH-react-32-Interactive",
+     "loom": "https://www.loom.com/share/63894776df6b45d9bbe8dec7560b4469",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   },
+   "excluded": "not in the team testing doc's LangGraph list (owner, 2026-11-08)"
+  },
+  {
+   "id": "generative-ui-frontend-cards",
+   "label": "Frontend-Driven Cards",
+   "kind": "guide",
+   "group": "Controlled",
+   "child": true,
+   "docPath": "generative-ui/frontend-cards",
+   "reachable": "none",
+   "status": "❌",
+   "findings": [
+    22
+   ],
+   "notes": [
+    "Issue: page.tsx has no agent, so CopilotChat looks for \"default\" and the page crashes.",
+    "DeploymentWatcher is never mounted and connects to wss://example.com (404), so no card is ever added.",
+    "Works with agent=\"sample_agent\" and a button that calls agent.addMessage."
+   ],
+   "block": null,
+   "links": [
+    {
+     "text": "Issue",
+     "clip": "LANGGRAPH-react-33-FrontendCards",
+     "loom": "https://www.loom.com/share/49b84bc4e4bd4463b1de35592e3b9f01",
+     "narration": "narration/scripts/LANGGRAPH-react-33-FrontendCards.json"
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   },
+   "excluded": "not in the team testing doc's LangGraph list (owner, 2026-11-08)"
+  },
+  {
+   "id": "generative-ui-components",
+   "label": "Components and Surfaces",
+   "kind": "guide",
+   "group": "Declarative",
+   "child": false,
+   "docPath": "generative-ui/components",
+   "reachable": "sidebar",
+   "status": "❌",
+   "findings": [
+    9,
+    10
+   ],
+   "notes": [],
+   "block": {
+    "area": "Components and Surfaces",
+    "problem": "standardUI needs maplibre-gl (no install step), and \"Do step 3 only\" crashes the quickstart app: agent \"default\" not found."
+   },
+   "links": [
+    {
+     "text": "Issue",
+     "clip": "LANGGRAPH-react-13-Components",
+     "loom": "https://www.loom.com/share/782d272852414af89f4761643526a4cf",
+     "narration": "narration/scripts/LANGGRAPH-react-13-Components.json"
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "generative-ui-components-surfaces",
+   "label": "Surfaces",
+   "kind": "guide",
+   "group": "Declarative",
+   "child": false,
+   "docPath": "generative-ui/components/surfaces",
+   "reachable": "sidebar",
+   "status": "✅",
+   "findings": [
+    28
+   ],
+   "notes": [
+    "Note: Product and ProductRow are used but never defined. Needs an agent that uses the run tools/context (quickstart agent does not)."
+   ],
+   "block": null,
+   "links": [
+    {
+     "text": "Surfaces - JS",
+     "clip": "LANGGRAPH-react-43-ComponentsSurfaces",
+     "loom": "https://www.loom.com/share/e16f00f87c3345e79af1caaad265bc28",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "generative-ui-components-catalogs",
+   "label": "Catalogs",
+   "kind": "guide",
+   "group": "Declarative",
+   "child": false,
+   "docPath": "generative-ui/components/catalogs",
+   "reachable": "sidebar",
+   "status": "✅",
+   "findings": [],
+   "notes": [],
+   "block": null,
+   "links": [
+    {
+     "text": "Catalogs - JS",
+     "clip": "LANGGRAPH-react-42-ComponentsCatalogs",
+     "loom": "https://www.loom.com/share/8a77d5c9bc16435cbd66394b27608c95",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "generative-ui-components-standard-catalog",
+   "label": "Standard catalog",
+   "kind": "guide",
+   "group": "Declarative",
+   "child": false,
+   "docPath": "generative-ui/components/standard-catalog",
+   "reachable": "sidebar",
+   "status": "✅",
+   "findings": [],
+   "notes": [],
+   "block": null,
+   "links": [
+    {
+     "text": "Standard catalog - JS",
+     "clip": "LANGGRAPH-react-60-ComponentsStandardCatalog",
+     "loom": "https://www.loom.com/share/942cf4ba0d5f4b1cb695317526189dca",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "generative-ui-components-state-and-actions",
+   "label": "State and actions",
+   "kind": "guide",
+   "group": "Declarative",
+   "child": false,
+   "docPath": "generative-ui/components/state-and-actions",
+   "reachable": "sidebar",
+   "status": "❌",
+   "findings": [
+    32
+   ],
+   "notes": [
+    "Issue: with the state + functions catalog the agent sends an empty reply; no ProductCard renders.",
+    "Note: the catalog is split over separate blocks on the page, had to merge them into one."
+   ],
+   "block": null,
+   "links": [
+    {
+     "text": "Issue",
+     "clip": "LANGGRAPH-react-46-ComponentsStateActions",
+     "loom": "https://www.loom.com/share/ebb3515db97c4c2385a8dff5f5fb0571",
+     "narration": "narration/scripts/LANGGRAPH-react-46-ComponentsStateActions.json"
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "generative-ui-components-theming",
+   "label": "Theming",
+   "kind": "guide",
+   "group": "Declarative",
+   "child": false,
+   "docPath": "generative-ui/components/theming",
+   "reachable": "sidebar",
+   "status": "✅",
+   "findings": [
+    21
+   ],
+   "notes": [],
+   "block": null,
+   "links": [
+    {
+     "text": "Theming - JS",
+     "clip": "LANGGRAPH-react-44-ComponentsTheming",
+     "loom": "https://www.loom.com/share/d081e407c9254b0da79eb1d668f6a2ed",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "generative-ui-components-transports",
+   "label": "Transports",
+   "kind": "guide",
+   "group": "Declarative",
+   "child": false,
+   "docPath": "generative-ui/components/transports",
+   "reachable": "sidebar",
+   "status": "✅",
+   "findings": [
+    25
+   ],
+   "notes": [
+    "Note: only says what a LangGraph Python agent needs, nothing for a TS agent."
+   ],
+   "block": null,
+   "links": [
+    {
+     "text": "Transports - JS",
+     "clip": "LANGGRAPH-react-45-ComponentsTransports",
+     "loom": "https://www.loom.com/share/31d4783a48d245ddb5e3adcdc5e6eecb",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "generative-ui-components-markdown-mode",
+   "label": "Markdown mode",
+   "kind": "guide",
+   "group": "Declarative",
+   "child": false,
+   "docPath": "generative-ui/components/markdown-mode",
+   "reachable": "sidebar",
+   "status": "⚠️",
+   "findings": [
+    25
+   ],
+   "notes": [
+    "Issue: the agent replies \"here is a card with a seats slider\" but no card renders, only the text.",
+    "Note: only says what a LangGraph Python agent needs, nothing for a TS agent."
+   ],
+   "block": null,
+   "links": [
+    {
+     "text": "Issue",
+     "clip": "LANGGRAPH-react-47-ComponentsMarkdownMode",
+     "loom": "https://www.loom.com/share/f17435ed82104e60a6061059f4aae504",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "generative-ui-components-from-a2ui",
+   "label": "Adopt from A2UI",
+   "kind": "guide",
+   "group": "Declarative",
+   "child": false,
+   "docPath": "generative-ui/components/from-a2ui",
+   "reachable": "sidebar",
+   "status": "✅",
+   "findings": [],
+   "notes": [
+    "Note: the Airport / Arrow components are not shown, had to write them."
+   ],
+   "block": null,
+   "links": [
+    {
+     "text": "Adopt from A2UI - JS",
+     "clip": "LANGGRAPH-react-61-ComponentsFromA2UI",
+     "loom": "https://www.loom.com/share/831b323018e04cc4adfb356caa4c73b8",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "generative-ui-a2ui",
+   "label": "A2UI",
+   "kind": "guide",
+   "group": "A2UI",
+   "child": false,
+   "docPath": "generative-ui/a2ui",
+   "reachable": "sidebar",
+   "status": "⚠️",
+   "findings": [
+    21,
+    26
+   ],
+   "notes": [
+    "Issue: KPI cards render, but both charts fail: \"Unable to display PieChart / BarChart: title: Invalid input\".",
+    "Minor Issue: \"How it works\" shows only the Python SDK helpers on the TS page."
+   ],
+   "block": null,
+   "links": [
+    {
+     "text": "Issue",
+     "clip": "LANGGRAPH-react-37-A2UI",
+     "loom": "https://www.loom.com/share/1d45a2e9b6144a28aada8b8183641520",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   },
+   "excluded": "not in the team testing doc's LangGraph list (owner, 2026-11-08)"
+  },
+  {
+   "id": "generative-ui-a2ui-dynamic-schema",
+   "label": "Dynamic Schema A2UI",
+   "kind": "guide",
+   "group": "A2UI",
+   "child": false,
+   "docPath": "generative-ui/a2ui/dynamic-schema",
+   "reachable": "sidebar",
+   "status": "⚠️",
+   "findings": [],
+   "notes": [
+    "Issue: the Card and BarChart fail: \"Unable to display Card: title: Invalid input\" / \"BarChart: description: Invalid input\". Only the text and the Export CSV button render."
+   ],
+   "block": null,
+   "links": [
+    {
+     "text": "Issue",
+     "clip": "LANGGRAPH-react-39-A2UIDynamicSchema",
+     "loom": "https://www.loom.com/share/7f7ab1b42d2d45d0a84c6646715ebaa2",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "generative-ui-a2ui-fixed-schema",
+   "label": "Fixed Schema A2UI",
+   "kind": "guide",
+   "group": "A2UI",
+   "child": false,
+   "docPath": "generative-ui/a2ui/fixed-schema",
+   "reachable": "sidebar",
+   "status": "✅",
+   "findings": [],
+   "notes": [],
+   "block": null,
+   "links": [
+    {
+     "text": "Fixed Schema -JS",
+     "clip": "LANGGRAPH-react-40-A2UIFixedSchema",
+     "loom": "https://www.loom.com/share/04e77dba8dac4113a05675054ab129cf",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "generative-ui-a2ui-advanced",
+   "label": "A2UI Advanced",
+   "kind": "guide",
+   "group": "A2UI",
+   "child": false,
+   "docPath": "generative-ui/a2ui/advanced",
+   "reachable": "none",
+   "status": "✅",
+   "findings": [],
+   "notes": [
+    "Note: step 3 page.tsx uses CopilotChat without importing it."
+   ],
+   "block": null,
+   "links": [
+    {
+     "text": "A2UI Advanced - JS",
+     "clip": "LANGGRAPH-react-38-A2UIAdvanced",
+     "loom": "https://www.loom.com/share/56cdc4a545d64aafb8b7d83809ebae65",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   },
+   "excluded": "not in the team testing doc's LangGraph list (owner, 2026-11-08)"
+  },
+  {
+   "id": "generative-ui-a2ui-styling",
+   "label": "A2UI Styling",
+   "kind": "guide",
+   "group": "A2UI",
+   "child": false,
+   "docPath": "generative-ui/a2ui/styling",
+   "reachable": "none",
+   "status": "❌",
+   "findings": [
+    21
+   ],
+   "notes": [],
+   "block": {
+    "area": "A2UI Styling",
+    "problem": "Dark mode CSS is invalid (@media inside a selector list): \"Parsing CSS source code failed\" and the app 500s. Variable names also differ from the A2UI page."
+   },
+   "links": [
+    {
+     "text": "Issue",
+     "clip": "LANGGRAPH-react-41-A2UIStyling",
+     "loom": "https://www.loom.com/share/e30f2976fc914d94ac927f97ecc82d90",
+     "narration": "narration/scripts/LANGGRAPH-react-41-A2UIStyling.json"
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   },
+   "excluded": "not in the team testing doc's LangGraph list (owner, 2026-11-08)"
+  },
+  {
+   "id": "generative-ui-json-render",
+   "label": "JSON Render",
+   "kind": "guide",
+   "group": "A2UI",
+   "child": false,
+   "docPath": "generative-ui/json-render",
+   "reachable": "sidebar",
+   "status": "✅",
+   "findings": [],
+   "notes": [],
+   "block": null,
+   "links": [
+    {
+     "text": "JSON Render -JS",
+     "clip": "LANGGRAPH-react-34-JsonRender",
+     "loom": "https://www.loom.com/share/2ef013c6d06d49fcb8df1685f39104a3",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "generative-ui-hashbrown",
+   "label": "Hashbrown",
+   "kind": "guide",
+   "group": "A2UI",
+   "child": false,
+   "docPath": "generative-ui/hashbrown",
+   "reachable": "sidebar",
+   "status": "✅",
+   "findings": [],
+   "notes": [],
+   "block": null,
+   "links": [
+    {
+     "text": "Hashbrown -JS",
+     "clip": "LANGGRAPH-react-35-Hashbrown",
+     "loom": "https://www.loom.com/share/8a8c4802ed0349aa89687005e6e14708",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "generative-ui-open-generative-ui",
+   "label": "Open Generative UI",
+   "kind": "guide",
+   "group": "A2UI",
+   "child": false,
+   "docPath": "generative-ui/open-generative-ui",
+   "reachable": "sidebar",
+   "status": "✅",
+   "findings": [],
+   "notes": [],
+   "block": null,
+   "links": [
+    {
+     "text": "Open Generative UI -JS",
+     "clip": "LANGGRAPH-react-36-OpenGenerativeUI",
+     "loom": "https://www.loom.com/share/52ccc0f1e11c4aa689da589dfc334d11",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "generative-ui-mcp-apps",
+   "label": "MCP Apps",
+   "kind": "guide",
+   "group": "A2UI",
+   "child": false,
+   "docPath": "generative-ui/mcp-apps",
+   "reachable": "sidebar",
+   "status": "⚠️",
+   "findings": [
+    12
+   ],
+   "notes": [
+    "Issue: the runtime snippet uses https://mcp.excalidraw.com which redirects (308), so no Excalidraw tools. The /mcp URL (also on the page) works."
+   ],
+   "block": null,
+   "links": [
+    {
+     "text": "Issue",
+     "clip": "LANGGRAPH-react-14-McpApps",
+     "loom": "https://www.loom.com/share/437cd5c3f23f446a82201e76537ba456",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "shared-state",
+   "label": "Shared State",
+   "kind": "guide",
+   "group": "Shared State",
+   "child": false,
+   "docPath": "shared-state",
+   "reachable": "sidebar",
+   "status": "✅",
+   "findings": [],
+   "notes": [],
+   "block": null,
+   "links": [
+    {
+     "text": "Shared State - JS",
+     "clip": "LANGGRAPH-react-07-SharedState",
+     "loom": "https://www.loom.com/share/fa5127ec123243f4abc18156ad4b4213",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   },
+   "excluded": "not in the team testing doc's LangGraph list (owner, 2026-11-08)"
+  },
+  {
+   "id": "shared-state-rendering-in-app",
+   "label": "Render agent state in your app",
+   "kind": "guide",
+   "group": "Shared State",
+   "child": false,
+   "docPath": "shared-state/rendering-in-app",
+   "reachable": "sidebar",
+   "status": "❌",
+   "findings": [
+    29
+   ],
+   "notes": [
+    "Issue: useAgent() with no id + no agent on the provider looks for \"default\", the page crashes.",
+    "Works once agent=\"sample_agent\" is set on the provider."
+   ],
+   "block": null,
+   "links": [
+    {
+     "text": "Issue",
+     "clip": "LANGGRAPH-react-62-RenderAgentState",
+     "loom": "https://www.loom.com/share/64c0de5373e5401cb89234823a97ba3a",
+     "narration": "narration/scripts/LANGGRAPH-react-62-RenderAgentState.json"
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "shared-state-streaming",
+   "label": "State Streaming",
+   "kind": "guide",
+   "group": "Shared State",
+   "child": false,
+   "docPath": "shared-state/streaming",
+   "reachable": "sidebar",
+   "status": "✅",
+   "findings": [],
+   "notes": [],
+   "block": null,
+   "links": [
+    {
+     "text": "State Streaming -JS",
+     "clip": "LANGGRAPH-react-08-StateStreaming",
+     "loom": "https://www.loom.com/share/3f78516db9fe4cb099531445d2a05178",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "shared-state-agent-readonly",
+   "label": "Agent read-only context",
+   "kind": "guide",
+   "group": "Shared State",
+   "child": false,
+   "docPath": "shared-state/agent-readonly",
+   "reachable": "sidebar",
+   "status": "✅",
+   "findings": [],
+   "notes": [],
+   "block": null,
+   "links": [
+    {
+     "text": "Agent read-only context -JS",
+     "clip": "LANGGRAPH-react-48-AgentReadOnly",
+     "loom": "https://www.loom.com/share/f8ec90b8e1ad47e1ab6efa94dc68615f",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "shared-state-in-app-agent-read",
+   "label": "In-app agent read",
+   "kind": "guide",
+   "group": "Shared State",
+   "child": false,
+   "docPath": "shared-state/in-app-agent-read",
+   "reachable": "none",
+   "status": "✅",
+   "findings": [],
+   "notes": [
+    "Minor Issue: RunnableConfig used without import, node body elided."
+   ],
+   "block": null,
+   "links": [
+    {
+     "text": "In-app agent read - JS",
+     "clip": "LANGGRAPH-react-49-InAppAgentRead",
+     "loom": "https://www.loom.com/share/b28e5002127d4bd994eca8d560adf2e3",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   },
+   "excluded": "not in the team testing doc's LangGraph list (owner, 2026-11-08)"
+  },
+  {
+   "id": "shared-state-in-app-agent-write",
+   "label": "In-app agent write",
+   "kind": "guide",
+   "group": "Shared State",
+   "child": false,
+   "docPath": "shared-state/in-app-agent-write",
+   "reachable": "none",
+   "status": "⚠️",
+   "findings": [
+    31
+   ],
+   "notes": [
+    "Issue: Toggle Language (agent.setState) shows \"spanish\" for a moment, then the state flips back to \"english\"; the agent still answers in English."
+   ],
+   "block": null,
+   "links": [
+    {
+     "text": "Issue",
+     "clip": "LANGGRAPH-react-50-InAppAgentWrite",
+     "loom": "https://www.loom.com/share/f61565d9bfe948d09e04871fbd4547a9",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "shared-state-predictive-state-updates",
+   "label": "Predictive state updates",
+   "kind": "guide",
+   "group": "Shared State",
+   "child": false,
+   "docPath": "shared-state/predictive-state-updates",
+   "reachable": "none",
+   "status": "✅",
+   "findings": [],
+   "notes": [],
+   "block": null,
+   "links": [
+    {
+     "text": "Predictive state updates - JS",
+     "clip": "LANGGRAPH-react-51-PredictiveState",
+     "loom": "https://www.loom.com/share/18d8ceafb712429a81c0bc3498f576e3",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   },
+   "excluded": "not in the team testing doc's LangGraph list (owner, 2026-11-08)"
+  },
+  {
+   "id": "shared-state-workflow-execution",
+   "label": "Workflow Execution",
+   "kind": "guide",
+   "group": "Shared State",
+   "child": false,
+   "docPath": "shared-state/workflow-execution",
+   "reachable": "none",
+   "status": "❌",
+   "findings": [
+    20
+   ],
+   "notes": [],
+   "block": {
+    "area": "Workflow Execution",
+    "problem": "TS agent has missing imports (ReferenceError: StateGraph is not defined), calls an undefined modelWithTools, and the \"Divide state to Input and Output\" step is empty."
+   },
+   "links": [
+    {
+     "text": "Issue",
+     "clip": "LANGGRAPH-react-52-WorkflowExecution",
+     "loom": "https://www.loom.com/share/0e27258a29b2406bac88162194bb8299",
+     "narration": "narration/scripts/LANGGRAPH-react-52-WorkflowExecution.json"
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   },
+   "excluded": "not in the team testing doc's LangGraph list (owner, 2026-11-08)"
+  },
+  {
+   "id": "human-in-the-loop",
+   "label": "Human in the Loop",
+   "kind": "guide",
+   "group": "Shared State",
+   "child": false,
+   "docPath": "human-in-the-loop",
+   "reachable": "sidebar",
+   "status": "✅",
+   "findings": [
+    1,
+    8,
+    16
+   ],
+   "notes": [
+    "Note: the agent code on the page has temperature: 0, gpt-5-mini rejects it (400). Recorded with it removed.",
+    "Note: \"Going headless\" says interrupts are not supported on LangGraph TS, they work."
+   ],
+   "block": null,
+   "links": [
+    {
+     "text": "HITL-JS",
+     "clip": "LANGGRAPH-react-19-HumanInTheLoop-Fixed",
+     "loom": "https://www.loom.com/share/1c6dce1776a7414a830e3fcfe880be2b",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "human-in-the-loop-useinterrupt",
+   "label": "Pausing the agent state for input",
+   "kind": "guide",
+   "group": "Shared State",
+   "child": true,
+   "docPath": "human-in-the-loop/useInterrupt",
+   "reachable": "sidebar",
+   "status": "❌",
+   "findings": [
+    1,
+    7,
+    16
+   ],
+   "notes": [
+    "Issue: page says \"Not supported on LangGraph (TypeScript)\" and hides the agent code; the .md agent never builds a graph.",
+    "With the showcase graph added it works."
+   ],
+   "block": null,
+   "links": [
+    {
+     "text": "Issue",
+     "clip": "LANGGRAPH-react-04-UseInterrupt",
+     "loom": "https://www.loom.com/share/35843b37c5e9478eb000c541c21533fe",
+     "narration": "narration/scripts/LANGGRAPH-react-04-UseInterrupt.json"
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "human-in-the-loop-headless",
+   "label": "Headless Interrupts",
+   "kind": "guide",
+   "group": "Shared State",
+   "child": true,
+   "docPath": "human-in-the-loop/headless",
+   "reachable": "sidebar",
+   "status": "⚠️",
+   "findings": [
+    1,
+    16
+   ],
+   "notes": [
+    "Issue: page says \"Not supported on LangGraph (TypeScript)\", but the headless picker works."
+   ],
+   "block": null,
+   "links": [
+    {
+     "text": "Issue",
+     "clip": "LANGGRAPH-react-05-HeadlessInterrupts",
+     "loom": "https://www.loom.com/share/c4a81a9925f64a7fa8873853c49a89fa",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "human-in-the-loop-interrupt-flow",
+   "label": "Interrupt Flow",
+   "kind": "guide",
+   "group": "Shared State",
+   "child": true,
+   "docPath": "human-in-the-loop/interrupt-flow",
+   "reachable": "none",
+   "status": "❌",
+   "findings": [
+    14,
+    16
+   ],
+   "notes": [
+    "Issue: TS agent uses RunnableConfig without import and builds no graph; agentId \"starterAgent\" vs quickstart \"sample_agent\". Works once added."
+   ],
+   "block": null,
+   "links": [
+    {
+     "text": "Issue",
+     "clip": "LANGGRAPH-react-06-InterruptFlow",
+     "loom": "https://www.loom.com/share/3f3674cb6d314077b7f4ae512837c591",
+     "narration": "narration/scripts/LANGGRAPH-react-06-InterruptFlow.json"
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   },
+   "excluded": "not in the team testing doc's LangGraph list (owner, 2026-11-08)"
+  },
+  {
+   "id": "human-in-the-loop-governed-actions",
+   "label": "Governed Actions Approval UI",
+   "kind": "guide",
+   "group": "Shared State",
+   "child": true,
+   "docPath": "human-in-the-loop/governed-actions",
+   "reachable": "sidebar",
+   "status": "✅",
+   "findings": [
+    27
+   ],
+   "notes": [
+    "Note: no backend shown, only the useHumanInTheLoop variant could be run."
+   ],
+   "block": null,
+   "links": [
+    {
+     "text": "Governed Actions Approval",
+     "clip": "LANGGRAPH-react-53-GovernedActions",
+     "loom": "https://www.loom.com/share/91bca95be9094d82b514a0bb1502bf94",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "programmatic-control",
+   "label": "Programmatic Control",
+   "kind": "guide",
+   "group": "Shared State",
+   "child": false,
+   "docPath": "programmatic-control",
+   "reachable": "none",
+   "status": "✅",
+   "findings": [
+    1,
+    24
+   ],
+   "notes": [
+    "Note: the agent code on the page has temperature: 0, gpt-5-mini rejects it (400). The demo agent runs without it.",
+    "Note: \"Not supported on LangGraph (TypeScript)\" banner, but it works."
+   ],
+   "block": null,
+   "links": [
+    {
+     "text": "Programmatic Control - JS",
+     "clip": "LANGGRAPH-react-57-ProgrammaticControl",
+     "loom": "https://www.loom.com/share/20141a79caeb4ca19db61434303e370a",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   },
+   "excluded": "not in the team testing doc's LangGraph list (owner, 2026-11-08)"
+  },
+  {
+   "id": "webmcp",
+   "label": "Web MCP",
+   "kind": "guide",
+   "group": "Shared State",
+   "child": false,
+   "docPath": "webmcp",
+   "reachable": "sidebar",
+   "status": "❌",
+   "findings": [
+    18
+   ],
+   "notes": [
+    "Issue: searchOrders() is never defined, and the quickstart agent never calls the tool (it does not bind frontend tools)."
+   ],
+   "block": null,
+   "links": [
+    {
+     "text": "Issue",
+     "clip": "LANGGRAPH-react-17-WebMCP",
+     "loom": "https://www.loom.com/share/d47bb2dbea2b4060a5e67ff0e7f85bf3",
+     "narration": "narration/scripts/LANGGRAPH-react-17-WebMCP.json"
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "agent-app-context",
+   "label": "Readables",
+   "kind": "guide",
+   "group": "LangGraph",
+   "child": false,
+   "docPath": "agent-app-context",
+   "reachable": "sidebar",
+   "status": "–",
+   "findings": [
+    23
+   ],
+   "notes": [],
+   "block": null,
+   "links": [],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "agent-app-context-impl-graph",
+   "label": "Custom Graph",
+   "kind": "guide",
+   "group": "LangGraph",
+   "child": true,
+   "docPath": "agent-app-context?impl=graph",
+   "reachable": "sidebar",
+   "status": "✅",
+   "findings": [
+    23
+   ],
+   "notes": [
+    "Minor Issue: StateSchema / CopilotKitStateSchema / RunnableConfig not imported and no graph built, had to add them."
+   ],
+   "block": null,
+   "links": [
+    {
+     "text": "Readables - Custom Graph -JS",
+     "clip": "LANGGRAPH-react-54-AgentAppContext",
+     "loom": "https://www.loom.com/share/976480fba0114148be36c7c3fbc86420",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "agent-app-context-impl-prebuilt",
+   "label": "Pre-built",
+   "kind": "guide",
+   "group": "LangGraph",
+   "child": true,
+   "docPath": "agent-app-context?impl=prebuilt",
+   "reachable": "sidebar",
+   "status": "✅",
+   "findings": [
+    23
+   ],
+   "notes": [],
+   "block": null,
+   "links": [
+    {
+     "text": "Readables -Prebuilt agent -JS",
+     "clip": "LANGGRAPH-react-63-ReadablesPrebuilt",
+     "loom": "https://www.loom.com/share/67640a0d580c452dac99c3dde9c0d11d",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "agent-config",
+   "label": "Agent Config",
+   "kind": "guide",
+   "group": "LangGraph",
+   "child": false,
+   "docPath": "agent-config",
+   "reachable": "none",
+   "status": "✅",
+   "findings": [
+    19
+   ],
+   "notes": [
+    "Note: the agent on the page has temperature: 0.4, gpt-5-mini rejects it (400). Recorded with it removed."
+   ],
+   "block": null,
+   "links": [
+    {
+     "text": "Agent Config - JS",
+     "clip": "LANGGRAPH-react-55-AgentConfig",
+     "loom": "https://www.loom.com/share/fe05f4a71d674b99ba0526e003bfe9b6",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   },
+   "excluded": "not in the team testing doc's LangGraph list (owner, 2026-11-08)"
+  },
+  {
+   "id": "configurable",
+   "label": "Configurable",
+   "kind": "guide",
+   "group": "LangGraph",
+   "child": false,
+   "docPath": "configurable",
+   "reachable": "sidebar",
+   "status": "❌",
+   "findings": [
+    15
+   ],
+   "notes": [],
+   "block": {
+    "area": "Configurable",
+    "problem": "TS tab only shows graph.invoke(..., { context }); nothing shows how to pass context through LangGraphAgent / CopilotKit."
+   },
+   "links": [
+    {
+     "text": "Not Working",
+     "clip": "LANGGRAPH-react-65-Configurable",
+     "loom": "https://www.loom.com/share/f22f80d2f77d4dcab2f175aac06238b8",
+     "narration": "narration/scripts/LANGGRAPH-react-65-Configurable.json"
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "subgraphs",
+   "label": "Subgraphs",
+   "kind": "guide",
+   "group": "LangGraph",
+   "child": false,
+   "docPath": "subgraphs",
+   "reachable": "sidebar",
+   "status": "✅",
+   "findings": [],
+   "notes": [
+    "Note: no TS agent code, the demo is the feature viewer."
+   ],
+   "block": null,
+   "links": [
+    {
+     "text": "SubGraphs - JS",
+     "clip": "LANGGRAPH-react-64-Subgraphs",
+     "loom": "https://www.loom.com/share/f9f1360fea834b36af0478054a67125f",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "guardrails",
+   "label": "Guardrails and DPL",
+   "kind": "guide",
+   "group": "LangGraph",
+   "child": false,
+   "docPath": "guardrails",
+   "reachable": "sidebar",
+   "status": "python-only",
+   "findings": [
+    5
+   ],
+   "notes": [],
+   "block": null,
+   "links": [],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "multi-agent-subagents",
+   "label": "Sub Agents",
+   "kind": "guide",
+   "group": "LangGraph",
+   "child": false,
+   "docPath": "multi-agent/subagents",
+   "reachable": "sidebar",
+   "status": "✅",
+   "findings": [
+    1
+   ],
+   "notes": [
+    "Note: the agent code on the page has temperature: 0, gpt-5-mini rejects it (400). Recorded with it removed."
+   ],
+   "block": null,
+   "links": [
+    {
+     "text": "Subagents -JS",
+     "clip": "LANGGRAPH-react-20-SubAgents-Fixed",
+     "loom": "https://www.loom.com/share/f1be6551675d430782a067132eec7649",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "inspector",
+   "label": "Inspector",
+   "kind": "guide",
+   "group": "Debugging",
+   "child": false,
+   "docPath": "inspector",
+   "reachable": "sidebar",
+   "status": "✅",
+   "findings": [
+    17
+   ],
+   "notes": [
+    "Minor Issue: Agent pane shows \"No agent selected\" until you pick it."
+   ],
+   "block": null,
+   "links": [
+    {
+     "text": "Inspector - JS",
+     "clip": "LANGGRAPH-react-16-Inspector",
+     "loom": "https://www.loom.com/share/8f92c5cd74fe45e7af21970ba6ce8807",
+     "narration": null
+    }
+   ],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   },
+   "excluded": "not in the team testing doc's LangGraph list (owner, 2026-11-08)"
+  }
+ ]
+}

@@ -1,0 +1,34 @@
+{
+ "clip": "LANGGRAPH-react-52-WorkflowExecution",
+ "finding": "20",
+ "segments": [
+  {
+   "at": "doc",
+   "text": "Ok so, this is the workflow execution page in the CopilotKit docs, for LangGraph TypeScript. And umm, I have implemented this page in my project."
+  },
+  {
+   "at": "ide",
+   "text": "This is my project, with the agent from the doc."
+  },
+  {
+   "at": "demo",
+   "text": "Moving on to the demo. So, the doc's agent as it is doesn't even run, it fails with StateGraph is not defined. I had to add the imports and a model to get it going. With that, after asking the question, the agent answers, and you can see the answer showing up in agent state on the left side. But uh, that's only after fixing the doc's code myself, so the page as written doesn't work. Let me show you the parts that are wrong."
+  },
+  {
+   "at": "evidence#1",
+   "text": "So look here. The code calls model with tools, which is never defined anywhere. And StateGraph, START and the message classes, umm, aren't imported at all."
+  },
+  {
+   "at": "evidence#2",
+   "text": "And this step, divide state to input and output. This is basically the main point of the page, how to split what goes to the frontend and what stays internal. But both tabs, Python and TypeScript, are just empty. There's no code at all. So uh, you can't actually learn the input and output part from this page. And the new ChatOpenAI here also has no model set, so it just falls back to a default. So yeah, the page shows the state shape, and the answer node, but the actual workflow part, the input output split, is just missing. Umm, which is the one thing someone opening this page is looking for. You'd have to go to the LangGraph docs to figure it out yourself."
+  },
+  {
+   "at": "notepad",
+   "text": "So quick summary. The TypeScript agent is missing its imports, so it throws StateGraph is not defined. It calls model with tools, which doesn't exist anywhere. And the divide state step has empty tabs, so the main part of the page, umm, just isn't there. Once you add the imports and a model, the agent itself works fine. So umm, this one needs fixing, please look into it."
+  },
+  {
+   "at": "notepad-closed",
+   "text": "Yeah."
+  }
+ ]
+}

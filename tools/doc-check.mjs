@@ -1,6 +1,6 @@
 // HARNESS: load rendered doc pages; report banners and whether evidence strings are present/visible.
 import { createRequire } from 'node:module';
-const require = createRequire('C:/Users/QS/Desktop/Copilotkit/Antigravity-react/autorecorder/package.json');
+const require = createRequire(new URL('../autorecorder/package.json', import.meta.url));
 const { chromium } = require('playwright');
 const B = 'https://docs.copilotkit.ai/langgraph-typescript/';
 const checks = {

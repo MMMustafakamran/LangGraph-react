@@ -17,3 +17,14 @@ logs/
 *.log
 frontend-create-next-app.git.bak/
 ci-artifacts/
+# recorder / pipeline run output
+runs/
+# narration: temp audio cache (CI) and fit reports; committed audio lives in narration/audio/
+narrate-audio/
+narration/**/*.fit.json
+# never commit keys or the private voice sample (VOICE.md section 2)
+*.env
+*.env.txt
+reference-*.wav
+ref16k.wav
+sample-full.wav

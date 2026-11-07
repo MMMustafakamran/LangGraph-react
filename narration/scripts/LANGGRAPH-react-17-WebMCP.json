@@ -1,0 +1,29 @@
+{
+ "clip": "LANGGRAPH-react-17-WebMCP",
+ "segments": [
+  {
+   "at": "doc",
+   "text": "This is the web MCP page, for LangGraph TypeScript."
+  },
+  {
+   "at": "doc2",
+   "text": "And I have implemented this page."
+  },
+  {
+   "at": "ide",
+   "text": "The doc calls search orders, which umm, isn't defined."
+  },
+  {
+   "at": "demo",
+   "text": "Then I asked it, which of my orders are shipped."
+  },
+  {
+   "at": "+",
+   "text": "So it should call the tool here, uh, and list the shipped orders."
+  },
+  {
+   "at": "+",
+   "text": "But it says it can't access my orders. The tool never gets called. Kindly look into it."
+  }
+ ]
+}

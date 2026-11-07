@@ -1,0 +1,10 @@
+{
+ "text": "Now the demo. With the showcase graph added, I asked it to book an intro call with the sales team, to discuss pricing.",
+ "model": "s2.1-pro-free",
+ "refSha256": "73f31de31c9b70eab35767550cdc1052f9487bdd5951c69a3619e53d653f8710",
+ "duration": 7.895,
+ "file": "c30a5bc53b06a34a7044b8bef2ee3afc.mp3",
+ "clip": "LANGGRAPH-react-04-UseInterrupt",
+ "at": "demo",
+ "imported_from": "2f8489b9d0ea5028.wav"
+}

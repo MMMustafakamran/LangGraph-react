@@ -1,0 +1,37 @@
+{
+ "clip": "LANGGRAPH-react-62-RenderAgentState",
+ "segments": [
+  {
+   "at": "doc",
+   "text": "So this is the render agent state in your app page, for LangGraph TypeScript, and I have implemented this page."
+  },
+  {
+   "at": "ide",
+   "text": "This is the canvas component and the page from the doc, uh, as they are, nothing changed."
+  },
+  {
+   "at": "demo",
+   "text": "So when the page loads, umm, it crashes. It says agent default was not found."
+  },
+  {
+   "at": "+",
+   "text": "Then with the agent set to sample agent, the page loads, and the chat answers fine. So the state rendering works once it has an agent."
+  },
+  {
+   "at": "evidence",
+   "text": "So this is the part. Use agent is called with no id, and uh, the provider has no agent either."
+  },
+  {
+   "at": "notepad",
+   "text": "So noting it. No agent anywhere, so it looks for default."
+  },
+  {
+   "at": "+",
+   "text": "And the quickstart only has sample agent, so it crashes."
+  },
+  {
+   "at": "error",
+   "text": "Same issue as the frontend cards page, ahh, so please have a look at it."
+  }
+ ]
+}

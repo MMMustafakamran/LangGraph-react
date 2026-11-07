@@ -122,6 +122,13 @@ function readSince(src: LogSource): string[] {
   }
 }
 
+/**
+ * The recorder's own summary of the failure. It is the text the page's action passed to
+ * ctx.fail, which can be written in advance, so it goes to the .error.log file only and is
+ * never shown on camera: the terminal shows only captured output (owner, 2026-11-08).
+ */
+export const VERDICT_TITLE = 'Recorder verdict';
+
 export function buildFailureEvidence(opts: {
   pageId: string;
   error: string;
@@ -151,7 +158,7 @@ export function buildFailureEvidence(opts: {
   }
 
   const errorLines = opts.error.split('\n').map((l) => l.replace(/^\s+/, '   '));
-  sections.push({ title: 'Recorder verdict', lines: errorLines, anchor: 0, omittedBefore: 0 });
+  sections.push({ title: VERDICT_TITLE, lines: errorLines, anchor: 0, omittedBefore: 0 });
 
   const text = [
     `Page: ${opts.pageId}`,
@@ -210,6 +217,7 @@ export function evidenceCast(evidence: FailureEvidence, opts: { cols?: number; r
   out(`${DIM}${'─'.repeat(Math.min(cols - 1, 100))}${RESET}\r\n`, 0.2);
 
   for (const s of evidence.sections) {
+    if (s.title === VERDICT_TITLE) continue; // log file only, never on camera
     out(`\r\n${BOLD}${CYAN}» ${s.title}${RESET}\r\n`, 0.5);
     if (s.omittedBefore) out(`${DIM}   … ${s.omittedBefore} earlier line(s) omitted …${RESET}\r\n`, 0.05);
     s.lines.forEach((line, i) => {

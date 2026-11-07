@@ -1,6 +1,6 @@
 // HARNESS: quick smoke check. node tools/smoke.mjs <route> "<prompt>" [waitMs] [shot.png]
 import { createRequire } from 'node:module';
-const require = createRequire('C:/Users/QS/Desktop/Copilotkit/Antigravity-react/autorecorder/package.json');
+const require = createRequire(new URL('../autorecorder/package.json', import.meta.url));
 const { chromium } = require('playwright');
 const [route='/', prompt='Can you tell me a joke?', waitMs='30000', shot, clickText, afterMs='25000'] = process.argv.slice(2);
 const browser = await chromium.launch();

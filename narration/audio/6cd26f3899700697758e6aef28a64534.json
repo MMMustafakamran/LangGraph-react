@@ -1,0 +1,10 @@
+{
+ "text": "Ok so, this is the workflow execution page in the CopilotKit docs, for LangGraph TypeScript. And umm, I have implemented this page in my project.",
+ "model": "s2.1-pro-free",
+ "refSha256": "73f31de31c9b70eab35767550cdc1052f9487bdd5951c69a3619e53d653f8710",
+ "duration": 11.006,
+ "file": "6cd26f3899700697758e6aef28a64534.mp3",
+ "clip": "LANGGRAPH-react-52-WorkflowExecution",
+ "at": "doc",
+ "imported_from": "2e17242fa78e63bc.wav"
+}

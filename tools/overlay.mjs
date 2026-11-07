@@ -1,6 +1,6 @@
 // HARNESS: open a route, click the Next.js dev "Issue" badge, print the overlay text.
 import { createRequire } from 'node:module';
-const require = createRequire('C:/Users/QS/Desktop/Copilotkit/Antigravity-react/autorecorder/package.json');
+const require = createRequire(new URL('../autorecorder/package.json', import.meta.url));
 const { chromium } = require('playwright');
 const [route, shot] = process.argv.slice(2);
 const b = await chromium.launch(); const p = await b.newPage({ viewport: { width: 1400, height: 900 } });

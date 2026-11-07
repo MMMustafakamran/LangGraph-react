@@ -1,0 +1,45 @@
+{
+ "clip": "LANGGRAPH-react-04-UseInterrupt",
+ "segments": [
+  {
+   "at": "doc",
+   "text": "Okay so, this is the use interrupt page, for LangGraph TypeScript, and umm, I have implemented this page."
+  },
+  {
+   "at": "doc2",
+   "text": "So I went through the page first, the frontend part and the agent part."
+  },
+  {
+   "at": "ide",
+   "text": "Here's the agent file from the doc. It just, uh, stops after the schedule meeting tool. No graph is built, nothing is exported, so I added the rest from the showcase."
+  },
+  {
+   "at": "demo",
+   "text": "Now the demo. With the showcase graph added, I asked it to book an intro call with the sales team, to discuss pricing."
+  },
+  {
+   "at": "+",
+   "text": "And the agent paused, and the time picker card came up, with a few slots to choose from. So the interrupt is uh, firing properly."
+  },
+  {
+   "at": "+",
+   "text": "After picking a slot, it resumed and said the meeting is scheduled. So the feature itself works on TypeScript."
+  },
+  {
+   "at": "evidence",
+   "text": "But look at this banner on the page. It says not supported on LangGraph TypeScript, and umm, because of that it hides the backend code."
+  },
+  {
+   "at": "notepad",
+   "text": "So just noting it down. The page says it's not supported, which isn't true."
+  },
+  {
+   "at": "+",
+   "text": "And the agent code never builds a graph, so you can't run it as written."
+  },
+  {
+   "at": "notepad-closed",
+   "text": "So yeah, could you please take a look."
+  }
+ ]
+}

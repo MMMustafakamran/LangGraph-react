@@ -1,0 +1,10 @@
+{
+ "text": "Here's the agent file from the doc. It just, uh, stops after the schedule meeting tool. No graph is built, nothing is exported, so I added the rest from the showcase.",
+ "model": "s2.1-pro-free",
+ "refSha256": "73f31de31c9b70eab35767550cdc1052f9487bdd5951c69a3619e53d653f8710",
+ "duration": 12.121,
+ "file": "f68b4de73f84b315684779948aa37715.mp3",
+ "clip": "LANGGRAPH-react-04-UseInterrupt",
+ "at": "ide",
+ "imported_from": "1acd6d1dcb479d2b.wav"
+}

@@ -1,0 +1,10 @@
+{
+ "text": "So this is the part. Use agent is called with no id, and uh, the provider has no agent either.",
+ "model": "s2.1-pro-free",
+ "refSha256": "73f31de31c9b70eab35767550cdc1052f9487bdd5951c69a3619e53d653f8710",
+ "duration": 7.802,
+ "file": "3cccc24be1353646f9603047cb15b8ad.mp3",
+ "clip": "LANGGRAPH-react-62-RenderAgentState",
+ "at": "evidence",
+ "imported_from": "80b1a1b4c03c683d.wav"
+}

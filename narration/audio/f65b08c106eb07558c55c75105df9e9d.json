@@ -1,0 +1,10 @@
+{
+ "text": "The doc calls search orders, which umm, isn't defined.",
+ "model": "s2.1-pro-free",
+ "refSha256": "73f31de31c9b70eab35767550cdc1052f9487bdd5951c69a3619e53d653f8710",
+ "duration": 4.412,
+ "file": "f65b08c106eb07558c55c75105df9e9d.mp3",
+ "clip": "LANGGRAPH-react-17-WebMCP",
+ "at": "ide",
+ "imported_from": "8333d7406f3244c2.wav"
+}
