@@ -1,0 +1,9 @@
+{
+ "text": "So I asked for two running shoes as product cards in a grid. The agent runs, but no product cards render, umm, not in the chat and not in the inspector either.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 10.774,
+ "file": "8c79d76a341456a0d4c68b35808b98de.mp3",
+ "clip": "LANGGRAPH-react-42-ComponentsCatalogs",
+ "at": "action"
+}

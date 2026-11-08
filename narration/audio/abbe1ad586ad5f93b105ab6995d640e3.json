@@ -1,0 +1,9 @@
+{
+ "text": "So I asked it to show cheap running shoes in the featured products area. The agent replies, but uh, nothing renders, not in the chat and not in the inspector's generative UI tab.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 12.26,
+ "file": "abbe1ad586ad5f93b105ab6995d640e3.mp3",
+ "clip": "LANGGRAPH-react-43-ComponentsSurfaces",
+ "at": "action"
+}
