@@ -29,9 +29,11 @@ const SYSTEM_PROMPT =
   "Keep any chat reply to one short sentence.";
 
 async function chatNode(state: AgentState, config: RunnableConfig) {
+  // Model options as the doc publishes them today (2026-11-08: gpt-6-luna + modelKwargs).
   const model = makeChatOpenAI(config, {
+    modelKwargs: { reasoning_effort: "none" },
     temperature: 0,
-    model: "gpt-5-mini",
+    model: "gpt-6-luna",
   });
 
   const modelWithTools = model.bindTools!([
