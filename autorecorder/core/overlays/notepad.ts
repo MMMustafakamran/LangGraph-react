@@ -1,7 +1,7 @@
 import { type Page } from 'playwright';
 import { humanClick, humanGlide, sleep } from './cursor';
 import { keystrokeDelay, type TypeRhythm } from './human';
-import { keyframe, logAction } from '../timeline';
+import { keyframe, logAction, logInput } from '../timeline';
 
 /**
  * A Windows 11 Notepad window, drawn inside the page.
@@ -149,6 +149,7 @@ export async function typeInNotepad(
   for (const ch of text) {
     // '\b' is a backspace: remove the character before the caret (lets callers type a typo and fix it).
     if (ch === '\b') {
+      logInput('backspace'); // Notepad text is written into the page, so no real key event fires
       col = Math.max(1, col - 1);
       await page.evaluate(
         (a: { textId: string; caretId: string; posId: string; l: number; col: number }) => {
@@ -169,6 +170,7 @@ export async function typeInNotepad(
     } else {
       col += 1;
     }
+    logInput(ch === '\n' ? 'enter' : 'key');
 
     await page.evaluate(
       (a: { textId: string; caretId: string; posId: string; c: string; l: number; col: number }) => {

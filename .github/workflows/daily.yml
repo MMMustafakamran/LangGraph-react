@@ -163,6 +163,8 @@ jobs:
           done
           (cd autorecorder && node -e "const {chromium}=require('playwright'); require('fs').accessSync(chromium.executablePath()); console.log('chromium ok:', chromium.executablePath())")
           command -v xvfb-run
+          # The failure terminal is a real shell (node-pty; no Linux prebuild, so npm builds it).
+          (cd autorecorder && node -e "require('node-pty'); console.log('node-pty ok')")
 
       - name: Mount the A2UI Styling dark-mode route (its own shard only; its doc CSS breaks every route while mounted)
         if: matrix.isolated && contains(matrix.pages, 'a2ui-styling')

@@ -9,6 +9,7 @@ import { clickTaskbarApp, ensureOverlays, waitForHydration } from '../core/overl
 import { checkpoint, describe, logAction, mark, probeText, tracked } from '../core/timeline';
 import { SELECTORS } from '../config/selectors.config';
 
+import { humanizeNote } from '../core/overlays/note-style';
 /** Probe: the last assistant message's text (null when there is none). Read-only. */
 const lastReply = (page: Page) => () => probeText(page.locator(SELECTORS.assistantMessage).last());
 /** Probe: the error banner's text once its details are open (null when there is no banner). */
@@ -949,39 +950,5 @@ export const SCRIPTED: Record<string, PageActionHandler> = {
   ]),
 };
 
-/**
- * Make a Notepad note look typed by a person (owner instruction 2026-11-07):
- * - no long URLs typed in one go: "https://example.com/x" becomes "example.com/x";
- * - a few typos fixed with backspace ('\b', handled by typeInNotepad) a couple of keys later;
- * - one or two small misspellings left in (plain words only, never code, names or numbers).
- * Deterministic per note, so a re-record types the same thing.
- */
-export function humanizeNote(text: string): string {
-  let seed = 0;
-  for (const c of text) seed = (seed * 31 + c.charCodeAt(0)) >>> 0;
-  const rnd = () => ((seed = (seed * 1103515245 + 12345) >>> 0) / 4294967296);
-  const NEAR: Record<string, string> = { a: 's', s: 'a', e: 'r', r: 'e', t: 'r', o: 'i', i: 'o', n: 'm', m: 'n', h: 'j', d: 's', l: 'k', u: 'y', c: 'v' };
-  const plain = (w: string) => /^[a-z]{4,}$/.test(w); // lowercase letters only: no code, names, numbers
-  const noUrls = text.replace(/(https?|wss?):\/\//g, '');
-  let fixes = 0, left = 0;
-  const out: string[] = [];
-  const tokens = noUrls.split(/(\s+)/);
-  tokens.forEach((tok, idx) => {
-    if (!plain(tok)) { out.push(tok); return; }
-    const r = rnd();
-    if (r < 0.09 && fixes < 4) {
-      // Hit a neighbouring key, type a couple more letters, notice, back up and retype.
-      const i = 1 + Math.floor(rnd() * (tok.length - 2));
-      const wrong = NEAR[tok[i]] ?? tok[i];
-      const tail = tok.slice(i + 1, i + 1 + 1 + Math.floor(rnd() * 2));
-      out.push(tok.slice(0, i) + wrong + tail + '\b'.repeat(1 + tail.length) + tok.slice(i));
-      fixes++;
-    } else if (r > 0.965 && left < 2 && idx > 2) {
-      // A small slip left in: two letters swapped.
-      const i = 1 + Math.floor(rnd() * (tok.length - 2));
-      out.push(tok.slice(0, i) + tok[i + 1] + tok[i] + tok.slice(i + 2));
-      left++;
-    } else out.push(tok);
-  });
-  return out.join('');
-}
+// humanizeNote: the shared hurried Notepad style lives in core/overlays/note-style.ts (AUTORECORDER.md section 2).
+export { humanizeNote };

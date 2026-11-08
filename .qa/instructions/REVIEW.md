@@ -54,8 +54,8 @@ status mismatch: the page is still ❌ because it doesn't work *as published*. O
 the clip hides that a harness addition was needed (no note, no narration, and the report says ✅).
 
 **(b) The terminal window at the end of failure clips is intentional.** A failed take ends with a
-window titled `Error console — <page-id>`, a red `✖ <page-id> — the take failed; this is what the
-recorder saw` line, then the captured server logs and browser console. It shows the viewer the real terminal error.
+window titled `Error console — <page-id>`: a real bash session where `ls logs/`, `tail -n 25
+<log>` and `grep -n -i -E ... <log>` are typed and their real output shown. It shows the viewer the real terminal error.
 **Never flag it**: not as an overlay, not as a glitch, not as "a harness failure on screen". Its
 red text is not an overlay. Do read it, and read `logs/<page-id>.error.log`: its **Recorder verdict** section (not on camera) is the recorder's summary of the error.
 

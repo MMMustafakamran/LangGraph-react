@@ -135,6 +135,24 @@ function listen(p: Page): void {
       if (frame === p.mainFrame()) push('navigation', { url: clip(frame.url()) });
     } catch {}
   };
+  // Every real mouse press and key press the recorder sends, in any frame, for the click/typing
+  // sounds. A capture-phase listener sees the event before the page can stop it.
+  const onInput = (kind: string) => {
+    if (kind === 'click' || kind === 'key' || kind === 'backspace' || kind === 'enter') logInput(kind);
+  };
+  const installInputHook = () => {
+    const w = window as any;
+    if (w.__qaInputHooked) return;
+    w.__qaInputHooked = true;
+    window.addEventListener('mousedown', () => w.__qaInput?.('click'), true);
+    window.addEventListener('keydown', (e: KeyboardEvent) => {
+      if (e.repeat) return;
+      w.__qaInput?.(e.key === 'Backspace' ? 'backspace' : e.key === 'Enter' ? 'enter' : 'key');
+    }, true);
+  };
+  p.exposeFunction('__qaInput', onInput).catch(() => {}); // throws if already exposed on this page
+  p.addInitScript(installInputHook).catch(() => {});
+  for (const f of p.frames()) f.evaluate(installInputHook).catch(() => {});
   ctx.on('console', onConsole);
   ctx.on('weberror', onWebError);
   ctx.on('requestfailed', onFailed);
@@ -196,6 +214,17 @@ export function mark(label: string, detail?: string): void {
   marks.push(m);
   push('mark', { label, ...(detail ? { detail } : {}) });
   if (label !== 'end') frame(label, FRAME_DELAY_MS[label] ?? 0);
+}
+
+/**
+ * A mouse press or key press the viewer would hear, for events.jsonl (`kind: "input"`), with
+ * millisecond time. The narration mix lays a click / key sound at each one. Logged by the
+ * browser listener in listen() for real input, and by overlays that write text without real key
+ * events (Notepad). Safe to call when no timeline is running.
+ */
+export function logInput(input: 'click' | 'key' | 'backspace' | 'enter'): void {
+  if (!t0) return;
+  push('input', { input }, Math.round(Date.now() - t0) / 1000);
 }
 
 /**

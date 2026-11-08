@@ -7,7 +7,7 @@ Applies to every repo's `autorecorder/` (`cli.ts` → `core/engine.ts` → `acti
 - Scroll with the real mouse wheel. Move the cursor with the human glide helpers.
 - Highlight faulty text the way a person would: drag-select it with the mouse, then pause on it.
 - **Never inject anything onto the page:** no red boxes, outlines, captions, labels or arrows. All explanation goes in Notepad (and narration).
-- **The terminal window at the end of failure clips is intentional, keep it.** A failed take ends with the `Error console — <page-id>` window ("the take failed; this is what the recorder saw", then the captured server logs and browser console) so the viewer sees the real terminal error. It shows **only captured output**: the recorder's own "Recorder verdict" summary goes to `videos/logs/<page-id>.error.log`, never on camera, because a page action can write that text in advance. It is not an injected overlay and reviewers never flag it. Produced by `core/engine.ts` `showFailureEvidence()` + `core/failure-evidence.ts` (see `qa-kit/recorder/README.md`).
+- **The terminal window at the end of failure clips is intentional, keep it.** A failed take ends with the `Error console — <page-id>` window: a **real shell** (bash via node-pty in the repo root) where `ls logs/`, `tail` and `grep` on the server logs are typed live, so the viewer sees the real terminal error. It shows **only what that shell printed** (no header, no summary; the browser console stays in the `.error.log`): the recorder's own "Recorder verdict" summary goes to `videos/logs/<page-id>.error.log`, never on camera, because a page action can write that text in advance. It is not an injected overlay and reviewers never flag it. Produced by `core/engine.ts` `showFailureEvidence()` + `core/failure-terminal.ts` + `core/failure-evidence.ts` (see `qa-kit/recorder/README.md`).
 - The old Antigravity clips (`Antigravity-react/autorecorder/actions/antigravity.actions.ts`, `FINDING_NOTES` / `writeFinding`) still use red outlines and captions. **They must be re-recorded** with the LangGraph-style evidence step before delivery.
 
 ## 2. Finding clips (❌ / ⚠️ pages)
@@ -23,10 +23,10 @@ Order: **demo → back to the doc → highlight each faulty snippet → Notepad 
 ### Notepad note
 
 - About **8 lines**: the `FINDINGS.md` number(s), what the doc says, what actually happened, the harness fix if any. A viewer who skips the doc and code segments must still know what broke.
-- Casual: lowercase, loose punctuation, short lines. **No headings, no numbered or bulleted lists.**
-- **No long URLs.** Drop the scheme (`https://`, `http://`, `wss://`, `ws://`): `https://example.com/x` → `example.com/x`. Keep to the domain and a short path.
-- Small mistakes: a few typos fixed with backspace a key or two later, plus one or two small slips left in. **Never in code identifiers, names, numbers or the finding number.**
-- Always pass the note through `humanizeNote()` and type it with `typeInNotepad`, which treats `'\b'` as a backspace. `humanizeNote` is deterministic per note, so a re-record types the same thing.
+- **Typed like the owner types in a hurry** (owner, 2026-11-08): no capital letters at all in prose, no headings or list markers, almost no full stops, sloppy spacing (missing space after a comma, the odd double space, two short words run together), chat shorthand (u, ur, dont, isnt, thats, pls), several typos left in plus a few fixed with backspace.
+- Code, file paths, numbers and the finding number stay exact (they are the evidence); `FINDINGS.md` may be typed as `findings.md`.
+- **No long URLs.** Drop the scheme (`https://`, `http://`, `wss://`, `ws://`): `https://example.com/x` → `example.com/x`.
+- Always pass the note through `humanizeNote()` (shared: `core/overlays/note-style.ts`) and type it with `typeInNotepad`, which treats `'\b'` as a backspace. Deterministic per note, so a re-record types the same thing. Write the note text plainly; the style is applied by `humanizeNote`.
 - Call `openNotepad` / `typeInNotepad` / `closeNotepad` from the page's action, not from `core/`.
 
 ## 3. Working clips (✅ pages)

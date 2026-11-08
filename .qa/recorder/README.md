@@ -44,22 +44,29 @@ These files are what `qa-kit/checks/` and the Haiku review ([instructions/REVIEW
 
 ## The end-of-clip terminal on failed takes (intentional)
 
-A take that fails ends with a simulated terminal window titled `Error console — <page-id>`,
-showing a red `✖ <page-id> — the take failed; this is what the recorder saw` header, a
-**Recorder verdict** section with the error, the browser console and this page's slice of the
-backend/frontend logs, scrolled to the line that explains the failure. **This is intentional**:
-it shows the viewer the real terminal error, the way a person who hit the error would open the
-terminal to read it. Keep it; reviewers must not flag it (red text inside it is not an overlay).
+A take that fails ends with a terminal window titled `Error console — <page-id>` running a
+**real shell**: node-pty spawns bash (Git Bash on Windows, PowerShell only as a fallback;
+`QA_FAILURE_SHELL` overrides) in the repo root, the recorder types ordinary commands into it at
+a human rhythm (`ls logs/`, `tail -n 25 <log>` for the server logs this page wrote to, then
+`grep -n -i -E --color=always "error|exception|failed|404" <log> | tail -n 8` on the one holding
+an error-like line), and every byte the PTY prints is streamed into the window live. Nothing on
+screen is written by the recorder: no header, no verdict, no summary. **This is intentional**:
+it shows the viewer the real terminal error. Keep it; reviewers must not flag it (red text from
+grep or the servers is not an overlay). The browser console is not terminal output and is not
+printed there.
 
 Where it comes from:
 
 - `core/engine.ts`, end of the page take: when `recordError` is set, `mark('failure', …)` then
-  `showFailureEvidence(…)` (bounded to 20 s; a problem here never hides the original failure).
-- `core/engine.ts` `showFailureEvidence()`: writes `videos/logs/<page-id>.error.log` and plays the
-  cast in the terminal window via `playCastInTerminal()`.
-- `core/failure-evidence.ts`: `buildFailureEvidence()` (sections: `Recorder verdict`, browser
-  console, `backend.log`, `frontend.log`), `writeFailureLog()`, `evidenceCast()` (the header line
-  and the scrolled text).
+  `showFailureEvidence(…)` (bounded to 90 s; a problem here never hides the original failure).
+- `core/engine.ts` `showFailureEvidence()`: writes `videos/logs/<page-id>.error.log` (verdict,
+  browser console, log slices; file only), opens the terminal window, runs the shell and saves
+  the session as `videos/logs/<page-id>.error-terminal.cast`.
+- `core/failure-terminal.ts`: `pickShell()`, `pickLogs()`, `failureCommands()`,
+  `runFailureTerminal()`.
+- `core/failure-evidence.ts`: `snapshotLogOffsets()` (videos/logs/backend.log, frontend.log and
+  every `*.log` in `<repo>/logs/` except record.log / start-all.log), `buildFailureEvidence()`,
+  `writeFailureLog()`.
 
 Passing takes never show it. The `failure` mark (detail = the error, ≤ 160 chars) marks where it
 starts in the timeline.

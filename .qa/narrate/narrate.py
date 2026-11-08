@@ -352,6 +352,67 @@ def cmd_tts(a):
 
 # ---------------------------------------------------------------- mix
 
+def input_events(timeline_p):
+    """[(t, 'click'|'key'|'backspace'|'enter')] from the clip's events.jsonl (recorder `input` events)."""
+    ev = timeline_p[: -len(".timeline.json")] + ".events.jsonl" if timeline_p.endswith(".timeline.json") else None
+    out = []
+    if ev and os.path.exists(ev):
+        for line in open(ev, encoding="utf8"):
+            try:
+                e = json.loads(line)
+            except ValueError:
+                continue
+            # Mouse clicks only: the owner dropped keyboard sounds (2026-11-08); key events stay in the log.
+            if e.get("kind") == "input" and e.get("input") == "click":
+                out.append((float(e["t"]), e["input"]))
+    return out
+
+def make_foley(events, total, out_wav, seed=11):
+    """Mouse clicks and keyboard taps, synthesized (no sample files), one per input event. Mono 48 kHz."""
+    import numpy as np, wave
+    sr = 48000
+    rng = np.random.default_rng(seed)
+    buf = np.zeros(int((total + 1) * sr), dtype=np.float32)
+
+    def burst(ms, tau_ms, amp, tone_hz=0.0, smooth=0.0):
+        n = int(sr * ms / 1000)
+        t = np.arange(n) / sr
+        x = rng.standard_normal(n).astype(np.float32)
+        if smooth:  # one-pole low-pass: duller, plasticky key
+            for i in range(1, n):
+                x[i] = x[i] * (1 - smooth) + x[i - 1] * smooth
+        if tone_hz:
+            x = x * 0.6 + np.sin(2 * np.pi * tone_hz * t).astype(np.float32) * 0.8
+        return (x * np.exp(-t / (tau_ms / 1000)) * amp).astype(np.float32)
+
+    def switch(amp, snap_hz, body_hz):
+        """One micro-switch event: a ~0.3 ms snap, a few-kHz ring of the metal leaf (~5 ms),
+        and a duller knock of the plastic shell (~10 ms)."""
+        n = int(sr * 0.03)
+        t = np.arange(n) / sr
+        snap = rng.standard_normal(n).astype(np.float32) * np.exp(-t / 0.00025)
+        ring = (np.sin(2 * np.pi * snap_hz * t) + 0.5 * np.sin(2 * np.pi * snap_hz * 1.63 * t)) * np.exp(-t / 0.0045)
+        knock = np.sin(2 * np.pi * body_hz * t) * np.exp(-t / 0.009)
+        return ((0.9 * snap + 0.45 * ring + 0.35 * knock) * amp).astype(np.float32)
+
+    for t, kind in events:
+        if kind == "click":  # press, then a softer, slightly higher release 80-120 ms later
+            snap = rng.uniform(3600, 4600); body = rng.uniform(900, 1300); amp = rng.uniform(0.30, 0.38)
+            parts = [(0.0, switch(amp, snap, body)),
+                     (rng.uniform(0.08, 0.12), switch(amp * 0.6, snap * 1.08, body * 1.1))]
+        else:
+            parts = [(0.0, burst(24, rng.uniform(3.0, 4.5), rng.uniform(0.10, 0.17), 0, rng.uniform(0.35, 0.6)))]
+        for dt, s in parts:
+            i = int((t + dt) * sr)
+            if 0 <= i < len(buf):
+                j = min(len(buf), i + len(s))
+                buf[i:j] += s[: j - i]
+    pcm = (np.clip(buf, -1, 1) * 32767).astype("<i2")
+    with wave.open(out_wav, "wb") as w:
+        w.setnchannels(1); w.setsampwidth(2); w.setframerate(sr)
+        w.writeframes(pcm.tobytes())
+    return out_wav
+
 def cmd_mix(a):
     script = load_json(a.script)
     _, marks = load_timeline(a.timeline)
@@ -365,24 +426,53 @@ def cmd_mix(a):
     starts = line_starts(script["segments"], marks, [probe_dur(p) for p in paths])
     placed = [(p, t + LEAD) for p, t in zip(paths, starts)]
     inputs, filters = [], []
+    natural = getattr(a, "natural", False)
     for k, (audio, start) in enumerate(placed):
         inputs += ["-i", audio]
         ms = int(start * 1000)
-        filters.append(f"[{k}:a]aresample=48000,aformat=channel_layouts=mono,adelay={ms}|{ms}[v{k}]")
+        # --natural: each line a touch faster or slower (deterministic per text, +-3%), like a
+        # person who doesn't speak every sentence at the same pace.
+        tempo = ""
+        if natural:
+            h = int(hashlib.sha256(script["segments"][k]["text"].encode("utf8")).hexdigest()[:8], 16)
+            tempo = f",atempo={0.97 + (h % 61) / 1000:.3f}"
+        filters.append(f"[{k}:a]aresample=48000,aformat=channel_layouts=mono{tempo},adelay={ms}|{ms}[v{k}]")
     n = len(placed)
     # Room tone: brown noise + faint 110 Hz hum at one fixed level, no fades/ducking (VOICE.md section 3).
-    filters.append(f"anoisesrc=color=brown:amplitude=0.035:duration={total:.2f}:sample_rate=48000:seed=7,"
+    filters.append(f"anoisesrc=color=brown:amplitude=0.07:duration={total:.2f}:sample_rate=48000:seed=7,"
                    f"highpass=f=60,lowpass=f=1000,volume=0.9[fan]")
-    filters.append(f"sine=frequency=110:duration={total:.2f}:sample_rate=48000,volume=0.006[hum]")
+    filters.append(f"sine=frequency=110:duration={total:.2f}:sample_rate=48000,volume=0.012[hum]")
     filters.append("".join(f"[v{k}]" for k in range(n)) + f"amix=inputs={n}:normalize=0[voice]")
-    filters.append("[voice]loudnorm=I=-16:TP=-1.5[vn]")
-    filters.append("[vn][fan][hum]amix=inputs=3:normalize=0,aformat=channel_layouts=stereo[aout]")
+    # --natural: put the voice in the same room as the room tone: headset/laptop-mic band
+    # (cut lows and the airy top), a little presence, light compression, a small-room echo.
+    room = ("highpass=f=95,lowpass=f=8000,equalizer=f=2800:t=q:w=1.2:g=2,"
+            "acompressor=threshold=-22dB:ratio=3:attack=8:release=150,"
+            "aecho=0.85:0.55:19|31:0.14|0.08,") if natural else ""
+    filters.append(f"[voice]{room}loudnorm=I=-16:TP=-1.5[vn]")
+    # Click and typing sounds at the recorder's logged input events (clips recorded before
+    # 2026-11-08 have none, so they simply get no sounds). --no-foley turns them off.
     os.makedirs(os.path.dirname(os.path.abspath(a.out)) or ".", exist_ok=True)
-    cmd = ["ffmpeg", "-v", "error", "-y", *inputs, "-i", a.clip, "-filter_complex", ";".join(filters),
+    ev = [] if getattr(a, "no_foley", False) else input_events(a.timeline)
+    extra, foley_wav = [], None
+    if ev:
+        foley_wav = os.path.abspath(a.out) + ".foley.wav"
+        make_foley(ev, total, foley_wav)
+        extra = ["-i", foley_wav]
+        filters.append(f"[{n + 1}:a]aformat=sample_rates=48000:channel_layouts=mono,volume=0.8[fx]")
+        filters.append("[vn][fan][hum][fx]amix=inputs=4:normalize=0,aresample=48000,"
+                       "aformat=sample_rates=48000:channel_layouts=stereo[aout]")
+    else:
+        filters.append("[vn][fan][hum]amix=inputs=3:normalize=0,aresample=48000,"
+                       "aformat=sample_rates=48000:channel_layouts=stereo[aout]")
+    cmd = ["ffmpeg", "-v", "error", "-y", *inputs, "-i", a.clip, *extra, "-filter_complex", ";".join(filters),
            "-map", f"{n}:v", "-map", "[aout]", "-c:v", "libx264", "-preset", "veryfast", "-crf", "20",
            "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "160k", "-t", f"{total:.2f}", a.out]
-    subprocess.run(cmd, check=True)
-    print(f"wrote {a.out} ({probe_dur(a.out):.2f}s, {n} lines)")
+    try:
+        subprocess.run(cmd, check=True)
+    finally:
+        if foley_wav and os.path.exists(foley_wav):
+            os.remove(foley_wav)
+    print(f"wrote {a.out} ({probe_dur(a.out):.2f}s, {n} lines, {len(ev)} click/key sounds)")
     return 0
 
 
@@ -589,7 +679,12 @@ def main(argv=None):
     p = common(sub.add_parser("tts")); p.add_argument("script"); p.set_defaults(fn=cmd_tts)
 
     p = common(sub.add_parser("mix")); p.add_argument("script"); p.add_argument("clip")
-    p.add_argument("timeline"); p.add_argument("out"); p.set_defaults(fn=cmd_mix)
+    p.add_argument("timeline"); p.add_argument("out")
+    p.add_argument("--natural", action="store_true",
+                   help="mic EQ, light compression, small-room echo, +-3%% pace per line (less robotic)")
+    p.add_argument("--no-foley", action="store_true",
+                   help="no click / typing sounds (they come from the clip's events.jsonl input events)")
+    p.set_defaults(fn=cmd_mix)
 
     p = sub.add_parser("rewrite"); p.add_argument("script"); p.add_argument("timeline")
     p.add_argument("--fit", required=True); p.add_argument("--out"); p.add_argument("--in-place", action="store_true")
