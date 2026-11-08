@@ -1,0 +1,9 @@
+{
+ "text": "The answer comes back, three ninety-one. But then the chat shows an error, cannot send run finished while text messages are still active.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 9.427,
+ "file": "15e0d11fc24d2abf033a812b5812f147.mp3",
+ "clip": "LANGGRAPH-react-12-Reasoning",
+ "at": "error"
+}

@@ -1,0 +1,9 @@
+{
+ "text": "Back on the doc, this is the only code. It uses the reasoning default agent, but uh, the page never shows that agent or its model.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 10.82,
+ "file": "e43501ae1ef698c721d0d51a070ad053.mp3",
+ "clip": "LANGGRAPH-react-12-Reasoning",
+ "at": "evidence#1"
+}

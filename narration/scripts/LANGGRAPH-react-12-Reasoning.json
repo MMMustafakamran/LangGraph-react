@@ -20,11 +20,11 @@
   },
   {
    "at": "error",
-   "text": "The answer comes back, three ninety-one, with the reasoning. But then the chat shows an error, cannot send run finished while text messages are still active."
+   "text": "The answer comes back, three ninety-one. But then the chat shows an error, cannot send run finished while text messages are still active."
   },
   {
    "at": "evidence#1",
-   "text": "So back on the doc, this is the only code on the page. It uses the reasoning default agent, but uh, the page never shows that agent, or which model it runs, or how the backend should send the reasoning."
+   "text": "Back on the doc, this is the only code. It uses the reasoning default agent, but uh, the page never shows that agent or its model."
   },
   {
    "at": "evidence#2",
