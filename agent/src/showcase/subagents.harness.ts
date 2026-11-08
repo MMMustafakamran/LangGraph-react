@@ -104,10 +104,14 @@ const SUB_AGENT_PROMPTS: Record<SubAgentName, string> = {
 
 type ModelFactory = (config?: RunnableConfig) => ChatOpenAI;
 
-// FIX (FINDINGS.md #1): the doc has new ChatOpenAI({ temperature: 0, model: "gpt-5-mini" }).
-// gpt-5-mini only accepts the default temperature, so temperature: 0 was removed.
+// HARNESS (FINDINGS.md #1): this copy used to drop temperature: 0 (gpt-5-mini rejected it).
+// Since 2026-11-08 the doc uses gpt-6-luna, which accepts temperature: 0, so this is the doc code as is.
 const defaultModelFactory: ModelFactory = () =>
-  new ChatOpenAI({ model: "gpt-5-mini" });
+  new ChatOpenAI({
+    temperature: 0,
+    model: "gpt-6-luna",
+    modelKwargs: { reasoning_effort: "none" },
+  });
 
 async function invokeSubAgent(
   agent: SubAgentName,

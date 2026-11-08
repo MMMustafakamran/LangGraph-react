@@ -104,7 +104,11 @@ const SUB_AGENT_PROMPTS: Record<SubAgentName, string> = {
 type ModelFactory = (config?: RunnableConfig) => ChatOpenAI;
 
 const defaultModelFactory: ModelFactory = () =>
-  new ChatOpenAI({ temperature: 0, model: "gpt-5-mini" });
+  new ChatOpenAI({
+    temperature: 0,
+    model: "gpt-6-luna",
+    modelKwargs: { reasoning_effort: "none" },
+  });
 
 async function invokeSubAgent(
   agent: SubAgentName,

@@ -3,7 +3,7 @@ import { createAgent } from "langchain";
 import { copilotkitMiddleware } from "@copilotkit/sdk-js/langgraph"; // [!code highlight]
 
 export const agenticChatGraph = createAgent({ // createAgent supersedes the deprecated createReactAgent, which accepts neither middleware nor systemPrompt
-  model: "openai:gpt-5.4",
+  model: "openai:gpt-6-luna",
   tools: [],  // Backend tools go here
   middleware: [copilotkitMiddleware], // [!code highlight]
   systemPrompt: "You are a helpful assistant.",

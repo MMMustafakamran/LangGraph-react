@@ -97,7 +97,14 @@ async function runChatNode(
 }
 
 export async function chatNode(state: AgentState, config: RunnableConfig) {
-  return runChatNode(state, config, new ChatOpenAI({ model: "gpt-5.4" }));
+  return runChatNode(
+    state,
+    config,
+    new ChatOpenAI({
+      modelKwargs: { reasoning_effort: "none" },
+      model: "gpt-6-luna",
+    }),
+  );
 }
 ~~~~
 

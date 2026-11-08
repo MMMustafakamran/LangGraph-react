@@ -36,7 +36,7 @@ async function chat_node(state: AgentState, config: RunnableConfig) {
     `,
   });
 
-  const response = await new ChatOpenAI({ model: "gpt-5.4" }).invoke(
+  const response = await new ChatOpenAI({ modelKwargs: { reasoning_effort: "none" }, model: "gpt-6-luna" }).invoke(
     [systemMessage, ...state.messages],
     config
   );

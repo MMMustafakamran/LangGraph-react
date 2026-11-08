@@ -93,11 +93,13 @@ async function probe(p: any) {
         await page.keyboard.press('Backspace').catch(() => {});
         await input.pressSequentially(p.prompt, { delay: 2 });
         await page.keyboard.press('Enter');
-        // Sent = the composer emptied (works for <textarea> and contenteditable alike).
+        // Sent = the composer emptied AND the question now shows on the page as a message. An empty
+        // composer alone is not enough: a dev-server remount right after typing also empties it.
         for (let i = 0; i < 10 && !result.sentS; i++) {
           await page.waitForTimeout(500);
           const typedLeft = String(await input.evaluate((el: any) => el.value ?? el.textContent ?? '').catch(() => '')).trim();
-          if (!typedLeft.includes(probeText)) result.sentS = sec();
+          const shown = (await page.locator('body').innerText().catch(() => '')).includes(probeText);
+          if (!typedLeft.includes(probeText) && shown) result.sentS = sec();
         }
         if (!result.sentS) await page.locator(SELECTORS.chatSubmit).first().click({ timeout: 2000 }).catch(() => {});
       }

@@ -39,9 +39,13 @@ async function chatNode(state: AgentState, config: RunnableConfig) {
   return runChatNode(
     state,
     config,
-    // FIX (FINDINGS.md #1): the doc has { temperature: 0, model: "gpt-5-mini" }.
-    // gpt-5-mini only accepts the default temperature, so temperature: 0 was removed.
-    new ChatOpenAI({ model: "gpt-5-mini" }),
+    // HARNESS (FINDINGS.md #1): this copy used to drop temperature: 0 (gpt-5-mini rejected it).
+    // Since 2026-11-08 the doc uses gpt-6-luna, which accepts temperature: 0, so this is the doc code as is.
+    new ChatOpenAI({
+      modelKwargs: { reasoning_effort: "none" },
+      temperature: 0,
+      model: "gpt-6-luna",
+    }),
   );
 }
 

@@ -38,7 +38,11 @@ async function chatNode(state: AgentState, config: RunnableConfig) {
   return runChatNode(
     state,
     config,
-    new ChatOpenAI({ temperature: 0, model: "gpt-5-mini" }),
+    new ChatOpenAI({
+      modelKwargs: { reasoning_effort: "none" },
+      temperature: 0,
+      model: "gpt-6-luna",
+    }),
   );
 }
 

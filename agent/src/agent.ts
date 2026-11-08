@@ -8,7 +8,7 @@ import {
 } from "@langchain/langgraph";
 
 async function mockLlm(state: typeof MessagesAnnotation.State) {
-  const model = new ChatOpenAI({ model: "gpt-4.1-mini" });
+  const model = new ChatOpenAI({ modelKwargs: { reasoning_effort: "none" }, model: "gpt-6-luna" });
   const response = await model.invoke([
     new SystemMessage("You are a helpful assistant."),
     ...state.messages,
