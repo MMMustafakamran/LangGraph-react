@@ -16,15 +16,15 @@
   },
   {
    "at": "action",
-   "text": "So I asked it what is seventeen times twenty-three, think step by step. Umm, the page only gives the frontend, so the agent behind it is the showcase reasoning agent."
+   "text": "So I asked it what is seventeen times twenty-three, think step by step. Umm, the page only gives the frontend part, so the agent behind it is the showcase reasoning agent. It's a reasoning model, so it thinks for a bit first, and that's exactly what this page is about."
   },
   {
    "at": "error",
-   "text": "The answer comes back, three ninety-one. But then the chat shows an error, cannot send run finished while text messages are still active."
+   "text": "The answer comes back, three ninety-one, with the reasoning. But then the chat shows an error, cannot send run finished while text messages are still active."
   },
   {
    "at": "evidence#1",
-   "text": "So back on the doc, this is the only code on the page. It uses the reasoning default agent, but uh, the page never shows that agent or which model it runs."
+   "text": "So back on the doc, this is the only code on the page. It uses the reasoning default agent, but uh, the page never shows that agent, or which model it runs, or how the backend should send the reasoning."
   },
   {
    "at": "evidence#2",
@@ -32,11 +32,19 @@
   },
   {
    "at": "notepad",
-   "text": "So basically, every answer ends with this run finished error in the chat. And since the page only has the frontend part, I had to use the showcase reasoning agent, which is gpt five mini on the responses API. Umm, nothing on the page tells you how to set up the backend for it."
+   "text": "So basically, every answer ends with this run finished error in the chat, and the agent run is marked as failed."
+  },
+  {
+   "at": "+",
+   "text": "And since the page only has the frontend part, I had to use the showcase reasoning agent, which is gpt five mini on the responses API. Umm, nothing on the page tells you how to set up the backend for it, so you can't really build this from the page alone."
   },
   {
    "at": "failure",
-   "text": "And this is the terminal with the frontend log. Yeah, it's the same error there, cannot send run finished while text messages are still active. Umm, the runtime calls it an incomplete stream, so the run never really finishes cleanly, even though the answer was already on screen."
+   "text": "And this is the terminal with the frontend log. Yeah, it's the same error there, cannot send run finished while text messages are still active."
+  },
+  {
+   "at": "+",
+   "text": "Umm, the runtime calls it an incomplete stream, so the run never finishes cleanly, even though the answer was already on screen. And it happens on every answer, not just this one."
   },
   {
    "at": "+",

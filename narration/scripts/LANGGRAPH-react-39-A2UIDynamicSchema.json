@@ -1,0 +1,50 @@
+{
+ "clip": "LANGGRAPH-react-39-A2UIDynamicSchema",
+ "finding": "34",
+ "segments": [
+  {
+   "at": "doc",
+   "text": "Ok so, this is the dynamic schema A2UI page in the CopilotKit docs, for LangGraph TypeScript, and I have implemented this page in my project. Umm, it's a long one, the definitions, the renderers, the catalog and the provider."
+  },
+  {
+   "at": "ide",
+   "text": "This is my project, the exact provider code from the doc, on CopilotKit one point eighty-four point one."
+  },
+  {
+   "at": "demo",
+   "text": "Moving on to the demo."
+  },
+  {
+   "at": "action",
+   "text": "So I asked it to show my team performance. Basically a second model has to design the whole dashboard here, so this takes a while."
+  },
+  {
+   "at": "error",
+   "text": "So the heading renders, but the cards don't. Each one says unable to display card, title, invalid input, expected string, received undefined. So no dashboard at all."
+  },
+  {
+   "at": "evidence#1",
+   "text": "Back on the doc, this line says the agent can render any UI for any request. Ahh, here it can't even render a card."
+  },
+  {
+   "at": "evidence#2",
+   "text": "And this one says the middleware renders cards as the data arrives. That's exactly the part that fails."
+  },
+  {
+   "at": "notepad",
+   "text": "So basically, the generated components fail the catalog's own schema check. The card comes without a title, and in other runs the bar chart comes without a description, so the renderer refuses them. The catalog and the provider are the doc code as is, so following the page, you only get the heading and these errors."
+  },
+  {
+   "at": "failure",
+   "text": "And this is the terminal with the frontend log. Umm, the run itself goes through fine there, it's just the render A2UI tool warnings."
+  },
+  {
+   "at": "+",
+   "text": "The card error only shows up in the chat, so you don't really see it in the logs at all, uh, you only find it when you look at the page."
+  },
+  {
+   "at": "+",
+   "text": "So umm, this one needs fixing, please look into it."
+  }
+ ]
+}

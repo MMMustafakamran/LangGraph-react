@@ -18,6 +18,7 @@ import {
   runInterruptFlowAction,
   runSharedStateAction,
   runStandardWithFinding,
+  runPromptOrError,
   runUseInterruptAction,
   runTempNoteAction,
   runTempNotePickSlotAction,
@@ -27,6 +28,8 @@ import {
   runDocOnlyFindingAction,
   runReasoningFindingAction,
   runA2uiDynamicFindingAction,
+  runThreadsDrawerAction,
+  runHeadlessThreadsAction,
   SCRIPTED,
 } from './langgraph.actions';
 
@@ -41,8 +44,10 @@ export const ACTION_MAP: Record<string, PageActionHandler> = {
   inspector: runInspectorAction,
   reasoning: runReasoningFindingAction,
   'a2ui-dynamic': runA2uiDynamicFindingAction,
+  'prebuilt-components-copilot-threads-drawer': runThreadsDrawerAction,
+  'headless-threads': runHeadlessThreadsAction,
   components: runGenuiFindingAction,
-  'mcp-apps': runStandardWithFinding,
+  'mcp-apps': runPromptOrError, // ✅ working clip, no finding tail
   subagents: runStandardWithFinding,
   'frontend-tools-fixed': runFrontendToolsFixedAction,
   'hitl-fixed': runHitlFixedAction,
@@ -68,7 +73,6 @@ export const ACTION_MAP: Record<string, PageActionHandler> = {
   'a2ui-styling': runStandardWithFinding,
   'tool-based': runTempNoteAction,
   'reasoning-messages': runStandardWithFinding,
-  'rendering-in-app': runStandardWithFinding,
   configurable: runDocOnlyFindingAction, // docOnlyAction: doc evidence + Notepad after the doc read
   // Scripted takes override the entries above.
   ...SCRIPTED,

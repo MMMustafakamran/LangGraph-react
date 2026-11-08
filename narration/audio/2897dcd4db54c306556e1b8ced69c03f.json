@@ -1,0 +1,9 @@
+{
+ "text": "And this is the terminal with the frontend log. Yeah, it's the same error there, cannot send run finished while text messages are still active.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 9.149,
+ "file": "2897dcd4db54c306556e1b8ced69c03f.mp3",
+ "clip": "LANGGRAPH-react-12-Reasoning",
+ "at": "failure"
+}

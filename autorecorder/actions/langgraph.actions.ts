@@ -43,22 +43,6 @@ export const FINDING_NOTES: Record<string, string> = {
     '',
     'also the page says interrupts arent supported on langgraph ts.. they are (#16)',
   ].join('\n'),
-  'use-interrupt': [
-    'useInterrupt (#7, #16)',
-    '',
-    'page says "not supported on langgraph (typescript)" and hides the backend code',
-    'the .md version has interrupt-agent.ts but it stops after the tool',
-    'no graph built, nothing exported',
-    '',
-    'added the graph from the showcase and interrupts work fine lol',
-    'picker shows the right topic, booking goes through',
-  ].join('\n'),
-  'headless-interrupts': [
-    'headless interrupts (#16)',
-    '',
-    'doc says langgraph ts doesnt support headless interrupts',
-    'but it does, picker shows up in the panel, slot gets booked, run resumes',
-  ].join('\n'),
   'interrupt-flow': [
     'interrupt flow (#14)',
     '',
@@ -76,15 +60,6 @@ export const FINDING_NOTES: Record<string, string> = {
     'here the agent just answers in plain text, no component renders',
     'the page only says what a langgraph python agent needs (CopilotKitMiddleware), nothing for langgraph js',
     'provider has no agentId so "default" points at the quickstart sample_agent here',
-  ].join('\n'),
-  'mcp-apps': [
-    'mcp apps (#12)',
-    '',
-    'runtime snippet uses https://mcp.excalidraw.com',
-    'that url just 308 redirects to /mcp so tool discovery fails',
-    'model ends up typing the tool call as json, no widget',
-    '',
-    'the same page uses .../mcp further down, that one works',
   ].join('\n'),
   subagents: [
     'sub agents (#1)',
@@ -119,12 +94,6 @@ export const FINDING_EVIDENCE: Record<string, DocEvidence[]> = {
     { text: T0, caption: 'Same agent file here: temperature: 0 makes every HITL run fail' },
     { text: 'Not supported on LangGraph (TypeScript)', caption: 'Says interrupts are not supported on LangGraph (TS) - they work' },
   ],
-  'use-interrupt': [
-    { text: 'Not supported on LangGraph (TypeScript)', caption: 'Banner says not supported, and the backend code is hidden - yet interrupts work' },
-  ],
-  'headless-interrupts': [
-    { text: 'Not supported on LangGraph (TypeScript)', caption: '"Not supported" - but the headless picker works in this harness' },
-  ],
   'interrupt-flow': [
     {
       text: 'async function chat_node(state: AgentState, config: RunnableConfig)',
@@ -139,10 +108,6 @@ export const FINDING_EVIDENCE: Record<string, DocEvidence[]> = {
       text: "Your agent must pass the run's tools and context to its model, as in step 2. For a LangGraph Python agent, add CopilotKitMiddleware.",
       caption: 'Only a Python agent is covered: nothing on how a LangGraph JS agent gets render_ui',
     },
-  ],
-  'mcp-apps': [
-    { text: '"https://mcp.excalidraw.com"', caption: 'This URL redirects (308) - MCP tool discovery fails' },
-    { text: 'https://mcp.excalidraw.com/mcp', caption: 'The same page uses /mcp here - only this one works' },
   ],
   subagents: [
     { text: 'new ChatOpenAI({ temperature: 0, model: "gpt-5-mini" })', caption: 'gpt-5-mini rejects temperature: 0 - the supervisor run fails' },
@@ -420,6 +385,8 @@ const promptOrError: PageActionHandler = async (page, config, root, ctx) => {
 
 /** The prompt take (stopping at an error banner), then the finding in Notepad. */
 export const runStandardWithFinding: PageActionHandler = withFinding(promptOrError);
+/** Same take without the finding tail, for ✅ pages (AUTORECORDER.md §3). */
+export const runPromptOrError: PageActionHandler = promptOrError;
 
 async function settle(page: Page, msgCount: number, ctx: ActionContext): Promise<void> {
   try {
@@ -585,8 +552,8 @@ const pickSlot = pickSlotAction('Tomorrow 2:00 PM');
  */
 export const runFrontendToolsAction = withFinding(frontendTools);
 export const runHitlAction = withFinding(pickSlot);
-export const runUseInterruptAction = withFinding(pickSlot);
-export const runHeadlessInterruptAction = withFinding(pickSlot);
+export const runUseInterruptAction: PageActionHandler = pickSlot; // ✅ working clip, no finding tail
+export const runHeadlessInterruptAction: PageActionHandler = pickSlot; // ✅ working clip, no finding tail
 export const runInterruptFlowAction = withFinding(interruptFlow);
 export const runSharedStateAction: PageActionHandler = sharedState;
 export const runInspectorAction: PageActionHandler = inspector;
@@ -797,19 +764,8 @@ Object.assign(FIX_NOTES, {
   ].join('\n'),
 });
 Object.assign(FIX_EVIDENCE, { 'tool-based': [TEMP_LINE] });
-Object.assign(FINDING_NOTES, {
-  'rendering-in-app': [
-    'render agent state in your app (#29)',
-    '',
-    'Canvas calls useAgent() with no id and the page has <CopilotKit runtimeUrl> with no agent',
-    'so it looks for an agent called "default" and the page crashes, quickstart only has sample_agent',
-    '',
-    'only change i made: agent="sample_agent" on the provider, then the canvas shows the state',
-  ].join('\n'),
-});
-Object.assign(FINDING_EVIDENCE, {
-  'rendering-in-app': [{ text: 'const { agent, isReady } = useAgent();', caption: 'No agentId: looks for "default"' }],
-});
+// use-interrupt, headless-interrupts, mcp-apps, rendering-in-app: now ✅ under the owner's blockers-only rule
+// (2026-11-08, QA-RULES §8a). Working clips: no FINDING_NOTES / FINDING_EVIDENCE (AUTORECORDER.md §3).
 Object.assign(FINDING_NOTES, {
   'reasoning-messages': [
     'reasoning messages (#11)',
@@ -966,12 +922,13 @@ export const SCRIPTED: Record<string, PageActionHandler> = {
     { click: 'Simulate deployment message', holdMs: 1000 },
     { waitText: 'Deployment finished', timeoutMs: 15000 },
   ])),
-  'rendering-in-app': withFinding(scripted([
+  // ✅ working clip (owner 2026-11-08): demo unchanged, no finding tail.
+  'rendering-in-app': scripted([
     { goto: '/shared-state/rendering-in-app', holdMs: 12000 },
     { goto: '/shared-state/rendering-in-app/harness', holdMs: 6000 },
     { waitText: 'Project launch', timeoutMs: 30000 },
     { prompt: 'Hi! What can you see?' },
-  ])),
+  ]),
   // Voice: the doc's "Try a sample audio" button drops the sample phrase into the composer.
   // The root layout's CopilotKitProvider (quickstart providers.tsx) mounts its own web inspector
   // over the sample button, the overlap the doc's enableInspector comment describes. A person
@@ -1170,8 +1127,9 @@ Object.assign(FINDING_NOTES, {
     'dynamic schema a2ui (#34)',
     'asked "show my team performance", doc says the cards render as data comes in',
     'only the title and intro text show up',
-    'card says "unable to display Card: title: invalid input: expected string, received undefined"',
-    'and the bar chart fails the same way on description',
+    'the generated components fail instead, eg',
+    '"unable to display Card: title: invalid input: expected string, received undefined"',
+    '(other runs: BarChart fails the same way on description)',
     'catalog + provider are the doc code as is',
   ].join('\n'),
 });
@@ -1245,7 +1203,7 @@ const RUN_FINISHED_RE = /Cannot send 'RUN_FINISHED'/i;
 
 /** Reasoning: the run must end without the RUN_FINISHED error, with a reply shown. */
 const reasoningTake: PageActionHandler = async (page, config, _root, ctx) => {
-  const done = await sendAndAwaitRun(page, config.prompt, 300000);
+  const done = await sendAndAwaitRun(page, config.prompt, 180000);
   // Give the chat time to show whatever the run ended with.
   const errText = page.getByText(RUN_FINISHED_RE).first();
   const shown = await Promise.race([
@@ -1266,7 +1224,7 @@ const reasoningTake: PageActionHandler = async (page, config, _root, ctx) => {
     ctx.fail(`The chat shows an error after the run: ${String(quote).slice(0, 220)}`);
     return;
   }
-  if (!done) ctx.fail('The agent run never finished (5 min).');
+  if (!done) ctx.fail('The agent run never finished (3 min).');
   await sleep(3000);
 };
 export const runReasoningFindingAction = withFindingOnFailure(reasoningTake);
@@ -1275,7 +1233,7 @@ const UNABLE_RE = /Unable to display/i;
 
 /** Dynamic Schema A2UI: the generated surface must render without "Unable to display" errors. */
 const a2uiDynamicTake: PageActionHandler = async (page, config, _root, ctx) => {
-  const done = await sendAndAwaitRun(page, config.prompt, 300000);
+  const done = await sendAndAwaitRun(page, config.prompt, 180000);
   // The surface finishes rendering after the stream closes: wait until the chat stops changing.
   await waitForQuiet(page, 8000, 60000);
   const errs = page.getByText(UNABLE_RE);
@@ -1296,7 +1254,9 @@ const a2uiDynamicTake: PageActionHandler = async (page, config, _root, ctx) => {
   if (quotes.length) {
     mark('error');
     const first = errs.first();
-    await wheelIntoView(page, first, undefined);
+    // Scroll only when the first error is off screen (the chat usually shows it already).
+    const box = await first.boundingBox().catch(() => null);
+    if (!box || box.y < 0 || box.y + box.height > 950) await wheelIntoView(page, first, undefined);
     await glideTo(page, first, 3000);
     await idleNudge(page);
     if (n > 1) await glideTo(page, errs.nth(n - 1), 3000);
@@ -1304,7 +1264,7 @@ const a2uiDynamicTake: PageActionHandler = async (page, config, _root, ctx) => {
     ctx.fail(`Generated components failed to render: ${quotes.join(' | ').slice(0, 300)}`);
     return;
   }
-  if (!done) ctx.fail('The agent run never finished (5 min).');
+  if (!done) ctx.fail('The agent run never finished (3 min).');
   if ((await surfaceCount(page)) === 0) ctx.fail('No A2UI surface rendered after the run.');
   await sleep(3000);
 };
@@ -1317,3 +1277,73 @@ export const runDocOnlyFindingAction: PageActionHandler = async (page, config) =
 
 // humanizeNote: the shared hurried Notepad style lives in core/overlays/note-style.ts (AUTORECORDER.md section 2).
 export { humanizeNote };
+
+// ---------------------------------------------------------------------------------------------
+// Threads pages, re-tested with the Intelligence key (2026-11-08). No Notepad on either: a
+// working take is a plain clip, and a failing one waits for the owner's decision.
+// ---------------------------------------------------------------------------------------------
+const DRAWER_ROW = 'copilotkit-threads-drawer li[role="option"][data-thread-id]';
+
+/** Threads Drawer: chat once, the thread shows in the drawer, start a new one, reopen the old one. */
+const threadsDrawerTake: PageActionHandler = async (page, config, root, ctx) => {
+  const rowsBefore = await page.locator(DRAWER_ROW).count();
+  await keyboardSend(page, config, root, ctx);
+  const listed = await page
+    .waitForFunction((n) => (document.querySelector('copilotkit-threads-drawer')?.shadowRoot
+      ?.querySelectorAll('li[role="option"][data-thread-id]').length ?? 0) > n, rowsBefore, { timeout: 30000, polling: 500 })
+    .then(async () => (await page.locator(DRAWER_ROW).count()) > rowsBefore)
+    .catch(() => false);
+  void checkpoint('thread', 'the new thread is listed in the drawer', async () => `${await page.locator(DRAWER_ROW).count()} row(s)`, {
+    ok: () => listed,
+  });
+  if (!listed) {
+    ctx.fail('The drawer did not list the new conversation.');
+    return;
+  }
+  await sleep(4000); // the auto-generated thread name fills in
+  const first = page.locator(DRAWER_ROW).first();
+  await glideTo(page, first, 2000);
+  mark('click', 'New Conversation');
+  await glideClick(page, page.getByText('New Conversation', { exact: true }).first());
+  const reset = await page.getByText('How can I help you today?').first()
+    .waitFor({ state: 'visible', timeout: 15000 }).then(() => true).catch(() => false);
+  void checkpoint('new', '"New Conversation" resets the chat', async () => reset);
+  if (!reset) ctx.fail('"New Conversation" did not reset the chat.');
+  await sleep(2500);
+  mark('click', 'reopen thread');
+  await glideClick(page, page.locator(DRAWER_ROW).first());
+  const replayed = await page.getByText(config.prompt, { exact: false }).first()
+    .waitFor({ state: 'visible', timeout: 20000 }).then(() => true).catch(() => false);
+  void checkpoint('replay', 'selecting the thread replays its history', () => probeText(page.getByText(config.prompt, { exact: false })));
+  if (!replayed) ctx.fail('Selecting the thread did not replay its conversation.');
+  await sleep(4000);
+};
+export const runThreadsDrawerAction: PageActionHandler = threadsDrawerTake;
+
+/** Headless Threads: chat once, the sidebar built with useThreads must list the thread. */
+const headlessThreadsTake: PageActionHandler = async (page, config, root, ctx) => {
+  await keyboardSend(page, config, root, ctx);
+  // Threads appear in the sidebar as "<name>" + Rename / Archive buttons (the doc's ThreadSidebar).
+  const rename = page.getByRole('button', { name: 'Rename' });
+  const listed = await rename.first().waitFor({ state: 'visible', timeout: 30000 }).then(() => true).catch(() => false);
+  void checkpoint('thread', 'the sidebar lists the thread (Rename / Archive row)', async () => `${await rename.count()} row(s)`, {
+    ok: () => listed,
+  });
+  if (listed) {
+    await glideTo(page, rename.first(), 3000);
+    await sleep(3000);
+    return;
+  }
+  // Reload, as a person would, to check the list is not just late.
+  mark('demo', 'reload');
+  await page.reload({ waitUntil: 'load' }).catch(() => {});
+  await ensureOverlays(page, 'chrome').catch(() => {});
+  await sleep(8000);
+  const after = await rename.count();
+  void checkpoint('thread-reload', 'after a reload the sidebar lists the thread', async () => `${after} row(s)`, { ok: () => after > 0 });
+  if (after === 0) {
+    ctx.fail('The chat replied, but the useThreads sidebar lists no threads (useThreads({ agentId: "my-agent" }) while the runtime registers the agent as "default").');
+  }
+  await sleep(3000);
+};
+export const runHeadlessThreadsAction: PageActionHandler = headlessThreadsTake;

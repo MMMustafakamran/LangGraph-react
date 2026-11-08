@@ -1,0 +1,9 @@
+{
+ "text": "So basically, the generated components fail the catalog's own schema check. The card comes without a title, and in other runs the bar chart comes without a description, so the renderer refuses them. The catalog and the provider are the doc code as is, so following the page, you only get the heading and these errors.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 20.978,
+ "file": "f41db2cc7be686276b7b95f053d8cb35.mp3",
+ "clip": "LANGGRAPH-react-39-A2UIDynamicSchema",
+ "at": "notepad"
+}

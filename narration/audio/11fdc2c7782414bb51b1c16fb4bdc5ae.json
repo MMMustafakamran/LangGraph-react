@@ -1,0 +1,9 @@
+{
+ "text": "Back on the doc, this line says the agent can render any UI for any request. Ahh, here it can't even render a card.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 9.102,
+ "file": "11fdc2c7782414bb51b1c16fb4bdc5ae.mp3",
+ "clip": "LANGGRAPH-react-39-A2UIDynamicSchema",
+ "at": "evidence#1"
+}

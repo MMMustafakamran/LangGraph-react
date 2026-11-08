@@ -177,6 +177,8 @@ jobs:
           [ -n "${OPENAI_API_KEY:-}" ] || echo "::warning::secret OPENAI_API_KEY is not set; the doc agents will fail"
           printf 'OPENAI_API_KEY=%s\n' "$OPENAI_API_KEY" > agent/.env
           printf 'LANGGRAPH_DEPLOYMENT_URL=http://localhost:8050\n' > frontend/.env.local
+          # The doc's own override: its default MCP URL 308-redirects; the page's /mcp URL works (FINDINGS #12, minor).
+          printf 'MCP_SERVER_URL=https://mcp.excalidraw.com/mcp\n' >> frontend/.env.local
           # Threads pages (Intelligence): optional; without it those pages show the doc's no-key behaviour.
           if [ -n "${CPK_INTELLIGENCE_API_KEY:-}" ]; then printf 'CPK_INTELLIGENCE_API_KEY=%s\n' "$CPK_INTELLIGENCE_API_KEY" >> frontend/.env.local; fi
 

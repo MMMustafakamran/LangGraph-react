@@ -1,0 +1,9 @@
+{
+ "text": "Umm, the runtime calls it an incomplete stream, so the run never finishes cleanly, even though the answer was already on screen. And it happens on every answer, not just this one.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 11.981,
+ "file": "57c3cb8acb5cb2f90f588d51fdf4ad4a.mp3",
+ "clip": "LANGGRAPH-react-12-Reasoning",
+ "at": "+"
+}

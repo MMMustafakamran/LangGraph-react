@@ -146,7 +146,7 @@
     {
      "text": "Quickstart - JS",
      "clip": "LANGGRAPH-react-01-Quickstart",
-     "loom": "https://www.loom.com/share/73024d5d793c4f878d64e153f681dcfb",
+     "loom": null,
      "narration": null
     }
    ],
@@ -268,13 +268,18 @@
    "child": false,
    "docPath": "prebuilt-components/copilot-threads-drawer",
    "reachable": "sidebar",
-   "status": "N/A",
+   "status": "✅",
    "findings": [],
-   "notes": [
-    "Note: re-testing with the Intelligence key."
-   ],
+   "notes": [],
    "block": null,
-   "links": [],
+   "links": [
+    {
+     "text": null,
+     "clip": "LANGGRAPH-react-68-ThreadsDrawer",
+     "loom": null,
+     "narration": null
+    }
+   ],
    "review": {
     "verdict": null,
     "approvedAt": null,
@@ -289,13 +294,18 @@
    "child": false,
    "docPath": "headless-threads",
    "reachable": "sidebar",
-   "status": "N/A",
+   "status": "✅",
    "findings": [],
-   "notes": [
-    "Note: re-testing with the Intelligence key."
-   ],
+   "notes": [],
    "block": null,
-   "links": [],
+   "links": [
+    {
+     "text": null,
+     "clip": "LANGGRAPH-react-69-HeadlessThreads",
+     "loom": null,
+     "narration": null
+    }
+   ],
    "review": {
     "verdict": null,
     "approvedAt": null,
@@ -426,7 +436,7 @@
     {
      "text": "Issue",
      "clip": "LANGGRAPH-react-12-Reasoning",
-     "loom": "https://www.loom.com/share/5a922c14014d4ba989e696549b165566",
+     "loom": null,
      "narration": null
     }
    ],
@@ -508,10 +518,9 @@
    "links": [
     {
      "text": "Voice - JS",
-     "clip": null,
+     "clip": "LANGGRAPH-react-67-Voice",
      "loom": null,
-     "narration": null,
-     "pendingVideo": "Voice"
+     "narration": null
     }
    ],
    "review": {
@@ -756,7 +765,7 @@
     {
      "text": "Issue",
      "clip": "LANGGRAPH-react-13-Components",
-     "loom": "https://www.loom.com/share/782d272852414af89f4761643526a4cf",
+     "loom": null,
      "narration": "narration/scripts/LANGGRAPH-react-13-Components.json"
     }
    ],
@@ -787,7 +796,7 @@
     {
      "text": "Issue",
      "clip": "LANGGRAPH-react-43-ComponentsSurfaces",
-     "loom": "https://www.loom.com/share/e16f00f87c3345e79af1caaad265bc28",
+     "loom": null,
      "narration": null
     }
    ],
@@ -817,7 +826,7 @@
     {
      "text": "Issue",
      "clip": "LANGGRAPH-react-42-ComponentsCatalogs",
-     "loom": "https://www.loom.com/share/8a77d5c9bc16435cbd66394b27608c95",
+     "loom": null,
      "narration": null
     }
    ],
@@ -873,7 +882,7 @@
     {
      "text": "Issue",
      "clip": "LANGGRAPH-react-46-ComponentsStateActions",
-     "loom": "https://www.loom.com/share/ebb3515db97c4c2385a8dff5f5fb0571",
+     "loom": null,
      "narration": "narration/scripts/LANGGRAPH-react-46-ComponentsStateActions.json"
     }
    ],
@@ -955,7 +964,7 @@
     {
      "text": "Markdown mode - JS",
      "clip": "LANGGRAPH-react-47-ComponentsMarkdownMode",
-     "loom": "https://www.loom.com/share/f17435ed82104e60a6061059f4aae504",
+     "loom": null,
      "narration": null
     }
    ],
@@ -1044,7 +1053,7 @@
     {
      "text": "Issue",
      "clip": "LANGGRAPH-react-39-A2UIDynamicSchema",
-     "loom": "https://www.loom.com/share/7f7ab1b42d2d45d0a84c6646715ebaa2",
+     "loom": null,
      "narration": null
     }
    ],
@@ -1237,7 +1246,7 @@
     {
      "text": "MCP Apps - JS",
      "clip": "LANGGRAPH-react-14-McpApps",
-     "loom": "https://www.loom.com/share/437cd5c3f23f446a82201e76537ba456",
+     "loom": null,
      "narration": null
     }
    ],
@@ -1290,7 +1299,7 @@
     {
      "text": "Render agent state in your app - JS",
      "clip": "LANGGRAPH-react-62-RenderAgentState",
-     "loom": "https://www.loom.com/share/64c0de5373e5401cb89234823a97ba3a",
+     "loom": null,
      "narration": "narration/scripts/LANGGRAPH-react-62-RenderAgentState.json"
     }
    ],
@@ -1520,7 +1529,7 @@
     {
      "text": "Pausing the agent state for input - JS",
      "clip": "LANGGRAPH-react-04-UseInterrupt",
-     "loom": "https://www.loom.com/share/35843b37c5e9478eb000c541c21533fe",
+     "loom": null,
      "narration": "narration/scripts/LANGGRAPH-react-04-UseInterrupt.json"
     }
    ],
@@ -1549,7 +1558,7 @@
     {
      "text": "Headless Interrupts - JS",
      "clip": "LANGGRAPH-react-05-HeadlessInterrupts",
-     "loom": "https://www.loom.com/share/c4a81a9925f64a7fa8873853c49a89fa",
+     "loom": null,
      "narration": null
     }
    ],
@@ -1670,7 +1679,7 @@
     {
      "text": "Web MCP - JS",
      "clip": "LANGGRAPH-react-17-WebMCP",
-     "loom": "https://www.loom.com/share/d47bb2dbea2b4060a5e67ff0e7f85bf3",
+     "loom": null,
      "narration": "narration/scripts/LANGGRAPH-react-17-WebMCP.json"
     }
    ],
@@ -1809,7 +1818,7 @@
     {
      "text": "Not Working",
      "clip": "LANGGRAPH-react-65-Configurable",
-     "loom": "https://www.loom.com/share/f22f80d2f77d4dcab2f175aac06238b8",
+     "loom": null,
      "narration": "narration/scripts/LANGGRAPH-react-65-Configurable.json"
     }
    ],

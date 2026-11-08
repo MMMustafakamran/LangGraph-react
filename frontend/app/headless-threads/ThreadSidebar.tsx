@@ -8,7 +8,7 @@ function ThreadSidebar() {
     renameThread,
     archiveThread,
     deleteThread,
-  } = useThreads({ agentId: "my-agent" });
+  } = useThreads({ agentId: "default" }); // HARNESS (FINDINGS minor note): doc has agentId: "my-agent", but its own server.ts registers only `default` and the chat runs as `default`, so the list stays empty
 
   if (isLoading) return <div>Loading...</div>;
 

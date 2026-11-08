@@ -1,0 +1,9 @@
+{
+ "text": "And this is the terminal with the frontend log. Umm, the run itself goes through fine there, it's just the render A2UI tool warnings.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 10.031,
+ "file": "dcafe54e469ec0d40f1426eb7301c43c.mp3",
+ "clip": "LANGGRAPH-react-39-A2UIDynamicSchema",
+ "at": "failure"
+}
