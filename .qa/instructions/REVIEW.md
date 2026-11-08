@@ -65,6 +65,9 @@ available…", blue/purple "Not supported…"), blue drag-selection.
 
 ## 5. What to flag
 
+**Blockers only** ([QA-RULES.md](QA-RULES.md) §8a): flag a page failure only when the main feature visibly fails (crash, nothing renders, no reply, error card). Missing imports, harness helpers, type errors, temperature, cosmetic gaps are *minor*: mention them in `observations` at most, never as a flag or a status change. A ✅ page that needed an obvious HARNESS fill-in is still ✅.
+
+
 | Flag | Meaning |
 |---|---|
 | known failure now works | Expected ❌/⚠️, but the demo plainly does what the doc promises and no defect shows. Checks hint: `status_signals` "every checkpoint passed". |

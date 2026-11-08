@@ -1,0 +1,9 @@
+{
+ "text": "Ok so, this is the configurable page in the CopilotKit docs, for LangGraph TypeScript, and I have implemented this page in my project. So umm, there's no demo for this one, it's just the page itself. I'm going through it from the top, and the part that matters is down here, the trusted graph execution settings, with the TypeScript tab open. Because that's the only TypeScript code the page gives you.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 26.943,
+ "file": "11d1545b78d65f70957c53a38fdf64b5.mp3",
+ "clip": "LANGGRAPH-react-65-Configurable",
+ "at": "doc"
+}

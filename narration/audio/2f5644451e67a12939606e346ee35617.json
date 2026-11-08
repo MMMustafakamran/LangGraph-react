@@ -1,0 +1,9 @@
+{
+ "text": "And this is the terminal with the frontend log, the last line is that same render UI warning, it rendered nothing. So the run finishes, but the surface never renders.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 11.471,
+ "file": "2f5644451e67a12939606e346ee35617.mp3",
+ "clip": "LANGGRAPH-react-43-ComponentsSurfaces",
+ "at": "failure"
+}

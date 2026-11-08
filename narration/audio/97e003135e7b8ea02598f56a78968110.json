@@ -1,0 +1,9 @@
+{
+ "text": "And this is the terminal, with the frontend and agent logs from the run. Umm, there's no error that explains it, the run itself goes through fine, it just never renders a component. The logs just show the run finishing, no component.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 14.629,
+ "file": "97e003135e7b8ea02598f56a78968110.mp3",
+ "clip": "LANGGRAPH-react-13-Components",
+ "at": "failure"
+}

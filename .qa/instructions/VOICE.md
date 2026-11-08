@@ -1,14 +1,14 @@
 # Voice narration rules
 
-Applies to every clip that reports a broken doc page (❌ in the report). The narration covers the whole video, in the owner's cloned voice, as if recorded live.
+Applies to every clip that reports a broken doc page (❌ in the report). Only blockers get narration ([QA-RULES.md](QA-RULES.md) §8a); working and minor-issue clips have none. The narration covers the whole video, in the owner's cloned voice, as if recorded live.
 
 ## 1. Voice
 
 - Service: **Fish Audio**, free model `s2.1-pro-free` (header `model: s2.1-pro-free`).
   Key: `FISH_API_KEY` in the workspace `4-private/.env` locally, a GitHub secret in CI. **Never print or commit it.**
 - No saved voice on the free tier: each request sends the reference clip + its transcript.
-  - Reference: `4-private/voice-private/reference-20s.wav` (20 s, normalized, mono).
-  - Transcript: `4-private/voice-private/reference-20s.txt` (made locally with faster-whisper).
+  - Reference: `4-private/voice-private/reference-new.wav` (102 s of the owner talking naturally through a testing script, recorded 2026-11-08; cleaned: high-pass, levelled, mono 44.1 kHz). The old `reference-20s.wav` is kept but no longer used.
+  - Transcript: `4-private/voice-private/reference-new.txt` (faster-whisper, technical terms corrected by hand).
   - Tool: `qa-kit/narrate/narrate.py` (tts, fit, mix, rewrite; see its README).
 - Chatterbox (HF demo) was tried and rejected: robotic, didn't sound like the owner (Indian accent). Sarvam is blocked in the owner's region.
 - Known limit: tone stays fairly even through a clip. Accepted as good enough (2026-11-07).
@@ -16,7 +16,7 @@ Applies to every clip that reports a broken doc page (❌ in the report). The na
 ## 2. What may be public
 
 - Generated narration audio **may** be committed to the public repos.
-- The raw voice reference sample (`4-private/voice-private/reference-20s.wav`) and all API keys **must never** be committed. CI never needs them: it only reuses saved mp3 lines.
+- The raw voice reference samples (`4-private/voice-private/*.wav`, `*.mp4`) and all API keys **must never** be committed. CI never needs them: it only reuses saved mp3 lines.
 
 ## 3. Video
 

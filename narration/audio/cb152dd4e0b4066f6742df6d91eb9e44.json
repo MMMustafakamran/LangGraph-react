@@ -1,0 +1,9 @@
+{
+ "text": "And the code is just this graph invoke, with a context and a recursion limit. There's no frontend code at all on this page.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 8.731,
+ "file": "cb152dd4e0b4066f6742df6d91eb9e44.mp3",
+ "clip": "LANGGRAPH-react-65-Configurable",
+ "at": "evidence#2"
+}

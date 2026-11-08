@@ -1,0 +1,9 @@
+{
+ "text": "Moving on to the demo. So, the doc's agent as it is doesn't even run, it fails with StateGraph is not defined. I had to add the imports and a model to get it going. With that, after asking the question, the agent answers, and you can see the answer showing up in agent state on the left side. But uh, that's only after fixing the doc's code myself, so the page as written doesn't work. Let me show you the parts that are wrong.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 26.65,
+ "file": "2b1f78861526dc1d4b69744cadc8518a.mp3",
+ "clip": "LANGGRAPH-react-52-WorkflowExecution",
+ "at": "demo"
+}

@@ -1,0 +1,9 @@
+{
+ "text": "Then with the agent set to sample agent, the page loads, and the chat answers fine. So the state rendering works once it has an agent.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 10.82,
+ "file": "1e167f80e1503e43977254ce79aa073d.mp3",
+ "clip": "LANGGRAPH-react-62-RenderAgentState",
+ "at": "+"
+}

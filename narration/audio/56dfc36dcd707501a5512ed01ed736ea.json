@@ -1,0 +1,9 @@
+{
+ "text": "So back on the doc, this is the line that promises the table. It says the table fills in while the agent writes it, and that it is a real component. Umm, that is not what happens here at all.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 13.746,
+ "file": "56dfc36dcd707501a5512ed01ed736ea.mp3",
+ "clip": "LANGGRAPH-react-13-Components",
+ "at": "evidence#1"
+}

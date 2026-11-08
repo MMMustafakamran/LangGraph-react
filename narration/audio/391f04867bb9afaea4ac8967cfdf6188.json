@@ -1,0 +1,9 @@
+{
+ "text": "So I asked for product cards, for shoe one named Runner and shoe two named Trail. The agent here is a LangGraph JS graph that passes the run's tools and context, because the docs don't show one.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 14.071,
+ "file": "391f04867bb9afaea4ac8967cfdf6188.mp3",
+ "clip": "LANGGRAPH-react-46-ComponentsStateActions",
+ "at": "action"
+}

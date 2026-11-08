@@ -1,0 +1,9 @@
+{
+ "text": "So basically, quick summary. The page has no agent, so it crashes looking for default. Even mounting the watcher crashes it, because it also asks for the, uh, default agent. And its socket is just a placeholder. So following the doc, no card ever gets added. Once you give it the sample agent and push the message yourself, ahh, the card works fine.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 26.218,
+ "file": "4b7e93e1ddc7d07079e91031be4c13fb.mp3",
+ "clip": "LANGGRAPH-react-33-FrontendCards",
+ "at": "notepad"
+}

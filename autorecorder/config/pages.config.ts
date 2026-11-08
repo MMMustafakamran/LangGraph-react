@@ -125,7 +125,7 @@ export const PAGES = definePages([
     ideFile: 'frontend/app/generative-ui/components/providers.tsx', startLine: 1, endLine: 14,
     extraTabs: [{ filePath: 'frontend/app/generative-ui/components/page.tsx', startLine: 1, endLine: 7 }],
     prompt: 'Compare the Starter, Team, and Enterprise plans in a table',
-    timeouts: { replyStartMs: 20000, replyStreamMs: 20000 }, // page crashes at once; don't wait 3 min on camera
+    timeouts: { replyStartMs: 180000, replyStreamMs: 180000 },
   },
   {
     id: 'mcp-apps', name: 'Generative UI - MCP Apps', videoName: 'McpApps',
@@ -251,7 +251,7 @@ export const PAGES = definePages([
     id: 'frontend-cards', name: 'Generative UI - Frontend-Driven Cards', videoName: 'FrontendCards',
     docPath: 'generative-ui/frontend-cards', route: 'generative-ui/frontend-cards/harness',
     ideFile: 'frontend/app/generative-ui/frontend-cards/page.tsx', startLine: 1, endLine: 15,
-    extraTabs: [{ filePath: 'frontend/app/generative-ui/frontend-cards/harness/page.tsx', startLine: 1, endLine: 40 }],
+    extraTabs: [{ filePath: 'frontend/app/generative-ui/frontend-cards/harness/page.tsx', startLine: 1, endLine: 38 }],
     prompt: "-",
   },
   {
@@ -285,7 +285,7 @@ export const PAGES = definePages([
   {
     id: 'a2ui-advanced', name: 'Generative UI - A2UI Advanced', videoName: 'A2UIAdvanced',
     docPath: 'generative-ui/a2ui/advanced', route: 'generative-ui/a2ui/advanced',
-    ideFile: 'frontend/hooks/use-a2ui-progress.tsx', startLine: 1, endLine: 24,
+    ideFile: 'frontend/hooks/use-a2ui-progress.tsx', startLine: 1, endLine: 22,
     prompt: "Show me my sales dashboard for this quarter.",
     timeouts: { replyStartMs: 180000, replyStreamMs: 180000 },
   },
@@ -320,7 +320,7 @@ export const PAGES = definePages([
   {
     id: 'components-surfaces', name: 'Generative UI - Components: Surfaces', videoName: 'ComponentsSurfaces',
     docPath: 'generative-ui/components/surfaces', route: 'generative-ui/components-sub/surfaces',
-    ideFile: 'frontend/app/generative-ui/components-sub/surfaces/page.tsx', startLine: 10, endLine: 50,
+    ideFile: 'frontend/app/generative-ui/components-sub/surfaces/page.tsx', startLine: 10, endLine: 47,
     prompt: "Show cheap running shoes in the featured products area.",
     timeouts: { replyStartMs: 180000, replyStreamMs: 180000 },
   },
@@ -341,7 +341,7 @@ export const PAGES = definePages([
   {
     id: 'components-state-actions', name: 'Generative UI - Components: State and actions', videoName: 'ComponentsStateActions',
     docPath: 'generative-ui/components/state-and-actions', route: 'generative-ui/components-sub/state-and-actions',
-    ideFile: 'frontend/app/generative-ui/components-sub/state-and-actions/catalog.tsx', startLine: 16, endLine: 56,
+    ideFile: 'frontend/app/generative-ui/components-sub/state-and-actions/catalog.tsx', startLine: 16, endLine: 53,
     prompt: "Show me product cards for productId shoe-1 named Runner and productId shoe-2 named Trail.",
     timeouts: { replyStartMs: 180000, replyStreamMs: 180000 },
   },
@@ -430,22 +430,22 @@ export const PAGES = definePages([
   {
     id: 'components-standard-catalog', name: 'Generative UI - Components: Standard catalog', videoName: 'ComponentsStandardCatalog',
     docPath: 'generative-ui/components/standard-catalog', route: 'generative-ui/components-sub/standard-catalog',
-    ideFile: 'frontend/app/generative-ui/components-sub/standard-catalog/page.tsx', startLine: 1, endLine: 22,
+    ideFile: 'frontend/app/generative-ui/components-sub/standard-catalog/page.tsx', startLine: 1, endLine: 21,
     prompt: "Show a table of three plans with their price and seats, and a bar chart of the prices.",
     timeouts: { replyStartMs: 180000, replyStreamMs: 180000 },
   },
   {
     id: 'components-from-a2ui', name: 'Generative UI - Components: Adopt from A2UI', videoName: 'ComponentsFromA2UI',
     docPath: 'generative-ui/components/from-a2ui', route: 'generative-ui/components-sub/from-a2ui',
-    ideFile: 'frontend/app/generative-ui/components-sub/from-a2ui/page.tsx', startLine: 1, endLine: 40,
+    ideFile: 'frontend/app/generative-ui/components-sub/from-a2ui/page.tsx', startLine: 1, endLine: 37,
     prompt: "Show my flight from SFO (San Francisco) to JFK (New York) with the Airport and Arrow components.",
     timeouts: { replyStartMs: 180000, replyStreamMs: 180000 },
   },
   {
     id: 'rendering-in-app', name: 'Shared State - Render agent state in your app', videoName: 'RenderAgentState',
     docPath: 'shared-state/rendering-in-app', route: 'shared-state/rendering-in-app/harness',
-    ideFile: 'frontend/components/Canvas.tsx', startLine: 26, endLine: 66,
-    extraTabs: [{ filePath: 'frontend/app/shared-state/rendering-in-app/page.tsx', startLine: 1, endLine: 20 }],
+    ideFile: 'frontend/components/Canvas.tsx', startLine: 26, endLine: 55,
+    extraTabs: [{ filePath: 'frontend/app/shared-state/rendering-in-app/page.tsx', startLine: 1, endLine: 18 }],
     prompt: "Hi! What can you see?",
   },
   {
@@ -462,7 +462,8 @@ export const PAGES = definePages([
   },
   {
     id: 'configurable', name: 'Agent Capabilities - Configurable', videoName: 'Configurable',
-    docPath: 'configurable', route: '', docOnly: true, docViewDurationMs: 45000,
+    // Doc-only finding clip (#15): doc read, then the faulty TypeScript block highlighted + Notepad.
+    docPath: 'configurable', route: '', docOnly: true, docOnlyAction: true, docViewDurationMs: 20000,
     ideFile: 'frontend/VERSIONS.md', startLine: 1, endLine: 5,
     prompt: '-',
   },
@@ -486,7 +487,7 @@ export const PAGES = definePages([
   {
     id: 'prebuilt-components-copilot-threads-drawer', name: 'Prebuilt Components - Threads Drawer', videoName: 'ThreadsDrawer',
     docPath: 'prebuilt-components/copilot-threads-drawer', route: 'threads-drawer',
-    ideFile: 'frontend/app/threads-drawer/page.tsx', startLine: 1, endLine: 20,
+    ideFile: 'frontend/app/threads-drawer/page.tsx', startLine: 1, endLine: 22,
     prompt: 'Say hi in five words.',
   },
   {

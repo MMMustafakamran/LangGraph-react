@@ -1,0 +1,46 @@
+{
+ "clip": "LANGGRAPH-react-12-Reasoning",
+ "finding": "11",
+ "segments": [
+  {
+   "at": "doc",
+   "text": "Ok so, this is the reasoning page in the CopilotKit docs, for LangGraph TypeScript, and I have implemented this page in my project."
+  },
+  {
+   "at": "ide",
+   "text": "This is my project, the exact page code from the doc, on CopilotKit one point eighty-four point one."
+  },
+  {
+   "at": "demo",
+   "text": "Moving on to the demo."
+  },
+  {
+   "at": "action",
+   "text": "So I asked it what is seventeen times twenty-three, think step by step. Umm, the page only gives the frontend, so the agent behind it is the showcase reasoning agent."
+  },
+  {
+   "at": "error",
+   "text": "The answer comes back, three ninety-one. But then the chat shows an error, cannot send run finished while text messages are still active."
+  },
+  {
+   "at": "evidence#1",
+   "text": "So back on the doc, this is the only code on the page. It uses the reasoning default agent, but uh, the page never shows that agent or which model it runs."
+  },
+  {
+   "at": "evidence#2",
+   "text": "And this line says no configuration is needed, the card just appears. Basically that's not what happens here."
+  },
+  {
+   "at": "notepad",
+   "text": "So basically, every answer ends with this run finished error in the chat. And since the page only has the frontend part, I had to use the showcase reasoning agent, which is gpt five mini on the responses API. Umm, nothing on the page tells you how to set up the backend for it."
+  },
+  {
+   "at": "failure",
+   "text": "And this is the terminal with the frontend log. Yeah, it's the same error there, cannot send run finished while text messages are still active. Umm, the runtime calls it an incomplete stream, so the run never really finishes cleanly, even though the answer was already on screen."
+  },
+  {
+   "at": "+",
+   "text": "That's what's breaking here, kindly have it fixed."
+  }
+ ]
+}

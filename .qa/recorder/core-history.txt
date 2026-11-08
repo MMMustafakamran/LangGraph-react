@@ -38,3 +38,7 @@ a82bef01641c7ce9  doctor.ts
 04adc0c13cff7142  engine.ts
 c7778c541eda201d  failure-evidence.ts
 4927b02c1ada9611  failure-evidence.ts
+# 2026-11-08: before docOnlyAction + "rendered nothing" grep (LangGraph-react finding clips)
+8a634766e19d4643  engine.ts
+bb845b1de4e85b04  failure-terminal.ts
+714292cd691a7baf  types.ts

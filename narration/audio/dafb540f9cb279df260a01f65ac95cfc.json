@@ -1,0 +1,9 @@
+{
+ "text": "And the log says the agent called render UI and no renderer is registered, so it rendered nothing. So basically the agent response does not render at all, not in the chat and not as generative UI. Same as the catalogs and surfaces pages.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 16.3,
+ "file": "dafb540f9cb279df260a01f65ac95cfc.mp3",
+ "clip": "LANGGRAPH-react-46-ComponentsStateActions",
+ "at": "notepad"
+}

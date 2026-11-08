@@ -69,6 +69,20 @@ When a page's published agent fails **only** because of a `temperature` value th
 
 Lesson learned: many rows were marked ⚠️ when the feature didn't work (e.g. the agent says it rendered a card and no card appears). That is ❌. If in doubt whether the main feature works, it is ❌.
 
+## 8a. Blockers only (owner, 2026-11-08)
+
+Only **blockers** are explained in clips and in the report. Everything else is a minor note in `FINDINGS.md` and nowhere else. The goal: never miss a big bug, never spend owner time explaining a small one.
+
+| Level | When | Clip | Report row | FINDINGS.md |
+|---|---|---|---|---|
+| **Blocker ❌** | The page's main feature does not work when you follow the page: crash, server won't start, nothing renders, the agent never replies, code missing so the page can't be built | Full finding clip: demo → doc highlight → Notepad → narration | ❌ + one `Issue:` line (or the hard-failure block) | Full entry (Dev blockers) |
+| **Minor** | Anything a developer fixes in seconds or never notices: missing import / `"use client"` / helper, type or build-only errors, env not loaded, `temperature`, wrong comments, cosmetic | Plain working clip: no Notepad, no highlight, no narration | ✅ `Working`, no notes | One line under *Minor notes* |
+
+- **Obvious tiny fixes are allowed** to reach a working page (a missing import, `"use client"`, an undefined helper with an obvious body, the temperature line): make them as `HARNESS` lines and log a minor note. Anything that needs guesswork (missing component logic, missing backend, wrong framework code) stays a blocker.
+- **Anchor on the QA team's testing doc** (see REPORT.md): team ✅ and ours works → ✅. Team ⚠️/❌ and ours fails the same way → report it with **their wording**. Team ✅ but our clip shows a real blocker → a *new big bug*: show the owner first; full clip only after approval. Team ⚠️/❌ but ours works → ✅ ("now working").
+- `⚠️` only where the team already reported ⚠️ and our clip shows the same thing.
+- Narration is generated only for ❌ clips.
+
 ## 9. Scope: reachable pages only
 
 We test as the human reviewer the company asked for: we were given the docs link for a framework and told to test it the way a reader uses it. Scope is what a person can reach by clicking through the docs, not every URL that exists.

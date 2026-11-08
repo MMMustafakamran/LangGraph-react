@@ -1,38 +1,50 @@
 {
  "clip": "LANGGRAPH-react-13-Components",
- "finding": "9,10",
+ "finding": "10",
  "segments": [
   {
    "at": "doc",
-   "text": "Ok so, this is the components and surfaces page in the CopilotKit docs, for LangGraph TypeScript. And umm, I have implemented this page in my project."
+   "text": "Ok so, this is the components and surfaces page in the CopilotKit docs, for LangGraph TypeScript, and I have implemented this page in my project. So, umm, let me show you what happens."
   },
   {
    "at": "ide",
-   "text": "This is my project, with the exact provider code from step three."
+   "text": "This is my project, the exact provider and page code from the doc, on CopilotKit one point eighty-four point one."
   },
   {
    "at": "demo",
-   "text": "Moving on to the demo. So first, the page didn't even compile, because standard UI needs maplibre gl, and no step installs it. After installing it myself, the page loads, but then it crashes saying, uh, agent default was not found. So you can't see any generated UI at all. This is with a normal quickstart app, which is exactly what the page says you can use, if you only do step three. So the error you see here is basically what anyone following the page would hit. And umm, there's nothing on the page that tells you why, or what to change, so you're kind of stuck at this point."
+   "text": "Now the demo."
+  },
+  {
+   "at": "action",
+   "text": "So I sent the exact prompt from the doc, compare the Starter, Team, and Enterprise plans in a table. Umm, the doc says a real table component fills in while the agent writes."
+  },
+  {
+   "at": "+",
+   "text": "But the agent just answers in plain text, it asks which product I mean. No component renders in the chat, nothing at all, and I gave it plenty of time."
+  },
+  {
+   "at": "+",
+   "text": "So yeah, just a text answer, where the doc promised a real table."
   },
   {
    "at": "evidence#1",
-   "text": "So look at the install line here. There's no maplibre in it, but the standard catalog needs it, so the page just doesn't compile."
+   "text": "So back on the doc, this is the line that promises the table. It says the table fills in while the agent writes it, and that it is a real component. Umm, that is not what happens here at all."
   },
   {
    "at": "evidence#2",
-   "text": "And this says, already have CopilotKit running, do step three only. But step three alone crashes a quickstart app."
-  },
-  {
-   "at": "evidence#3",
-   "text": "Because the provider here has no agent ID. So it looks for an agent called default, and the quickstart only registers sample agent. Umm, and even with the agent set, the quickstart agent doesn't use the run's tools."
+   "text": "And uh, this is the only part about the agent. It only says what a LangGraph Python agent needs, the CopilotKit middleware. There is nothing for a LangGraph JS agent."
   },
   {
    "at": "notepad",
-   "text": "So quick summary. Standard UI needs maplibre, which no step installs. Doing step three only crashes, because there's no agent ID, so it looks for default. And even then, the quickstart agent ignores the run's tools, so nothing renders. And the page never says how to wire a LangGraph agent for this. So uh, following the page, you never get to see a single component."
+   "text": "So basically, following this page with a LangGraph TypeScript agent, the response doesn't render as generative UI, you just get plain text. And the page never says how to wire a JS agent for it. Also, the provider has no agent ID, so here default points at the quickstart sample agent."
   },
   {
-   "at": "notepad-closed",
-   "text": "So yeah, that's what's broken on this page. That's the problem here, please have a look at it."
+   "at": "failure",
+   "text": "And this is the terminal, with the frontend and agent logs from the run. Umm, there's no error that explains it, the run itself goes through fine, it just never renders a component. The logs just show the run finishing, no component."
+  },
+  {
+   "at": "+",
+   "text": "So yeah, this is the issue, kindly fix it."
   }
  ]
 }

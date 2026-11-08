@@ -1,0 +1,9 @@
+{
+ "text": "And the page's own warning says, if the agent id doesn't match, uh, the interrupt will never fire. So following the doc, it just doesn't fire.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 10.681,
+ "file": "e58572fde5359d8a96642cd603e7c4d4.mp3",
+ "clip": "LANGGRAPH-react-06-InterruptFlow",
+ "at": "+"
+}

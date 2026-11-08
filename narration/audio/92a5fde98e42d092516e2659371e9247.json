@@ -1,0 +1,9 @@
+{
+ "text": "So basically, nothing here shows how a CopilotKit app passes that context through the LangGraph agent, which is the setup the quickstart builds. So umm, from this page alone, you can't really wire it up. Alright, that's the issue, kindly sort it out.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 19.365,
+ "file": "92a5fde98e42d092516e2659371e9247.mp3",
+ "clip": "LANGGRAPH-react-65-Configurable",
+ "at": "notepad"
+}

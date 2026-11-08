@@ -1,0 +1,9 @@
+{
+ "text": "So look at this part. The provider here has no agent at all. So the chat goes looking for an agent called default, and umm, the quickstart only registers sample agent. That's why the page crashes.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 14.629,
+ "file": "f460d70268e9b1259abb173104b346cc.mp3",
+ "clip": "LANGGRAPH-react-33-FrontendCards",
+ "at": "evidence#1"
+}

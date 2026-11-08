@@ -1,0 +1,9 @@
+{
+ "text": "And here's the terminal, the frontend log ends with that render UI line, rendered nothing. So the run finishes fine, the UI just never shows.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 10.867,
+ "file": "8122d74ab740b1b4c3fa9dc061a942a4.mp3",
+ "clip": "LANGGRAPH-react-46-ComponentsStateActions",
+ "at": "failure"
+}

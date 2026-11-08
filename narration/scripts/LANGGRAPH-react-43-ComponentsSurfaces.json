@@ -1,0 +1,50 @@
+{
+ "clip": "LANGGRAPH-react-43-ComponentsSurfaces",
+ "finding": "32",
+ "segments": [
+  {
+   "at": "doc",
+   "text": "Ok so, this is the surfaces page in the CopilotKit docs, for LangGraph TypeScript, and I have implemented this code in my project. Umm, let us see how it goes."
+  },
+  {
+   "at": "ide",
+   "text": "My project, the exact page target code from the doc, CopilotKit one point eighty-four point one."
+  },
+  {
+   "at": "demo",
+   "text": "Now the demo."
+  },
+  {
+   "at": "action",
+   "text": "So I asked it to show cheap running shoes in the featured products area. The agent is a LangGraph JS graph that passes the run's tools and context, since the docs don't show one."
+  },
+  {
+   "at": "+",
+   "text": "And the featured row just keeps its fallback, the tee and the tote. Umm, the chat reply is empty too, so nothing renders anywhere."
+  },
+  {
+   "at": "+",
+   "text": "So basically, the agent did run, but nothing it sent shows up. The row should have swapped to a product grid with cards."
+  },
+  {
+   "at": "+",
+   "text": "Yeah, still the tee and the tote."
+  },
+  {
+   "at": "evidence#1",
+   "text": "So the doc says, show me cheap running shoes swaps the row. Uh, here it does not swap anything, the fallback just stays."
+  },
+  {
+   "at": "notepad",
+   "text": "And the log says the agent called render UI, but no renderer is registered, so it rendered nothing. So yeah, the agent's response is not rendering, not in the chat and not in the page target. Same problem as the state and actions page."
+  },
+  {
+   "at": "failure",
+   "text": "And this is the terminal with the frontend log, the last line is that same render UI warning, it rendered nothing. So the run finishes, but the surface never renders."
+  },
+  {
+   "at": "+",
+   "text": "That's the problem here, please have a look."
+  }
+ ]
+}

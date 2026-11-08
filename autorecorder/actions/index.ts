@@ -23,6 +23,10 @@ import {
   runTempNotePickSlotAction,
   runFrontendCardsAction,
   runKeyboardSendAction,
+  runGenuiFindingAction,
+  runDocOnlyFindingAction,
+  runReasoningFindingAction,
+  runA2uiDynamicFindingAction,
   SCRIPTED,
 } from './langgraph.actions';
 
@@ -35,8 +39,9 @@ export const ACTION_MAP: Record<string, PageActionHandler> = {
   'interrupt-flow': runInterruptFlowAction,
   'shared-state': runSharedStateAction,
   inspector: runInspectorAction,
-  reasoning: runStandardWithFinding,
-  components: runStandardWithFinding,
+  reasoning: runReasoningFindingAction,
+  'a2ui-dynamic': runA2uiDynamicFindingAction,
+  components: runGenuiFindingAction,
   'mcp-apps': runStandardWithFinding,
   subagents: runStandardWithFinding,
   'frontend-tools-fixed': runFrontendToolsFixedAction,
@@ -46,12 +51,12 @@ export const ACTION_MAP: Record<string, PageActionHandler> = {
   'headless-ui': runKeyboardSendAction,
   'json-render': runKeyboardSendAction,
   'a2ui-fixed': runKeyboardSendAction,
-  'components-catalogs': runKeyboardSendAction,
-  'components-surfaces': runKeyboardSendAction,
+  'components-catalogs': runGenuiFindingAction,
+  'components-surfaces': runGenuiFindingAction,
   'components-theming': runKeyboardSendAction,
   'components-standard-catalog': runKeyboardSendAction,
   'components-from-a2ui': runKeyboardSendAction,
-  'components-state-actions': runKeyboardSendAction,
+  'components-state-actions': runGenuiFindingAction,
   'components-markdown-mode': runKeyboardSendAction,
   'hashbrown': runKeyboardSendAction,
   display: runTempNoteAction,
@@ -64,6 +69,7 @@ export const ACTION_MAP: Record<string, PageActionHandler> = {
   'tool-based': runTempNoteAction,
   'reasoning-messages': runStandardWithFinding,
   'rendering-in-app': runStandardWithFinding,
+  configurable: runDocOnlyFindingAction, // docOnlyAction: doc evidence + Notepad after the doc read
   // Scripted takes override the entries above.
   ...SCRIPTED,
 };
@@ -74,7 +80,7 @@ export async function executePageAction(
   rootPath: string,
   ctx: ActionContext,
 ): Promise<void> {
-  await waitForPageReady(page, { label: config.id });
+  if (!config.docOnly) await waitForPageReady(page, { label: config.id });
 
   const handler = ACTION_MAP[config.id] ?? runStandardAction;
   await handler(page, config, rootPath, ctx);

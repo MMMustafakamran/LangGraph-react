@@ -1,0 +1,9 @@
+{
+ "text": "So basically, following this page with a LangGraph TypeScript agent, the response doesn't render as generative UI, you just get plain text. And the page never says how to wire a JS agent for it. Also, the provider has no agent ID, so here default points at the quickstart sample agent.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 20.666,
+ "file": "de84672f1c82004e274381feb3905b44.mp3",
+ "clip": "LANGGRAPH-react-13-Components",
+ "at": "notepad"
+}

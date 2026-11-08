@@ -68,24 +68,14 @@ export const FINDING_NOTES: Record<string, string> = {
     '',
     'once thats wired up it works, asks for a name and uses it',
   ].join('\n'),
-  reasoning: [
-    'reasoning (#11)',
-    '',
-    'page only shows frontend code, no model / agent behind "reasoning-default"',
-    'used the showcase agent',
-    '',
-    'answer shows up but chat also throws',
-    '"cannot send RUN_FINISHED while text messages are still active"',
-  ].join('\n'),
+  // reasoning (#11): see the block next to runReasoningFindingAction.
+  // Owner 2026-11-08: blockers only. The clip explains the render failure, nothing else.
   components: [
-    'components + surfaces (#9, #10)',
-    '',
-    'standardUI needs maplibre-gl and the install step doesnt add it',
-    '"do step 3 only" -> provider has no agentId so it looks for "default"',
-    'quickstart only has "sample_agent" so the page just crashes',
-    '',
-    'with agentId set the langgraph agent gives a markdown table, no component',
-    'nothing on the page says how to wire a langgraph js agent for this',
+    'components and surfaces (#10)',
+    'doc says the table fills in as a real component',
+    'here the agent just answers in plain text, no component renders',
+    'the page only says what a langgraph python agent needs (CopilotKitMiddleware), nothing for langgraph js',
+    'provider has no agentId so "default" points at the quickstart sample_agent here',
   ].join('\n'),
   'mcp-apps': [
     'mcp apps (#12)',
@@ -143,13 +133,12 @@ export const FINDING_EVIDENCE: Record<string, DocEvidence[]> = {
     },
     { text: 'agentId: "starterAgent"', caption: '"starterAgent" - the quickstart registers "sample_agent"' },
   ],
-  reasoning: [
-    { text: 'const AGENT_ID = "reasoning-default";', caption: 'Only frontend code - the page never shows the agent or model behind it' },
-  ],
   components: [
-    { text: 'npm install @copilotkit/react-core @copilotkit/runtime @tanstack/ai', caption: 'No maplibre-gl here, but standardUI needs it: Module not found' },
-    { text: 'Already have CopilotKit running? Do step 3 only.', caption: 'Step 3 alone crashes a quickstart app: agent "default" not found' },
-    { text: 'generativeUI={{ ui: standardUI }}', caption: 'No agentId: the provider looks for an agent named "default"' },
+    { text: 'The table fills in while the agent writes it.', caption: 'The doc promises a real table component' },
+    {
+      text: "Your agent must pass the run's tools and context to its model, as in step 2. For a LangGraph Python agent, add CopilotKitMiddleware.",
+      caption: 'Only a Python agent is covered: nothing on how a LangGraph JS agent gets render_ui',
+    },
   ],
   'mcp-apps': [
     { text: '"https://mcp.excalidraw.com"', caption: 'This URL redirects (308) - MCP tool discovery fails' },
@@ -159,6 +148,39 @@ export const FINDING_EVIDENCE: Record<string, DocEvidence[]> = {
     { text: 'new ChatOpenAI({ temperature: 0, model: "gpt-5-mini" })', caption: 'gpt-5-mini rejects temperature: 0 - the supervisor run fails' },
   ],
 };
+
+/**
+ * A match that is in the DOM but hidden usually sits in an inactive tab panel (React/Angular,
+ * Python/TypeScript). Click the tab that controls that panel, the way a reader would, so the
+ * highlight never silently skips (zero-length evidence segment). Returns true if a tab was clicked.
+ */
+async function revealHiddenMatch(page: Page, text: string): Promise<boolean> {
+  const tabIndex = await page
+    .evaluate((needle) => {
+      const panels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
+      for (const panel of panels) {
+        if (!(panel.textContent ?? '').includes(needle)) continue;
+        const r = (panel as HTMLElement).getBoundingClientRect();
+        if (r.width > 0 && r.height > 0) continue; // already visible
+        const id = panel.getAttribute('id');
+        const labelled = panel.getAttribute('aria-labelledby');
+        const tab =
+          (id && document.querySelector(`[role="tab"][aria-controls="${CSS.escape(id)}"]`)) ||
+          (labelled && document.getElementById(labelled));
+        if (tab) return Array.from(document.querySelectorAll('[role="tab"]')).indexOf(tab);
+      }
+      return -1;
+    }, text)
+    .catch(() => -1);
+  if (tabIndex < 0) return false;
+  const tab = page.locator('[role="tab"]').nth(tabIndex);
+  if (!(await tab.isVisible().catch(() => false))) return false;
+  console.log(`   🗂️ Evidence is behind a tab: clicking "${(await tab.innerText().catch(() => '')).trim()}"`);
+  await wheelIntoView(page, tab);
+  await glideClick(page, tab);
+  await sleep(1200);
+  return true;
+}
 
 async function findEvidence(page: Page, text: string) {
   // First visible match: the snippet a finding cites is the first place the doc shows it
@@ -190,9 +212,12 @@ export async function showDocEvidence(
   // are detached before the doc revisit (Antigravity FINDINGS.md #48).
   page.removeAllListeners('pageerror');
   page.removeAllListeners('console');
-  await page.goto(config.docUrl, { waitUntil: 'domcontentloaded', timeout: 45000 });
-  await ensureOverlays(page, 'chrome');
-  await waitForHydration(page, 15000).catch(() => false);
+  // A doc-only take is already on the doc page: scroll back up instead of reloading it.
+  if (page.url().split('#')[0].replace(/\/$/, '') !== config.docUrl.replace(/\/$/, '')) {
+    await page.goto(config.docUrl, { waitUntil: 'domcontentloaded', timeout: 45000 });
+    await ensureOverlays(page, 'chrome');
+    await waitForHydration(page, 15000).catch(() => false);
+  }
   await sleep(1500);
 
   for (const item of items) {
@@ -205,10 +230,12 @@ export async function showDocEvidence(
         await sleep(1200);
       }
     }
-    const target = await findEvidence(page, item.text);
+    let target = await findEvidence(page, item.text);
+    if (!target && (await revealHiddenMatch(page, item.text))) target = await findEvidence(page, item.text);
     void checkpoint('evidence', `doc shows "${item.text}"`, () => (target ? probeText(target) : null));
     if (!target) {
-      console.warn(`   ⚠️ Evidence not found on the doc page: "${item.text}"`);
+      // Loud on purpose: a missing highlight means the doc text changed (or the evidence is wrong).
+      console.error(`   ❌ EVIDENCE NOT FOUND on the doc page (no highlight in the clip): "${item.text}"`);
       continue;
     }
     console.log(`   👉 ${item.caption}`);
@@ -236,8 +263,12 @@ async function wheelIntoView(page: Page, target: Locator, text?: string): Promis
     // block first, then the page, the same as a person scrolling over it.
     const textY = text ? await textCentreY(target, text) : null;
     const centre = textY ?? box.y + Math.min(box.height, 120) / 2;
-    const overX = box.x + Math.min(box.width / 2, 260);
-    const overY = Math.min(Math.max(box.y + 40, 160), Math.min(box.y + box.height - 20, 900));
+    // Keep the cursor on screen: a target far above or below the viewport has a box outside it,
+    // and a wheel over a point off screen scrolls nothing (the scroll loop then ran ~45 s and
+    // the highlight came late or never).
+    const clamp = (v: number, lo: number, hi: number) => Math.min(Math.max(v, lo), hi);
+    const overX = clamp(box.x + Math.min(box.width / 2, 260), 120, 1700);
+    const overY = clamp(Math.min(Math.max(box.y + 40, 160), Math.min(box.y + box.height - 20, 900)), 160, 900);
     const { x, y } = getGlobalCursorPos();
     if (Math.abs(x - overX) > 60 || Math.abs(y - overY) > 60) await humanGlide(page, overX, overY);
     const off = centre - 470;
@@ -273,9 +304,17 @@ async function locateText(target: Locator, text: string): Promise<TextSpan | nul
         nodes.push(n as Text);
         full += (n as Text).data;
       }
-      for (let at = full.indexOf(needle); at >= 0; at = full.indexOf(needle, at + 1)) {
+      // Prose wraps in the source (a newline + indent where the needle has one space), so any
+      // run of whitespace in the needle matches any run of whitespace on the page.
+      const pattern = new RegExp(
+        needle.split(/\s+/).map((w) => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('\\s+'),
+        'g',
+      );
+      for (let m = pattern.exec(full); m; m = pattern.exec(full)) {
+        const at = m.index;
+        pattern.lastIndex = at + 1;
         const rects: DOMRect[] = [];
-        for (const pos of [at, at + needle.length - 1]) {
+        for (const pos of [at, at + m[0].length - 1]) {
           let acc = 0;
           for (const node of nodes) {
             if (pos < acc + node.data.length) {
@@ -948,6 +987,332 @@ export const SCRIPTED: Record<string, PageActionHandler> = {
     { prompt: 'Show me my sales dashboard for this quarter.' },
     { waitGone: 'Building interface', timeoutMs: 300000 },
   ]),
+};
+
+// ---------------------------------------------------------------------------------------------
+// Generative UI "Components" pages (owner, 2026-11-08: blockers only). Team wording: "The agent's
+// response is not rendering in the chatbot area or in the Generative UI (Inspector)." The take
+// sends the prompt, waits for the run to finish, then gives the UI a few seconds to render. No new
+// generative-UI surface = the feature did not work (ctx.fail), and the finding closes the take.
+// If a surface does render, the take passes and NO finding is typed (it would not be true).
+// ---------------------------------------------------------------------------------------------
+const GENUI_HARNESS_LINE = "agent is a harness langgraph js graph that passes the run's tools + context, the docs dont show one";
+Object.assign(FINDING_NOTES, {
+  'components-catalogs': [
+    'catalogs (same problem as #32)',
+    'asked for two running shoes as product cards',
+    'the reply bubble stays empty and no ProductCard renders',
+    'log says the agent called render_ui and no renderer is registered, so it rendered nothing',
+    GENUI_HARNESS_LINE,
+  ].join('\n'),
+  'components-surfaces': [
+    'surfaces (same problem as #32)',
+    'doc says "show me cheap running shoes" swaps the featured row',
+    'the row keeps its fallback and the chat reply is empty',
+    'log says the agent called render_ui and no renderer is registered, so it rendered nothing',
+    GENUI_HARNESS_LINE,
+  ].join('\n'),
+  'components-state-actions': [
+    'state and actions (#32)',
+    'asked for product cards for shoe-1 and shoe-2',
+    'the reply is empty and no ProductCard renders, so no cart count and no add to cart',
+    'log says the agent called render_ui and no renderer is registered, so it rendered nothing',
+    GENUI_HARNESS_LINE,
+  ].join('\n'),
+  configurable: [
+    'configurable (#15)',
+    'the typescript tab only shows graph.invoke(input, { context: ... }) on the backend',
+    'theres no frontend code at all',
+    'nothing shows how a copilotkit app passes that context through LangGraphAgent',
+    'so you cant wire this up from the page',
+  ].join('\n'),
+});
+Object.assign(FINDING_EVIDENCE, {
+  'components-catalogs': [
+    { text: 'The agent gets the descriptions and the schemas.', caption: 'The agent should get the catalog and render from it' },
+    { text: 'generativeUI={{ ui: shopUI }}', caption: 'The catalog is given to the provider as shown - nothing renders' },
+  ],
+  'components-surfaces': [
+    { text: 'Now "show me cheap running shoes" swaps the row', caption: 'Promised: the featured row swaps - it keeps the fallback' },
+  ],
+  'components-state-actions': [
+    {
+      text: 'It must show how many of the product are in the cart, add to the cart when the user clicks',
+      caption: 'Promised: a product card with cart count and add to cart - no card renders',
+    },
+    { text: 'useGenerativeUIState(shopUI, "cart", { items: cart.items });', caption: 'State given as shown - no card to bind it to' },
+  ],
+  configurable: [
+    {
+      text: 'Set runtime context and execution controls where your trusted backend invokes the graph.',
+      caption: 'TypeScript tab: backend graph.invoke only',
+      clickTab: 'TypeScript',
+    },
+    { text: 'context: { tenantId: verifiedTenantId },', caption: 'No frontend code: nothing shows how CopilotKit passes this context', clickTab: 'TypeScript' },
+  ],
+});
+
+const SURFACE_SEL = '[data-generative-ui-surface], .a2ui-surface';
+const surfaceCount = (page: Page) =>
+  page.evaluate((sel) => document.querySelectorAll(sel).length, SURFACE_SEL).catch(() => 0);
+
+/** Send the prompt, wait for the run to end, then check that generated UI rendered. */
+const genuiTake: PageActionHandler = async (page, config, _root, ctx) => {
+  const input = page.locator('textarea:visible, [contenteditable="true"]:visible').first();
+  await input.waitFor({ state: 'visible', timeout: 60000 });
+  await sleep(2000);
+  const before = await surfaceCount(page);
+  const seenWarn: { text: string | null } = { text: null };
+  page.on('console', (m) => {
+    const text = m.text();
+    if (seenWarn.text === null && /render_ui/.test(text) && /rendered nothing/.test(text)) seenWarn.text = text;
+  });
+  // The run is one streamed POST to the runtime (/api/copilotkit/agent/<id>/run); it finishes
+  // when the agent run ends, whatever the agent sent.
+  const runDone = page
+    .waitForEvent('requestfinished', { predicate: (r) => /\/agent\/[^/]+\/run/.test(r.url()), timeout: 180000 })
+    .then(() => true)
+    .catch(() => false);
+  await glideClick(page, input);
+  await sleep(300);
+  await page.keyboard.type(config.prompt, { delay: 45 });
+  logAction('type', describe(input), 'ok', { text: config.prompt });
+  await sleep(400);
+  await page.keyboard.press('Enter');
+  logAction('key', 'Enter');
+  const appeared = page
+    .waitForFunction(
+      ({ sel, n }) => document.querySelectorAll(sel).length > n,
+      { sel: SURFACE_SEL, n: before },
+      { timeout: 180000, polling: 500 },
+    )
+    .then(() => 'surface' as const)
+    .catch(() => null);
+  const first = await Promise.race([
+    appeared,
+    runDone.then(() => 'done' as const),
+    errorBanner(page).waitFor({ state: 'visible', timeout: 180000 }).then(() => 'error' as const).catch(() => null),
+  ]);
+  if (first === 'error') {
+    mark('error');
+    await showErrorBanner(page);
+    void checkpoint('error', 'run error details visible', bannerText(page));
+    ctx.fail('The run failed with an error banner (see the details shown in the clip).');
+    return;
+  }
+  // The run ended: give the UI time to finish rendering, as a person would wait.
+  if (first !== 'surface') await Promise.race([appeared, sleep(10000)]);
+  await sleep(first === 'surface' ? 6000 : 1500);
+  const after = await surfaceCount(page);
+  const reply = await lastReply(page)();
+  void checkpoint('reply', 'agent reply text', async () => reply);
+  void checkpoint('surface', 'generative-UI surface rendered', async () =>
+    after > before ? `${after - before} new surface(s)` : null,
+  );
+  if (after > before) {
+    ctx.warn('A generative-UI surface rendered in this take: the known failure did not reproduce.');
+    await sleep(2500);
+    return;
+  }
+  // Rest on the result so the viewer can see that nothing rendered.
+  const last = page.locator(SELECTORS.assistantMessage).last();
+  if (await last.isVisible().catch(() => false)) await glideTo(page, last, 2500);
+  else await sleep(2500);
+  await idleNudge(page);
+  await sleep(1500);
+  const seen = seenWarn.text;
+  ctx.fail(
+    seen
+      ? `Nothing rendered. Browser console: ${seen.slice(0, 220)}`
+      : `Nothing rendered: no generative-UI component after the run finished (reply: ${JSON.stringify((reply ?? '').slice(0, 120))}).`,
+  );
+};
+
+/** Like withFinding, but the finding is typed only when the take actually failed. */
+function withFindingOnFailure(handler: PageActionHandler): PageActionHandler {
+  return async (page, config, root, ctx) => {
+    let failed = false;
+    const tracking: ActionContext = {
+      ...ctx,
+      fail: (m: string) => {
+        failed = true;
+        ctx.fail(m);
+      },
+    };
+    try {
+      await handler(page, config, root, tracking);
+    } catch (e) {
+      failed = true;
+      throw e;
+    } finally {
+      if (failed) await writeFinding(page, config.id, config);
+    }
+  };
+}
+export const runGenuiFindingAction = withFindingOnFailure(genuiTake);
+
+// ---------------------------------------------------------------------------------------------
+// Reasoning (#11) and Dynamic Schema A2UI (#34): owner-approved blockers (2026-11-08). Both takes
+// wait for the whole run (one streamed POST to /agent/<id>/run), then look for the failure the
+// finding names. Seen -> ctx.fail with the on-screen text, and the finding closes the take.
+// Not seen -> the take passes and no Notepad is typed (it would not be true).
+// ---------------------------------------------------------------------------------------------
+Object.assign(FINDING_NOTES, {
+  reasoning: [
+    'reasoning (#11)',
+    'asked it 17 times 23, think step by step',
+    'the answer shows up but then the run ends with an error in the chat',
+    '"cannot send RUN_FINISHED while text messages are still active"',
+    'the page only shows frontend code, no agent or model behind "reasoning-default"',
+    'so i used the showcase reasoning agent (gpt-5-mini, responses api)',
+  ].join('\n'),
+  'a2ui-dynamic': [
+    'dynamic schema a2ui (#34)',
+    'asked "show my team performance", doc says the cards render as data comes in',
+    'only the title and intro text show up',
+    'card says "unable to display Card: title: invalid input: expected string, received undefined"',
+    'and the bar chart fails the same way on description',
+    'catalog + provider are the doc code as is',
+  ].join('\n'),
+});
+Object.assign(FINDING_EVIDENCE, {
+  reasoning: [
+    { text: 'const AGENT_ID = "reasoning-default";', caption: 'Only frontend code - the page never shows the agent or model behind it' },
+    {
+      text: 'No configuration is needed; if your model emits reasoning tokens, the card appears automatically:',
+      caption: 'Promised zero-config - the run ends in a RUN_FINISHED error',
+    },
+  ],
+  'a2ui-dynamic': [
+    { text: 'the agent can render any UI for any request without pre-defined schemas.', caption: 'Promised: any UI renders' },
+    { text: 'renders cards progressively as data items arrive.', caption: 'Promised: cards render - Card / BarChart fail validation' },
+  ],
+});
+
+/** True for the POST that carries an agent run (REST `/agent/<id>/run` or the single endpoint). */
+function isRunRequest(r: import('playwright').Request): boolean {
+  if (r.method() !== 'POST' || !/copilotkit/.test(r.url())) return false;
+  if (/\/agent\/[^/]+\/run/.test(r.url())) return true;
+  return /"method"\s*:\s*"agent\/run"/.test(r.postData() ?? '');
+}
+
+/**
+ * Type the prompt and send it with Enter; resolves when the agent run's POST finishes.
+ * Enter is ignored while the chat is still connecting to its runtime (the prompt stays in the
+ * box), so it is pressed again, the way a person would, until the box clears.
+ */
+async function sendAndAwaitRun(page: Page, prompt: string, timeoutMs: number): Promise<boolean> {
+  const input = page.locator('textarea:visible, [contenteditable="true"]:visible').first();
+  await input.waitFor({ state: 'visible', timeout: 60000 });
+  await sleep(2000);
+  const runDone = page
+    .waitForEvent('requestfinished', { predicate: isRunRequest, timeout: timeoutMs })
+    .then(() => true)
+    .catch(() => false);
+  await glideClick(page, input);
+  await sleep(300);
+  await page.keyboard.type(prompt, { delay: 45 });
+  logAction('type', describe(input), 'ok', { text: prompt });
+  await sleep(400);
+  for (let i = 0; i < 8; i++) {
+    await page.keyboard.press('Enter');
+    logAction('key', 'Enter');
+    await sleep(2500);
+    const left = (await input.inputValue().catch(() => '')).trim();
+    if (!left) break;
+    await input.focus().catch(() => {});
+    await sleep(1500);
+  }
+  return runDone;
+}
+
+/** Wait until the page text stops changing for `quietMs` (max `maxMs`). */
+async function waitForQuiet(page: Page, quietMs: number, maxMs: number): Promise<void> {
+  const start = Date.now();
+  let last = '';
+  let since = Date.now();
+  while (Date.now() - start < maxMs) {
+    const now = await page.evaluate(() => document.body.innerText).catch(() => '');
+    if (now !== last) {
+      last = now;
+      since = Date.now();
+    } else if (Date.now() - since >= quietMs) return;
+    await sleep(1000);
+  }
+}
+
+const RUN_FINISHED_RE = /Cannot send 'RUN_FINISHED'/i;
+
+/** Reasoning: the run must end without the RUN_FINISHED error, with a reply shown. */
+const reasoningTake: PageActionHandler = async (page, config, _root, ctx) => {
+  const done = await sendAndAwaitRun(page, config.prompt, 300000);
+  // Give the chat time to show whatever the run ended with.
+  const errText = page.getByText(RUN_FINISHED_RE).first();
+  const shown = await Promise.race([
+    errText.waitFor({ state: 'visible', timeout: 20000 }).then(() => 'text' as const),
+    errorBanner(page).waitFor({ state: 'visible', timeout: 20000 }).then(() => 'banner' as const),
+  ]).catch(() => null);
+  if (shown === 'banner') await showErrorBanner(page);
+  const visible = await errText.isVisible().catch(() => false);
+  void checkpoint('run', 'agent run finished', async () => done);
+  void checkpoint('error', 'no RUN_FINISHED error in the chat', () => probeText(errText), { ok: (seen) => !seen });
+  void checkpoint('reply', 'agent reply rendered', lastReply(page));
+  if (shown || visible) {
+    mark('error');
+    if (visible) await glideTo(page, errText, 3000);
+    await idleNudge(page);
+    await sleep(2500);
+    const quote = (await probeText(errText)) ?? (await bannerText(page)()) ?? '';
+    ctx.fail(`The chat shows an error after the run: ${String(quote).slice(0, 220)}`);
+    return;
+  }
+  if (!done) ctx.fail('The agent run never finished (5 min).');
+  await sleep(3000);
+};
+export const runReasoningFindingAction = withFindingOnFailure(reasoningTake);
+
+const UNABLE_RE = /Unable to display/i;
+
+/** Dynamic Schema A2UI: the generated surface must render without "Unable to display" errors. */
+const a2uiDynamicTake: PageActionHandler = async (page, config, _root, ctx) => {
+  const done = await sendAndAwaitRun(page, config.prompt, 300000);
+  // The surface finishes rendering after the stream closes: wait until the chat stops changing.
+  await waitForQuiet(page, 8000, 60000);
+  const errs = page.getByText(UNABLE_RE);
+  const n = await errs.count();
+  const quotes: string[] = [];
+  for (let i = 0; i < n && quotes.length < 4; i++) {
+    const t = ((await errs.nth(i).innerText().catch(() => '')) || '').trim();
+    if (t && !quotes.includes(t)) quotes.push(t.split('\n')[0]);
+  }
+  void checkpoint('run', 'agent run finished', async () => done);
+  void checkpoint('surface', 'A2UI surface rendered', async () => {
+    const s = await surfaceCount(page);
+    return s > 0 ? `${s} surface(s)` : null;
+  });
+  void checkpoint('render', 'no "Unable to display" component errors', async () => (quotes.length ? quotes.join(' | ') : null), {
+    ok: (seen) => !seen,
+  });
+  if (quotes.length) {
+    mark('error');
+    const first = errs.first();
+    await wheelIntoView(page, first, undefined);
+    await glideTo(page, first, 3000);
+    await idleNudge(page);
+    if (n > 1) await glideTo(page, errs.nth(n - 1), 3000);
+    await sleep(2000);
+    ctx.fail(`Generated components failed to render: ${quotes.join(' | ').slice(0, 300)}`);
+    return;
+  }
+  if (!done) ctx.fail('The agent run never finished (5 min).');
+  if ((await surfaceCount(page)) === 0) ctx.fail('No A2UI surface rendered after the run.');
+  await sleep(3000);
+};
+export const runA2uiDynamicFindingAction = withFindingOnFailure(a2uiDynamicTake);
+
+/** Doc-only finding (docOnlyAction): highlight the faulty text on the doc, then the Notepad note. */
+export const runDocOnlyFindingAction: PageActionHandler = async (page, config) => {
+  await writeFinding(page, config.id, config);
 };
 
 // humanizeNote: the shared hurried Notepad style lives in core/overlays/note-style.ts (AUTORECORDER.md section 2).

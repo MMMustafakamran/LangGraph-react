@@ -1,0 +1,9 @@
+{
+ "text": "And this step, divide state to input and output. This is basically the main point of the page, how to split what goes to the frontend and what stays internal. But both tabs, Python and TypeScript, are just empty. There's no code at all. So uh, you can't actually learn the input and output part from this page. And the new ChatOpenAI here also has no model set, so it just falls back to a default. So yeah, the page shows the state shape, and the answer node, but the actual workflow part, the input output split, is just missing. Umm, which is the one thing someone opening this page is looking for. You'd have to go to the LangGraph docs to figure it out yourself.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 38.715,
+ "file": "cf29b0c86348015043273a17fda2f4b4.mp3",
+ "clip": "LANGGRAPH-react-52-WorkflowExecution",
+ "at": "evidence#2"
+}

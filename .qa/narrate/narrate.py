@@ -60,16 +60,20 @@ def fish_key():
     k = os.environ.get("FISH_API_KEY", "").strip()
     if k:
         return k
-    p = _find_local(".env")
-    if p:
-        for line in open(p, encoding="utf8"):
-            if line.startswith("FISH_API_KEY="):
-                return line.split("=", 1)[1].strip()
-    sys.exit("error: FISH_API_KEY not set and not found in the workspace .env")
+    # Look through every .env above the cwd (and 4-private/), not just the first one found:
+    # other tools (e.g. the CopilotKit CLI) may drop their own .env higher up.
+    for d in _workspace_candidates():
+        for sub in _LOCAL_SUBDIRS:
+            p = os.path.join(d, sub, ".env") if sub else os.path.join(d, ".env")
+            if os.path.isfile(p):
+                for line in open(p, encoding="utf8"):
+                    if line.startswith("FISH_API_KEY="):
+                        return line.split("=", 1)[1].strip()
+    sys.exit("error: FISH_API_KEY not set and not found in any workspace .env (4-private/.env)")
 
 def ref_paths():
-    wav = os.environ.get("VOICE_REF_WAV") or _find_local(os.path.join("voice-private", "reference-20s.wav"))
-    txt = os.environ.get("VOICE_REF_TXT") or _find_local(os.path.join("voice-private", "reference-20s.txt"))
+    wav = os.environ.get("VOICE_REF_WAV") or _find_local(os.path.join("voice-private", "reference-new.wav"))
+    txt = os.environ.get("VOICE_REF_TXT") or _find_local(os.path.join("voice-private", "reference-new.txt"))
     return wav, txt
 
 def voice_json_path():

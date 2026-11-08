@@ -1,0 +1,9 @@
+{
+ "text": "Moving on to the demo. So with the doc's page as it is, it doesn't even load. It crashes saying, umm, agent default was not found. So on the test page, I set the agent to sample agent, and I added a button that pushes the same message the doc's watcher would. After clicking the button, the card showed up saying deployment finished. So the card feature itself works fine, the problem is uh, really in the doc's code. Let me show you where.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 30.596,
+ "file": "dc577f7fcb64156921a1aa995de5c85d.mp3",
+ "clip": "LANGGRAPH-react-33-FrontendCards",
+ "at": "demo"
+}

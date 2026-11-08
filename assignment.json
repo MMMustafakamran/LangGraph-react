@@ -136,15 +136,11 @@
    "child": false,
    "docPath": "quickstart",
    "reachable": "sidebar",
-   "status": "⚠️",
+   "status": "✅",
    "findings": [
     2
    ],
-   "notes": [
-    "Minor Issue: ",
-    "1) The route as published needs CPK_INTELLIGENCE_API_KEY, every request 500s without it. The \"Running without the Intelligence Platform?\" callout fixes it.",
-    "2) Next.js error on every page: Date.now() in a Client Component (providers.tsx)."
-   ],
+   "notes": [],
    "block": null,
    "links": [
     {
@@ -275,7 +271,28 @@
    "status": "N/A",
    "findings": [],
    "notes": [
-    "Note: Not tested, Threads needs the Intelligence Platform (skipped)."
+    "Note: re-testing with the Intelligence key."
+   ],
+   "block": null,
+   "links": [],
+   "review": {
+    "verdict": null,
+    "approvedAt": null,
+    "by": null
+   }
+  },
+  {
+   "id": "headless-threads",
+   "label": "Headless Threads",
+   "kind": "guide",
+   "group": "Prebuilt Components",
+   "child": false,
+   "docPath": "headless-threads",
+   "reachable": "sidebar",
+   "status": "N/A",
+   "findings": [],
+   "notes": [
+    "Note: re-testing with the Intelligence key."
    ],
    "block": null,
    "links": [],
@@ -397,18 +414,17 @@
    "child": false,
    "docPath": "generative-ui/reasoning",
    "reachable": "sidebar",
-   "status": "⚠️",
+   "status": "❌",
    "findings": [
     11
    ],
    "notes": [
-    "Issue: the page shows only frontend code, no agent / model.",
-    "With the showcase agent the answer renders, then the chat shows \"Cannot send RUN_FINISHED while text messages are still active\"."
+    "Issue: after every answer the chat shows an error card: \"Cannot send RUN_FINISHED while text messages are still active\"."
    ],
    "block": null,
    "links": [
     {
-     "text": "Reasoning - JS",
+     "text": "Issue",
      "clip": "LANGGRAPH-react-12-Reasoning",
      "loom": "https://www.loom.com/share/5a922c14014d4ba989e696549b165566",
      "narration": null
@@ -516,9 +532,7 @@
    "findings": [
     1
    ],
-   "notes": [
-    "Note: the agent code on the page has temperature: 0, gpt-5-mini rejects it (400). Recorded with it removed."
-   ],
+   "notes": [],
    "block": null,
    "links": [
     {
@@ -544,9 +558,7 @@
    "reachable": "sidebar",
    "status": "✅",
    "findings": [],
-   "notes": [
-    "Note: the agent code on the page has temperature: 0, gpt-5-mini rejects it (400). The demo agent runs without it."
-   ],
+   "notes": [],
    "block": null,
    "links": [
     {
@@ -736,11 +748,10 @@
     9,
     10
    ],
-   "notes": [],
-   "block": {
-    "area": "Components and Surfaces",
-    "problem": "standardUI needs maplibre-gl (no install step), and \"Do step 3 only\" crashes the quickstart app: agent \"default\" not found."
-   },
+   "notes": [
+    "Issue: The agent's response is not rendering in the chatbot area or in the Generative UI (Inspector)."
+   ],
+   "block": null,
    "links": [
     {
      "text": "Issue",
@@ -763,17 +774,18 @@
    "child": false,
    "docPath": "generative-ui/components/surfaces",
    "reachable": "sidebar",
-   "status": "✅",
+   "status": "❌",
    "findings": [
-    28
+    28,
+    33
    ],
    "notes": [
-    "Note: Product and ProductRow are used but never defined. Needs an agent that uses the run tools/context (quickstart agent does not)."
+    "Issue: The agent's response is not rendering in the chatbot area or in the Generative UI (Inspector)."
    ],
    "block": null,
    "links": [
     {
-     "text": "Surfaces - JS",
+     "text": "Issue",
      "clip": "LANGGRAPH-react-43-ComponentsSurfaces",
      "loom": "https://www.loom.com/share/e16f00f87c3345e79af1caaad265bc28",
      "narration": null
@@ -793,13 +805,17 @@
    "child": false,
    "docPath": "generative-ui/components/catalogs",
    "reachable": "sidebar",
-   "status": "✅",
-   "findings": [],
-   "notes": [],
+   "status": "❌",
+   "findings": [
+    33
+   ],
+   "notes": [
+    "Issue: The agent's response is not rendering in the chatbot area or in the Generative UI (Inspector)."
+   ],
    "block": null,
    "links": [
     {
-     "text": "Catalogs - JS",
+     "text": "Issue",
      "clip": "LANGGRAPH-react-42-ComponentsCatalogs",
      "loom": "https://www.loom.com/share/8a77d5c9bc16435cbd66394b27608c95",
      "narration": null
@@ -850,8 +866,7 @@
     32
    ],
    "notes": [
-    "Issue: with the state + functions catalog the agent sends an empty reply; no ProductCard renders.",
-    "Note: the catalog is split over separate blocks on the page, had to merge them into one."
+    "Issue: The agent's response is not rendering in the chatbot area or in the Generative UI (Inspector)."
    ],
    "block": null,
    "links": [
@@ -877,9 +892,7 @@
    "docPath": "generative-ui/components/theming",
    "reachable": "sidebar",
    "status": "✅",
-   "findings": [
-    21
-   ],
+   "findings": [],
    "notes": [],
    "block": null,
    "links": [
@@ -908,9 +921,7 @@
    "findings": [
     25
    ],
-   "notes": [
-    "Note: only says what a LangGraph Python agent needs, nothing for a TS agent."
-   ],
+   "notes": [],
    "block": null,
    "links": [
     {
@@ -934,18 +945,15 @@
    "child": false,
    "docPath": "generative-ui/components/markdown-mode",
    "reachable": "sidebar",
-   "status": "⚠️",
+   "status": "✅",
    "findings": [
     25
    ],
-   "notes": [
-    "Issue: the agent replies \"here is a card with a seats slider\" but no card renders, only the text.",
-    "Note: only says what a LangGraph Python agent needs, nothing for a TS agent."
-   ],
+   "notes": [],
    "block": null,
    "links": [
     {
-     "text": "Issue",
+     "text": "Markdown mode - JS",
      "clip": "LANGGRAPH-react-47-ComponentsMarkdownMode",
      "loom": "https://www.loom.com/share/f17435ed82104e60a6061059f4aae504",
      "narration": null
@@ -967,9 +975,7 @@
    "reachable": "sidebar",
    "status": "✅",
    "findings": [],
-   "notes": [
-    "Note: the Airport / Arrow components are not shown, had to write them."
-   ],
+   "notes": [],
    "block": null,
    "links": [
     {
@@ -1026,10 +1032,12 @@
    "child": false,
    "docPath": "generative-ui/a2ui/dynamic-schema",
    "reachable": "sidebar",
-   "status": "⚠️",
-   "findings": [],
+   "status": "❌",
+   "findings": [
+    34
+   ],
    "notes": [
-    "Issue: the Card and BarChart fail: \"Unable to display Card: title: Invalid input\" / \"BarChart: description: Invalid input\". Only the text and the Export CSV button render."
+    "Issue: the generated Card and BarChart fail to render: \"Unable to display Card: title: Invalid input\" / \"Unable to display BarChart: description: Invalid input\"."
    ],
    "block": null,
    "links": [
@@ -1219,17 +1227,15 @@
    "child": false,
    "docPath": "generative-ui/mcp-apps",
    "reachable": "sidebar",
-   "status": "⚠️",
+   "status": "✅",
    "findings": [
     12
    ],
-   "notes": [
-    "Issue: the runtime snippet uses https://mcp.excalidraw.com which redirects (308), so no Excalidraw tools. The /mcp URL (also on the page) works."
-   ],
+   "notes": [],
    "block": null,
    "links": [
     {
-     "text": "Issue",
+     "text": "MCP Apps - JS",
      "clip": "LANGGRAPH-react-14-McpApps",
      "loom": "https://www.loom.com/share/437cd5c3f23f446a82201e76537ba456",
      "narration": null
@@ -1276,18 +1282,13 @@
    "child": false,
    "docPath": "shared-state/rendering-in-app",
    "reachable": "sidebar",
-   "status": "❌",
-   "findings": [
-    29
-   ],
-   "notes": [
-    "Issue: useAgent() with no id + no agent on the provider looks for \"default\", the page crashes.",
-    "Works once agent=\"sample_agent\" is set on the provider."
-   ],
+   "status": "✅",
+   "findings": [],
+   "notes": [],
    "block": null,
    "links": [
     {
-     "text": "Issue",
+     "text": "Render agent state in your app - JS",
      "clip": "LANGGRAPH-react-62-RenderAgentState",
      "loom": "https://www.loom.com/share/64c0de5373e5401cb89234823a97ba3a",
      "narration": "narration/scripts/LANGGRAPH-react-62-RenderAgentState.json"
@@ -1483,10 +1484,7 @@
     8,
     16
    ],
-   "notes": [
-    "Note: the agent code on the page has temperature: 0, gpt-5-mini rejects it (400). Recorded with it removed.",
-    "Note: \"Going headless\" says interrupts are not supported on LangGraph TS, they work."
-   ],
+   "notes": [],
    "block": null,
    "links": [
     {
@@ -1510,20 +1508,17 @@
    "child": true,
    "docPath": "human-in-the-loop/useInterrupt",
    "reachable": "sidebar",
-   "status": "❌",
+   "status": "✅",
    "findings": [
     1,
     7,
     16
    ],
-   "notes": [
-    "Issue: page says \"Not supported on LangGraph (TypeScript)\" and hides the agent code; the .md agent never builds a graph.",
-    "With the showcase graph added it works."
-   ],
+   "notes": [],
    "block": null,
    "links": [
     {
-     "text": "Issue",
+     "text": "Pausing the agent state for input - JS",
      "clip": "LANGGRAPH-react-04-UseInterrupt",
      "loom": "https://www.loom.com/share/35843b37c5e9478eb000c541c21533fe",
      "narration": "narration/scripts/LANGGRAPH-react-04-UseInterrupt.json"
@@ -1543,18 +1538,16 @@
    "child": true,
    "docPath": "human-in-the-loop/headless",
    "reachable": "sidebar",
-   "status": "⚠️",
+   "status": "✅",
    "findings": [
     1,
     16
    ],
-   "notes": [
-    "Issue: page says \"Not supported on LangGraph (TypeScript)\", but the headless picker works."
-   ],
+   "notes": [],
    "block": null,
    "links": [
     {
-     "text": "Issue",
+     "text": "Headless Interrupts - JS",
      "clip": "LANGGRAPH-react-05-HeadlessInterrupts",
      "loom": "https://www.loom.com/share/c4a81a9925f64a7fa8873853c49a89fa",
      "narration": null
@@ -1610,9 +1603,7 @@
    "findings": [
     27
    ],
-   "notes": [
-    "Note: no backend shown, only the useHumanInTheLoop variant could be run."
-   ],
+   "notes": [],
    "block": null,
    "links": [
     {
@@ -1669,17 +1660,15 @@
    "child": false,
    "docPath": "webmcp",
    "reachable": "sidebar",
-   "status": "❌",
+   "status": "✅",
    "findings": [
     18
    ],
-   "notes": [
-    "Issue: searchOrders() is never defined, and the quickstart agent never calls the tool (it does not bind frontend tools)."
-   ],
+   "notes": [],
    "block": null,
    "links": [
     {
-     "text": "Issue",
+     "text": "Web MCP - JS",
      "clip": "LANGGRAPH-react-17-WebMCP",
      "loom": "https://www.loom.com/share/d47bb2dbea2b4060a5e67ff0e7f85bf3",
      "narration": "narration/scripts/LANGGRAPH-react-17-WebMCP.json"
@@ -1724,9 +1713,7 @@
    "findings": [
     23
    ],
-   "notes": [
-    "Minor Issue: StateSchema / CopilotKitStateSchema / RunnableConfig not imported and no graph built, had to add them."
-   ],
+   "notes": [],
    "block": null,
    "links": [
     {
@@ -1816,7 +1803,7 @@
    "notes": [],
    "block": {
     "area": "Configurable",
-    "problem": "TS tab only shows graph.invoke(..., { context }); nothing shows how to pass context through LangGraphAgent / CopilotKit."
+    "problem": "Frontend code is missing"
    },
    "links": [
     {
@@ -1842,9 +1829,7 @@
    "reachable": "sidebar",
    "status": "✅",
    "findings": [],
-   "notes": [
-    "Note: no TS agent code, the demo is the feature viewer."
-   ],
+   "notes": [],
    "block": null,
    "links": [
     {
@@ -1893,9 +1878,7 @@
    "findings": [
     1
    ],
-   "notes": [
-    "Note: the agent code on the page has temperature: 0, gpt-5-mini rejects it (400). Recorded with it removed."
-   ],
+   "notes": [],
    "block": null,
    "links": [
     {

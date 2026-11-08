@@ -1,0 +1,9 @@
+{
+ "text": "This is the agent from the doc. It uses runnable config without importing it, and uh, it never builds or exports a graph. So I added those to get it running.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 11.331,
+ "file": "6b2e2f2dd7d927c0d90b74ae11023367.mp3",
+ "clip": "LANGGRAPH-react-06-InterruptFlow",
+ "at": "ide"
+}
