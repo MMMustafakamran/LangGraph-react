@@ -332,10 +332,24 @@ async function dragSelect(page: Page, target: Locator, text: string): Promise<vo
   logAction('select-text', text);
 }
 
+/**
+ * Level 2 pages (QA-RULES §8a): already reported by the previous tester and failing the same way.
+ * Short clip: the take ends after the demo (no doc highlight, no Notepad); the voice-over explains
+ * it. Doc-only pages keep the doc highlight, since that is their only evidence.
+ */
+export const KNOWN_ISSUE = new Set<string>([
+  'components', 'components-surfaces', 'components-catalogs', 'components-state-actions',
+  'a2ui-dynamic', 'configurable',
+]);
+
 /** Type a page's finding into Notepad at the end of its take, after showing it on the doc. */
 export async function writeFinding(page: Page, id: string, config?: PageRecordConfig): Promise<void> {
   const body = FINDING_NOTES[id];
   if (!body) return;
+  if (KNOWN_ISSUE.has(id)) {
+    if (config?.docOnly) await showDocEvidence(page, config).catch((e) => console.warn(`   ⚠️ Doc evidence step failed: ${String(e).slice(0, 120)}`));
+    return;
+  }
   if (config) await showDocEvidence(page, config).catch((e) => console.warn(`   ⚠️ Doc evidence step failed: ${String(e).slice(0, 120)}`));
   mark('notepad');
   await openNotepad(page, `finding-${id}.txt`);

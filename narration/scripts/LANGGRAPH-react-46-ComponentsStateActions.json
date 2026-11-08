@@ -1,14 +1,15 @@
 {
  "clip": "LANGGRAPH-react-46-ComponentsStateActions",
  "finding": "32",
+ "level": 2,
  "segments": [
   {
    "at": "doc",
-   "text": "Okay so, this is the state and actions page in the CopilotKit docs, for LangGraph TypeScript, and I have implemented this page in my project. Umm, let us try it."
+   "text": "Okay so, this is the state and actions page in the CopilotKit docs, for LangGraph TypeScript, and I have implemented this page in my project."
   },
   {
    "at": "ide",
-   "text": "My project, the catalog code from the doc, CopilotKit one point eighty-four point one."
+   "text": "My project, the code from the doc, CopilotKit one point eighty-four point one."
   },
   {
    "at": "demo",
@@ -16,35 +17,7 @@
   },
   {
    "at": "action",
-   "text": "So I asked for product cards, for shoe one named Runner and shoe two named Trail. The agent here is a LangGraph JS graph that passes the run's tools and context, because the docs don't show one."
-  },
-  {
-   "at": "+",
-   "text": "And the reply is just empty. Umm, no product card renders, so there's no cart count and no add to cart button to try. I gave it more time, still the same."
-  },
-  {
-   "at": "+",
-   "text": "So basically, the agent did run, but its response does not show up anywhere. Not in the chat, and not as a card."
-  },
-  {
-   "at": "+",
-   "text": "Yeah, still just the empty reply."
-  },
-  {
-   "at": "evidence#1",
-   "text": "So the doc says the card should show the cart count and add to cart on a click. None of it shows."
-  },
-  {
-   "at": "evidence#2",
-   "text": "And the cart state is given exactly like this, same as the doc, uh, but there is no card to bind it to."
-  },
-  {
-   "at": "notepad",
-   "text": "And the log says the agent called render UI and no renderer is registered, so it rendered nothing. So basically the agent response does not render at all, not in the chat and not as generative UI. Same as the catalogs and surfaces pages."
-  },
-  {
-   "at": "failure",
-   "text": "And here's the terminal, the frontend log ends with that render UI line, rendered nothing. So the run finishes fine, the UI just never shows."
+   "text": "So I asked for product cards for shoe one, Runner, and shoe two, Trail. The reply is just empty, no card renders, so there's no cart count or add to cart button to try."
   },
   {
    "at": "+",

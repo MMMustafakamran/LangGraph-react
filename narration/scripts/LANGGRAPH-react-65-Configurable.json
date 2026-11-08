@@ -1,26 +1,23 @@
 {
  "clip": "LANGGRAPH-react-65-Configurable",
  "finding": "15",
+ "level": 2,
  "segments": [
   {
    "at": "doc",
-   "text": "Ok so, this is the configurable page in the CopilotKit docs, for LangGraph TypeScript, and I have implemented this page in my project. So umm, there's no demo for this one, it's just the page itself. I'm going through it from the top, and the part that matters is down here, the trusted graph execution settings, with the TypeScript tab open. Because that's the only TypeScript code the page gives you."
-  },
-  {
-   "at": "action",
-   "text": "So, here's the thing."
+   "text": "Ok so, this is the configurable page in the CopilotKit docs, for LangGraph TypeScript. There's no demo for this one, just the page itself, and uh, the part that matters is the TypeScript tab down here."
   },
   {
    "at": "evidence#1",
-   "text": "This TypeScript tab only says, set the runtime context where your trusted backend invokes the graph. And uh, that's all backend."
+   "text": "This tab only says to set the runtime context where your backend invokes the graph."
   },
   {
    "at": "evidence#2",
-   "text": "And the code is just this graph invoke, with a context and a recursion limit. There's no frontend code at all on this page."
+   "text": "And the code is just this graph invoke. Umm, there's no frontend code at all, so you can't wire it up from a CopilotKit app."
   },
   {
-   "at": "notepad",
-   "text": "So basically, nothing here shows how a CopilotKit app passes that context through the LangGraph agent, which is the setup the quickstart builds. So umm, from this page alone, you can't really wire it up. Alright, that's the issue, kindly sort it out."
+   "at": "+",
+   "text": "That's it for this one, kindly look into this issue."
   }
  ]
 }

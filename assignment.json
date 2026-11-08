@@ -752,13 +752,13 @@
    "child": false,
    "docPath": "generative-ui/components",
    "reachable": "sidebar",
-   "status": "❌",
+   "status": "⚠️",
    "findings": [
     9,
     10
    ],
    "notes": [
-    "Issue: The agent's response is not rendering in the chatbot area or in the Generative UI (Inspector)."
+    "Issue: the agent replies, but no component renders, neither in the chat nor in the Inspector's Generative UI tab."
    ],
    "block": null,
    "links": [
@@ -783,13 +783,13 @@
    "child": false,
    "docPath": "generative-ui/components/surfaces",
    "reachable": "sidebar",
-   "status": "❌",
+   "status": "⚠️",
    "findings": [
     28,
     33
    ],
    "notes": [
-    "Issue: The agent's response is not rendering in the chatbot area or in the Generative UI (Inspector)."
+    "Issue: the agent replies, but no component renders, neither in the chat nor in the Inspector's Generative UI tab."
    ],
    "block": null,
    "links": [
@@ -797,7 +797,7 @@
      "text": "Issue",
      "clip": "LANGGRAPH-react-43-ComponentsSurfaces",
      "loom": null,
-     "narration": null
+     "narration": "narration/scripts/LANGGRAPH-react-43-ComponentsSurfaces.json"
     }
    ],
    "review": {
@@ -814,12 +814,12 @@
    "child": false,
    "docPath": "generative-ui/components/catalogs",
    "reachable": "sidebar",
-   "status": "❌",
+   "status": "⚠️",
    "findings": [
     33
    ],
    "notes": [
-    "Issue: The agent's response is not rendering in the chatbot area or in the Generative UI (Inspector)."
+    "Issue: the agent replies, but no component renders, neither in the chat nor in the Inspector's Generative UI tab."
    ],
    "block": null,
    "links": [
@@ -827,7 +827,7 @@
      "text": "Issue",
      "clip": "LANGGRAPH-react-42-ComponentsCatalogs",
      "loom": null,
-     "narration": null
+     "narration": "narration/scripts/LANGGRAPH-react-42-ComponentsCatalogs.json"
     }
    ],
    "review": {
@@ -870,12 +870,12 @@
    "child": false,
    "docPath": "generative-ui/components/state-and-actions",
    "reachable": "sidebar",
-   "status": "❌",
+   "status": "⚠️",
    "findings": [
     32
    ],
    "notes": [
-    "Issue: The agent's response is not rendering in the chatbot area or in the Generative UI (Inspector)."
+    "Issue: the agent replies, but no component renders, neither in the chat nor in the Inspector's Generative UI tab."
    ],
    "block": null,
    "links": [
@@ -1054,7 +1054,7 @@
      "text": "Issue",
      "clip": "LANGGRAPH-react-39-A2UIDynamicSchema",
      "loom": null,
-     "narration": null
+     "narration": "narration/scripts/LANGGRAPH-react-39-A2UIDynamicSchema.json"
     }
    ],
    "review": {
