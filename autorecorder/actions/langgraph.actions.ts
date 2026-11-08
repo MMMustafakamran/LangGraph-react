@@ -25,24 +25,8 @@ const bannerText = (page: Page) => () =>
 export const TYPING = { charDelayMs: 34, jitter: 0.65, thinkChance: 0.05 };
 
 export const FINDING_NOTES: Record<string, string> = {
-  'frontend-tools': [
-    'frontend tools is broken (findings #1)',
-    '',
-    'the agent code on the doc uses temperature: 0 with gpt-5-mini',
-    'gpt-5-mini only takes the default temp so openai just throws a 400',
-    'and the run dies, change_background never gets called',
-    '',
-    'removed the temperature and it works fine, background changes',
-  ].join('\n'),
-  'human-in-the-loop': [
-    'hitl page - same problem as frontend tools (#1)',
-    '',
-    'it uses the same frontend-tools.ts agent w/ temperature: 0',
-    'openai rejects it (400) so the time picker never shows up',
-    'without the temperature it works',
-    '',
-    'also the page says interrupts arent supported on langgraph ts.. they are (#16)',
-  ].join('\n'),
+  // frontend-tools, human-in-the-loop, subagents, tool-based: working clips since the docs moved
+  // to gpt-6-luna (2026-11-08), which accepts temperature: 0 (FINDINGS.md #1 closed).
   'interrupt-flow': [
     'interrupt flow (#14)',
     '',
@@ -60,14 +44,6 @@ export const FINDING_NOTES: Record<string, string> = {
     'here the agent just answers in plain text, no component renders',
     'the page only says what a langgraph python agent needs (CopilotKitMiddleware), nothing for langgraph js',
     'provider has no agentId so "default" points at the quickstart sample_agent here',
-  ].join('\n'),
-  subagents: [
-    'sub agents (#1)',
-    '',
-    'defaultModelFactory on the doc uses temperature: 0 with gpt-5-mini',
-    'openai rejects it, supervisor fails with a 400, 0 calls in the log',
-    '',
-    'without the temperature it delegates to researcher / writer / critic fine',
   ].join('\n'),
 };
 
@@ -89,11 +65,6 @@ export interface DocEvidence {
 const T0 = 'temperature: 0, model: "gpt-5-mini"';
 
 export const FINDING_EVIDENCE: Record<string, DocEvidence[]> = {
-  'frontend-tools': [{ text: T0, caption: 'gpt-5-mini rejects temperature: 0 - every run fails with OpenAI 400' }],
-  'human-in-the-loop': [
-    { text: T0, caption: 'Same agent file here: temperature: 0 makes every HITL run fail' },
-    { text: 'Not supported on LangGraph (TypeScript)', caption: 'Says interrupts are not supported on LangGraph (TS) - they work' },
-  ],
   'interrupt-flow': [
     {
       text: 'async function chat_node(state: AgentState, config: RunnableConfig)',
@@ -108,9 +79,6 @@ export const FINDING_EVIDENCE: Record<string, DocEvidence[]> = {
       text: "Your agent must pass the run's tools and context to its model, as in step 2. For a LangGraph Python agent, add CopilotKitMiddleware.",
       caption: 'Only a Python agent is covered: nothing on how a LangGraph JS agent gets render_ui',
     },
-  ],
-  subagents: [
-    { text: 'new ChatOpenAI({ temperature: 0, model: "gpt-5-mini" })', caption: 'gpt-5-mini rejects temperature: 0 - the supervisor run fails' },
   ],
 };
 
@@ -564,8 +532,9 @@ const pickSlot = pickSlotAction('Tomorrow 2:00 PM');
  * and checks the promised effect; a missing effect calls ctx.fail so a broken page records as a
  * failing clip. Pages with a FINDING_NOTES entry end with doc evidence + Notepad.
  */
-export const runFrontendToolsAction = withFinding(frontendTools);
-export const runHitlAction = withFinding(pickSlot);
+// ✅ since the docs moved to gpt-6-luna (2026-11-08): temperature: 0 is accepted, FINDINGS.md #1 closed.
+export const runFrontendToolsAction: PageActionHandler = frontendTools;
+export const runHitlAction: PageActionHandler = pickSlot;
 export const runUseInterruptAction: PageActionHandler = pickSlot; // ✅ working clip, no finding tail
 export const runHeadlessInterruptAction: PageActionHandler = pickSlot; // ✅ working clip, no finding tail
 export const runInterruptFlowAction = withFinding(interruptFlow);
@@ -660,6 +629,8 @@ function withFix(handler: PageActionHandler): PageActionHandler {
 export const runFrontendToolsFixedAction = withFix(frontendTools);
 export const runHitlFixedAction = withFix(pickSlot);
 export const runSubagentsFixedAction = withFix(subagentsDemo);
+/** ✅ working take since gpt-6-luna (FINDINGS.md #1 closed 2026-11-08). */
+export const runSubagentsAction: PageActionHandler = subagentsDemo;
 
 // ---------------------------------------------------------------------------------------------
 // Batch 2 (the remaining 37 runnable pages). Owner instruction 2026-11-06: pages whose published
@@ -768,16 +739,6 @@ const frontendCards: PageActionHandler = async (page, _config, _root, ctx) => {
 export const runFrontendCardsAction = withFinding(frontendCards);
 
 // Rows from the team testing doc that weren't in the first batch-2 list.
-Object.assign(FIX_NOTES, {
-  'tool-based': [
-    'components as tools - works',
-    '',
-    'note: the agent code on this page is the same frontend-tools.ts w/ temperature: 0',
-    ...TEMP_NOTE_TAIL,
-    'demo agent runs without it, chart renders in the chat',
-  ].join('\n'),
-});
-Object.assign(FIX_EVIDENCE, { 'tool-based': [TEMP_LINE] });
 // use-interrupt, headless-interrupts, mcp-apps, rendering-in-app: now ✅ under the owner's blockers-only rule
 // (2026-11-08, QA-RULES §8a). Working clips: no FINDING_NOTES / FINDING_EVIDENCE (AUTORECORDER.md §3).
 Object.assign(FINDING_NOTES, {

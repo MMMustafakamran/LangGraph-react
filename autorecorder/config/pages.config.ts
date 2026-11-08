@@ -14,6 +14,10 @@ import { definePages } from '../core/types';
 
 /** Registered but not recorded, with the reason printed on every run. */
 export const SKIP_RECORDING: Record<string, string> = {
+  // Temperature-fix copies (FINDINGS.md #1): the docs moved to gpt-6-luna, which accepts temperature: 0.
+  'frontend-tools-fixed': 'temperature fix no longer needed: #1 closed (2026-11-08)',
+  'hitl-fixed': 'temperature fix no longer needed: #1 closed (2026-11-08)',
+  'subagents-fixed': 'temperature fix no longer needed: #1 closed (2026-11-08)',
   'agent-config': 'not in the team testing doc LangGraph list (owner, 2026-11-08)',
   'reasoning-messages': 'not in the team testing doc LangGraph list (owner, 2026-11-08)',
   'a2ui': 'not in the team testing doc LangGraph list (owner, 2026-11-08)',

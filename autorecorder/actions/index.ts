@@ -12,6 +12,7 @@ import {
   runFrontendToolsFixedAction,
   runHitlFixedAction,
   runSubagentsFixedAction,
+  runSubagentsAction,
   runHeadlessInterruptAction,
   runHitlAction,
   runInspectorAction,
@@ -48,7 +49,7 @@ export const ACTION_MAP: Record<string, PageActionHandler> = {
   'headless-threads': runHeadlessThreadsAction,
   components: runGenuiFindingAction,
   'mcp-apps': runPromptOrError, // ✅ working clip, no finding tail
-  subagents: runStandardWithFinding,
+  subagents: runSubagentsAction, // ✅ since gpt-6-luna (#1 closed 2026-11-08)
   'frontend-tools-fixed': runFrontendToolsFixedAction,
   'hitl-fixed': runHitlFixedAction,
   'subagents-fixed': runSubagentsFixedAction,
@@ -71,7 +72,7 @@ export const ACTION_MAP: Record<string, PageActionHandler> = {
   'frontend-cards': runFrontendCardsAction,
   'workflow-execution': runStandardWithFinding,
   'a2ui-styling': runStandardWithFinding,
-  'tool-based': runTempNoteAction,
+  'tool-based': runPromptOrError, // ✅ plain clip since gpt-6-luna (#1 closed 2026-11-08)
   'reasoning-messages': runStandardWithFinding,
   configurable: runDocOnlyFindingAction, // docOnlyAction: doc evidence + Notepad after the doc read
   // Scripted takes override the entries above.

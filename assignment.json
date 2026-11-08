@@ -538,16 +538,14 @@
    "docPath": "frontend-tools",
    "reachable": "sidebar",
    "status": "✅",
-   "findings": [
-    1
-   ],
+   "findings": [],
    "notes": [],
    "block": null,
    "links": [
     {
      "text": "Frontend Tools - JS",
-     "clip": "LANGGRAPH-react-18-FrontendTools-Fixed",
-     "loom": "https://www.loom.com/share/1998babf159f49ebab7c7cea414969a1",
+     "clip": "LANGGRAPH-react-02-FrontendTools",
+     "loom": null,
      "narration": null
     }
    ],
@@ -573,7 +571,7 @@
     {
      "text": "Components as Tools - JS",
      "clip": "LANGGRAPH-react-58-ComponentsAsTools",
-     "loom": "https://www.loom.com/share/105faeffac3d45f388b48f8e810726ab",
+     "loom": null,
      "narration": null
     }
    ],
@@ -1489,7 +1487,6 @@
    "reachable": "sidebar",
    "status": "✅",
    "findings": [
-    1,
     8,
     16
    ],
@@ -1498,8 +1495,8 @@
    "links": [
     {
      "text": "HITL-JS",
-     "clip": "LANGGRAPH-react-19-HumanInTheLoop-Fixed",
-     "loom": "https://www.loom.com/share/1c6dce1776a7414a830e3fcfe880be2b",
+     "clip": "LANGGRAPH-react-03-HumanInTheLoop",
+     "loom": null,
      "narration": null
     }
    ],
@@ -1884,16 +1881,14 @@
    "docPath": "multi-agent/subagents",
    "reachable": "sidebar",
    "status": "✅",
-   "findings": [
-    1
-   ],
+   "findings": [],
    "notes": [],
    "block": null,
    "links": [
     {
      "text": "Subagents -JS",
-     "clip": "LANGGRAPH-react-20-SubAgents-Fixed",
-     "loom": "https://www.loom.com/share/f1be6551675d430782a067132eec7649",
+     "clip": "LANGGRAPH-react-15-SubAgents",
+     "loom": null,
      "narration": null
     }
    ],
