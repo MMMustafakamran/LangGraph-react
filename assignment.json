@@ -146,7 +146,7 @@
     {
      "text": "Quickstart - JS",
      "clip": "LANGGRAPH-react-01-Quickstart",
-     "loom": "https://www.loom.com/share/49512180af4a47e8921107caa0a07661",
+     "loom": "https://www.loom.com/share/b34a230d80d64dc0815db2ea20628078",
      "narration": null
     }
    ],
@@ -280,7 +280,7 @@
     {
      "text": null,
      "clip": "LANGGRAPH-react-68-ThreadsDrawer",
-     "loom": "https://www.loom.com/share/22aafcf6b15f4004812c344c64fd40fa",
+     "loom": "https://www.loom.com/share/4dd396d78d36485aad263cac731957ae",
      "narration": null
     }
    ],
@@ -310,7 +310,7 @@
     {
      "text": null,
      "clip": "LANGGRAPH-react-69-HeadlessThreads",
-     "loom": "https://www.loom.com/share/9104d22cc7c94f378917c2234cb0c62a",
+     "loom": "https://www.loom.com/share/2cea95a508b04b1cbb40e7f8ebea8662",
      "narration": null
     }
    ],
@@ -362,7 +362,7 @@
     {
      "text": "Markdown - JS",
      "clip": "LANGGRAPH-react-29-Markdown",
-     "loom": "https://www.loom.com/share/310434c445ce459ba195c52e1d189e47",
+     "loom": "https://www.loom.com/share/44cede60021648ce8acefce09308f32f",
      "narration": null
     }
    ],
@@ -444,7 +444,7 @@
     {
      "text": "Issue",
      "clip": "LANGGRAPH-react-12-Reasoning",
-     "loom": "https://www.loom.com/share/47b0bdbd90dd4d298418005b365b279e",
+     "loom": "https://www.loom.com/share/908e2015de25433cb35e8a9de79bc7ad",
      "narration": null
     }
    ],
@@ -501,7 +501,7 @@
     {
      "text": "Multimodal Attachments - JS",
      "clip": "LANGGRAPH-react-56-Multimodal",
-     "loom": "https://www.loom.com/share/4d1649bf6db2442eaae658803f057dab",
+     "loom": "https://www.loom.com/share/6f3c98ca018d4ad0a77fdf41040bf3d7",
      "narration": null
     }
    ],
@@ -524,14 +524,14 @@
     36
    ],
    "notes": [
-    "Issue: page.tsx imports VoiceChat from ./voice-chat, but the page never shows that file, so the app doesn't compile (Module not found). Works only with the showcase's voice-chat.tsx."
+    "Issue: page.tsx imports ./voice-chat, which the page never shows; in the demo the sample audio text is never sent and no reply comes back."
    ],
    "block": null,
    "links": [
     {
      "text": "Not Working",
      "clip": "LANGGRAPH-react-67-Voice",
-     "loom": "https://www.loom.com/share/1da2764e80884c229da22510b444802b",
+     "loom": "https://www.loom.com/share/dfc827726dc446c9a8ea67be12f64068",
      "narration": "narration/scripts/LANGGRAPH-react-67-Voice.json"
     }
    ],
@@ -625,7 +625,7 @@
     {
      "text": "Custom catch-all - JS",
      "clip": "LANGGRAPH-react-11-ToolRenderingCustom",
-     "loom": "https://www.loom.com/share/038d907429c94411aac86792c23b2282",
+     "loom": "https://www.loom.com/share/7a813c962bc0419699f9b0de10cc79ce",
      "narration": null
     }
    ],
@@ -779,7 +779,7 @@
     {
      "text": "Not Working",
      "clip": "LANGGRAPH-react-13-Components",
-     "loom": "https://www.loom.com/share/7f850953b84b4f008a47c2d89b7fe02a",
+     "loom": "https://www.loom.com/share/1131245aa386433b9a1ff57dcfcbe144",
      "narration": "narration/scripts/LANGGRAPH-react-13-Components.json"
     }
    ],
@@ -810,7 +810,7 @@
     {
      "text": "Issue",
      "clip": "LANGGRAPH-react-43-ComponentsSurfaces",
-     "loom": "https://www.loom.com/share/007e1f334c34417cb55734d00ec4c4e9",
+     "loom": "https://www.loom.com/share/bc7a10e93b6d4dbb9eb682bd87c8b16b",
      "narration": "narration/scripts/LANGGRAPH-react-43-ComponentsSurfaces.json"
     }
    ],
@@ -828,20 +828,20 @@
    "child": false,
    "docPath": "generative-ui/components/catalogs",
    "reachable": "sidebar",
-   "status": "❌",
+   "status": "✅",
    "findings": [
     33
    ],
    "notes": [
-    "Issue: the agent replies, but the product cards render only some of the time (3 of 5 runs on 1.85.0). The other runs show an empty reply and nothing in the Inspector's Generative UI tab."
+    "Note: cards rendered in this take; earlier runs on 1.85.0 often rendered nothing (render_ui, no renderer)."
    ],
    "block": null,
    "links": [
     {
-     "text": "Issue",
+     "text": "Catalogs - JS",
      "clip": "LANGGRAPH-react-42-ComponentsCatalogs",
-     "loom": "https://www.loom.com/share/59321cea09be4451b6ed0d9d2553f3ae",
-     "narration": "narration/scripts/LANGGRAPH-react-42-ComponentsCatalogs.json"
+     "loom": "https://www.loom.com/share/2b330b36b5f74e6c9f173f1578e3deb8",
+     "narration": null
     }
    ],
    "review": {
@@ -858,19 +858,19 @@
    "child": false,
    "docPath": "generative-ui/components/standard-catalog",
    "reachable": "sidebar",
-   "status": "✅",
+   "status": "⚠️",
    "findings": [
     25
    ],
    "notes": [
-    "Note: the page shows no LangGraph JS agent; recorded with a small harness graph that passes the run's tools and context."
+    "Issue: the bar chart renders, but the requested table comes back empty (No rows)."
    ],
    "block": null,
    "links": [
     {
-     "text": "Standard catalog - JS",
+     "text": "Issue",
      "clip": "LANGGRAPH-react-60-ComponentsStandardCatalog",
-     "loom": "https://www.loom.com/share/942cf4ba0d5f4b1cb695317526189dca",
+     "loom": "https://www.loom.com/share/29eed8b77e984a49bb4b8476e4f508cc",
      "narration": null
     }
    ],
@@ -888,20 +888,20 @@
    "child": false,
    "docPath": "generative-ui/components/state-and-actions",
    "reachable": "sidebar",
-   "status": "❌",
+   "status": "✅",
    "findings": [
     32
    ],
    "notes": [
-    "Issue: the agent replies, but no component renders, neither in the chat nor in the Inspector's Generative UI tab."
+    "Note: product cards render in this take."
    ],
    "block": null,
    "links": [
     {
-     "text": "Not Working",
+     "text": "State and actions - JS",
      "clip": "LANGGRAPH-react-46-ComponentsStateActions",
-     "loom": "https://www.loom.com/share/98e26065cb2645998eb8a9fd44181aae",
-     "narration": "narration/scripts/LANGGRAPH-react-46-ComponentsStateActions.json"
+     "loom": "https://www.loom.com/share/995de1dde1504cdf88fb9c36e2e2049c",
+     "narration": null
     }
    ],
    "review": {
@@ -948,21 +948,21 @@
    "child": false,
    "docPath": "generative-ui/components/transports",
    "reachable": "sidebar",
-   "status": "❌",
+   "status": "✅",
    "findings": [
     25,
     38
    ],
    "notes": [
-    "Issue: the card renders only some of the time (5 of 10 runs on 1.85.0). The other runs answer \"here's a card\" in text and no card renders."
+    "Note: card rendered in this take; in earlier runs about half the replies were text only."
    ],
    "block": null,
    "links": [
     {
-     "text": "Issue",
+     "text": "Transports - JS",
      "clip": "LANGGRAPH-react-45-ComponentsTransports",
-     "loom": "https://www.loom.com/share/31d4783a48d245ddb5e3adcdc5e6eecb",
-     "narration": "narration/scripts/LANGGRAPH-react-45-ComponentsTransports.json"
+     "loom": "https://www.loom.com/share/173fbb204e804acba08e8e15c3e3e30a",
+     "narration": null
     }
    ],
    "review": {
@@ -992,7 +992,7 @@
     {
      "text": "Issue",
      "clip": "LANGGRAPH-react-47-ComponentsMarkdownMode",
-     "loom": "https://www.loom.com/share/c9ccd73dc33b416888fd7d3a6a4f37d0",
+     "loom": "https://www.loom.com/share/add5a413cbef4edc87d0d2332f56f352",
      "narration": "narration/scripts/LANGGRAPH-react-47-ComponentsMarkdownMode.json"
     }
    ],
@@ -1010,20 +1010,20 @@
    "child": false,
    "docPath": "generative-ui/components/from-a2ui",
    "reachable": "sidebar",
-   "status": "❌",
+   "status": "✅",
    "findings": [
     39
    ],
    "notes": [
-    "Issue: the converted catalog almost never renders (1 of 5 runs on 1.85.0): the chat stays empty, the agent's render_ui call renders nothing."
+    "Note: card rendered in this take; earlier runs often rendered nothing."
    ],
    "block": null,
    "links": [
     {
-     "text": "Not Working",
+     "text": "Adopt from A2UI - JS",
      "clip": "LANGGRAPH-react-61-ComponentsFromA2UI",
-     "loom": "https://www.loom.com/share/831b323018e04cc4adfb356caa4c73b8",
-     "narration": "narration/scripts/LANGGRAPH-react-61-ComponentsFromA2UI.json"
+     "loom": "https://www.loom.com/share/b44d78919cee4724ab0911b3423705b6",
+     "narration": null
     }
    ],
    "review": {
@@ -1085,7 +1085,7 @@
     {
      "text": "Issue",
      "clip": "LANGGRAPH-react-39-A2UIDynamicSchema",
-     "loom": "https://www.loom.com/share/42fbda135b894d5ba3e310ee5596536f",
+     "loom": "https://www.loom.com/share/6e1edc84a5d4410ea172e04784631a60",
      "narration": "narration/scripts/LANGGRAPH-react-39-A2UIDynamicSchema.json"
     }
    ],
@@ -1250,7 +1250,7 @@
     {
      "text": "Open Generative UI -JS",
      "clip": "LANGGRAPH-react-36-OpenGenerativeUI",
-     "loom": "https://www.loom.com/share/52ccc0f1e11c4aa689da589dfc334d11",
+     "loom": "https://www.loom.com/share/e0d89e63b20749ee985b3b0bf52b6a66",
      "narration": null
     }
    ],
@@ -1280,7 +1280,7 @@
     {
      "text": "MCP Apps - JS",
      "clip": "LANGGRAPH-react-14-McpApps",
-     "loom": "https://www.loom.com/share/4f2336e24ab74826aedfbd9c5fb5ccea",
+     "loom": "https://www.loom.com/share/b7ac389e154c4812923bf0f7fb94615a",
      "narration": null
     }
    ],
@@ -1337,7 +1337,7 @@
     {
      "text": "Not Working",
      "clip": "LANGGRAPH-react-62-RenderAgentState",
-     "loom": "https://www.loom.com/share/3da1867dc49a40d3acaa7401b6966e8e",
+     "loom": "https://www.loom.com/share/ca34be1a38d74294aaef0d1a9c828335",
      "narration": "narration/scripts/LANGGRAPH-react-62-RenderAgentState.json"
     }
    ],
@@ -1367,7 +1367,7 @@
     {
      "text": "State Streaming -JS",
      "clip": "LANGGRAPH-react-08-StateStreaming",
-     "loom": "https://www.loom.com/share/3f78516db9fe4cb099531445d2a05178",
+     "loom": "https://www.loom.com/share/8718d2f377a442c78a7c0dd53dfa97e3",
      "narration": null
     }
    ],
@@ -1564,14 +1564,14 @@
     16
    ],
    "notes": [
-    "Note: the page never shows a complete interrupt agent (the snippet stops after the tool); recorded on the showcase interrupt agent."
+    "Note: the doc shows 'Not supported on LangGraph (TypeScript)'; works only on the showcase interrupt agent."
    ],
    "block": null,
    "links": [
     {
      "text": "Pausing the agent state for input - JS",
      "clip": "LANGGRAPH-react-04-UseInterrupt",
-     "loom": "https://www.loom.com/share/f7133862c686469aa807fc99d501a9ed",
+     "loom": "https://www.loom.com/share/f7deff33bf1c4dcab876fb86a60a71b1",
      "narration": null
     }
    ],
@@ -1595,14 +1595,14 @@
     16
    ],
    "notes": [
-    "Note: no backend on the page; recorded on the showcase interrupt agent from the useInterrupt page."
+    "Note: the doc shows 'Not supported on LangGraph (TypeScript)'; works only on the showcase interrupt agent."
    ],
    "block": null,
    "links": [
     {
      "text": "Headless Interrupts - JS",
      "clip": "LANGGRAPH-react-05-HeadlessInterrupts",
-     "loom": "https://www.loom.com/share/8958b1d734a44b8aa54e257c378efaa1",
+     "loom": "https://www.loom.com/share/2d85ed97eb494092aa5e4c22b9930113",
      "narration": null
     }
    ],
@@ -1725,7 +1725,7 @@
     {
      "text": "Not Working",
      "clip": "LANGGRAPH-react-17-WebMCP",
-     "loom": "https://www.loom.com/share/ab50859936194ff682d0b7822eeb2a42",
+     "loom": "https://www.loom.com/share/c04da03aa2244db59b139bdb5626e816",
      "narration": "narration/scripts/LANGGRAPH-react-17-WebMCP.json"
     }
    ],
@@ -1864,7 +1864,7 @@
     {
      "text": "Not Working",
      "clip": "LANGGRAPH-react-65-Configurable",
-     "loom": "https://www.loom.com/share/be997c2f3c7241dfb713f9d15c2e46d9",
+     "loom": "https://www.loom.com/share/d6a4665dbf0c4f29b9e2a3288a7cbca8",
      "narration": "narration/scripts/LANGGRAPH-react-65-Configurable.json"
     }
    ],
@@ -1936,7 +1936,7 @@
     {
      "text": "Subagents -JS",
      "clip": "LANGGRAPH-react-15-SubAgents",
-     "loom": "https://www.loom.com/share/be89dda14e114b50a550158fe46fc541",
+     "loom": "https://www.loom.com/share/bb46ad7f4b4c4d6c943dde0c621d57b3",
      "narration": null
     }
    ],
