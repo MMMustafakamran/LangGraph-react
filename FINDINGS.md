@@ -23,6 +23,7 @@ Stack: `@copilotkit/react-core`/`runtime` 1.84.1, `@copilotkit/sdk-js` 1.84.1, `
 **#33 The agent's response is not rendering in the chatbot area or in the Generative UI (Inspector).**
 - **Doc:** the pages' catalog + `<CopilotChat>` setup (Surfaces: the featured-products surface; Catalogs: product cards in a grid).
 - **Result:** the agent run succeeds, but the reply bubble is empty and no card renders. Browser log: `[CopilotKit] The agent called the tool "render_ui", and no renderer is registered for it, so that message rendered nothing.` Same symptom as #32 and as the QA team's reported issue for this group.
+- **Rate (1.85.0, 2026-11-09, 5 probes each):** Catalogs rendered 3/5, Surfaces 1/5. Every failed run's `render_ui` call nested component props in a `props` object; every rendered run used flat props. The page never tells the agent which shape the catalog expects.
 
 ### [Reasoning](https://docs.copilotkit.ai/langgraph-typescript/generative-ui/reasoning)
 **#11 After every answer the chat shows an error: "Cannot send RUN_FINISHED while text messages are still active".**

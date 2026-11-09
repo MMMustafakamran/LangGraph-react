@@ -146,7 +146,7 @@
     {
      "text": "Quickstart - JS",
      "clip": "LANGGRAPH-react-01-Quickstart",
-     "loom": null,
+     "loom": "https://www.loom.com/share/49512180af4a47e8921107caa0a07661",
      "narration": null
     }
    ],
@@ -276,7 +276,7 @@
     {
      "text": null,
      "clip": "LANGGRAPH-react-68-ThreadsDrawer",
-     "loom": null,
+     "loom": "https://www.loom.com/share/22aafcf6b15f4004812c344c64fd40fa",
      "narration": null
     }
    ],
@@ -302,7 +302,7 @@
     {
      "text": null,
      "clip": "LANGGRAPH-react-69-HeadlessThreads",
-     "loom": null,
+     "loom": "https://www.loom.com/share/9104d22cc7c94f378917c2234cb0c62a",
      "narration": null
     }
    ],
@@ -436,7 +436,7 @@
     {
      "text": "Issue",
      "clip": "LANGGRAPH-react-12-Reasoning",
-     "loom": null,
+     "loom": "https://www.loom.com/share/47b0bdbd90dd4d298418005b365b279e",
      "narration": null
     }
    ],
@@ -519,7 +519,7 @@
     {
      "text": "Voice - JS",
      "clip": "LANGGRAPH-react-67-Voice",
-     "loom": null,
+     "loom": "https://www.loom.com/share/1da2764e80884c229da22510b444802b",
      "narration": null
     }
    ],
@@ -545,7 +545,7 @@
     {
      "text": "Frontend Tools - JS",
      "clip": "LANGGRAPH-react-02-FrontendTools",
-     "loom": null,
+     "loom": "https://www.loom.com/share/84dd1226e7a94827a17623b2b17e62e7",
      "narration": null
     }
    ],
@@ -571,7 +571,7 @@
     {
      "text": "Components as Tools - JS",
      "clip": "LANGGRAPH-react-58-ComponentsAsTools",
-     "loom": null,
+     "loom": "https://www.loom.com/share/6dac40dc67514e5c8ceeb33a7e6be450",
      "narration": null
     }
    ],
@@ -763,7 +763,7 @@
     {
      "text": "Issue",
      "clip": "LANGGRAPH-react-13-Components",
-     "loom": null,
+     "loom": "https://www.loom.com/share/7f850953b84b4f008a47c2d89b7fe02a",
      "narration": "narration/scripts/LANGGRAPH-react-13-Components.json"
     }
    ],
@@ -781,13 +781,13 @@
    "child": false,
    "docPath": "generative-ui/components/surfaces",
    "reachable": "sidebar",
-   "status": "⚠️",
+   "status": "❌",
    "findings": [
     28,
     33
    ],
    "notes": [
-    "Issue: the agent replies, but no component renders, neither in the chat nor in the Inspector's Generative UI tab."
+    "Issue: the agent replies, but the featured-products surface almost never updates (1 of 5 runs on 1.85.0). The other runs leave the fallback row and an empty chat reply."
    ],
    "block": null,
    "links": [
@@ -812,12 +812,12 @@
    "child": false,
    "docPath": "generative-ui/components/catalogs",
    "reachable": "sidebar",
-   "status": "⚠️",
+   "status": "❌",
    "findings": [
     33
    ],
    "notes": [
-    "Issue: the agent replies, but no component renders, neither in the chat nor in the Inspector's Generative UI tab."
+    "Issue: the agent replies, but the product cards render only some of the time (3 of 5 runs on 1.85.0). The other runs show an empty reply and nothing in the Inspector's Generative UI tab."
    ],
    "block": null,
    "links": [
@@ -880,7 +880,7 @@
     {
      "text": "Issue",
      "clip": "LANGGRAPH-react-46-ComponentsStateActions",
-     "loom": null,
+     "loom": "https://www.loom.com/share/98e26065cb2645998eb8a9fd44181aae",
      "narration": "narration/scripts/LANGGRAPH-react-46-ComponentsStateActions.json"
     }
    ],
@@ -962,7 +962,7 @@
     {
      "text": "Markdown mode - JS",
      "clip": "LANGGRAPH-react-47-ComponentsMarkdownMode",
-     "loom": null,
+     "loom": "https://www.loom.com/share/47c65aef9a094bd0bf4daeee14393556",
      "narration": null
     }
    ],
@@ -1051,7 +1051,7 @@
     {
      "text": "Issue",
      "clip": "LANGGRAPH-react-39-A2UIDynamicSchema",
-     "loom": null,
+     "loom": "https://www.loom.com/share/42fbda135b894d5ba3e310ee5596536f",
      "narration": "narration/scripts/LANGGRAPH-react-39-A2UIDynamicSchema.json"
     }
    ],
@@ -1244,7 +1244,7 @@
     {
      "text": "MCP Apps - JS",
      "clip": "LANGGRAPH-react-14-McpApps",
-     "loom": null,
+     "loom": "https://www.loom.com/share/4f2336e24ab74826aedfbd9c5fb5ccea",
      "narration": null
     }
    ],
@@ -1297,7 +1297,7 @@
     {
      "text": "Render agent state in your app - JS",
      "clip": "LANGGRAPH-react-62-RenderAgentState",
-     "loom": null,
+     "loom": "https://www.loom.com/share/3da1867dc49a40d3acaa7401b6966e8e",
      "narration": "narration/scripts/LANGGRAPH-react-62-RenderAgentState.json"
     }
    ],
@@ -1496,7 +1496,7 @@
     {
      "text": "HITL-JS",
      "clip": "LANGGRAPH-react-03-HumanInTheLoop",
-     "loom": null,
+     "loom": "https://www.loom.com/share/5fd5420fde9240998721d59f7b10587a",
      "narration": null
     }
    ],
@@ -1526,7 +1526,7 @@
     {
      "text": "Pausing the agent state for input - JS",
      "clip": "LANGGRAPH-react-04-UseInterrupt",
-     "loom": null,
+     "loom": "https://www.loom.com/share/f7133862c686469aa807fc99d501a9ed",
      "narration": "narration/scripts/LANGGRAPH-react-04-UseInterrupt.json"
     }
    ],
@@ -1555,7 +1555,7 @@
     {
      "text": "Headless Interrupts - JS",
      "clip": "LANGGRAPH-react-05-HeadlessInterrupts",
-     "loom": null,
+     "loom": "https://www.loom.com/share/8958b1d734a44b8aa54e257c378efaa1",
      "narration": null
     }
    ],
@@ -1676,7 +1676,7 @@
     {
      "text": "Web MCP - JS",
      "clip": "LANGGRAPH-react-17-WebMCP",
-     "loom": null,
+     "loom": "https://www.loom.com/share/ab50859936194ff682d0b7822eeb2a42",
      "narration": "narration/scripts/LANGGRAPH-react-17-WebMCP.json"
     }
    ],
@@ -1815,7 +1815,7 @@
     {
      "text": "Not Working",
      "clip": "LANGGRAPH-react-65-Configurable",
-     "loom": null,
+     "loom": "https://www.loom.com/share/be997c2f3c7241dfb713f9d15c2e46d9",
      "narration": "narration/scripts/LANGGRAPH-react-65-Configurable.json"
     }
    ],
@@ -1888,7 +1888,7 @@
     {
      "text": "Subagents -JS",
      "clip": "LANGGRAPH-react-15-SubAgents",
-     "loom": null,
+     "loom": "https://www.loom.com/share/be89dda14e114b50a550158fe46fc541",
      "narration": null
     }
    ],
