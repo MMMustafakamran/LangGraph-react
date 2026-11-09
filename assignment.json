@@ -172,7 +172,7 @@
     {
      "text": "CopilotChat - JS",
      "clip": "LANGGRAPH-react-22-PrebuiltChat",
-     "loom": "https://www.loom.com/share/6aa2d7a990884d7b9094b1579ec9f41d",
+     "loom": "https://www.loom.com/share/745b740be8424106b0ee7c6597fcc4c0",
      "narration": null
     }
    ],
@@ -198,7 +198,7 @@
     {
      "text": "CopilotSidebar - JS",
      "clip": "LANGGRAPH-react-24-PrebuiltSidebar",
-     "loom": "https://www.loom.com/share/c91c5777e6434a1996657b5ba2f0b535",
+     "loom": "https://www.loom.com/share/8b516f67e6f040b7a7c05887059211d1",
      "narration": null
     }
    ],
@@ -224,7 +224,7 @@
     {
      "text": "CopilotPopup - JS",
      "clip": "LANGGRAPH-react-23-PrebuiltPopup",
-     "loom": "https://www.loom.com/share/7a3e9a5d40974064a0b5ec666f5b0e71",
+     "loom": "https://www.loom.com/share/82f7a84b19cd464faa049c82ee064261",
      "narration": null
     }
    ],
@@ -250,7 +250,7 @@
     {
      "text": "Open,Close and Feedback - JS",
      "clip": "LANGGRAPH-react-25-ChatControls",
-     "loom": "https://www.loom.com/share/5cba429248314e278b99d11e5d5140ee",
+     "loom": "https://www.loom.com/share/661683d848d84fbabd33772a88f86dea",
      "narration": null
     }
    ],
@@ -328,7 +328,7 @@
     {
      "text": "Css Customization - JS",
      "clip": "LANGGRAPH-react-26-CSS",
-     "loom": "https://www.loom.com/share/c200a682da3f4d8283aa4023324cf32c",
+     "loom": "https://www.loom.com/share/05af0a5fe1674c37a3ac300f7962c1ba",
      "narration": null
     }
    ],
@@ -354,7 +354,7 @@
     {
      "text": "Markdown - JS",
      "clip": "LANGGRAPH-react-29-Markdown",
-     "loom": "https://www.loom.com/share/f79baf97f8ef4307afd7d4e733ef60bc",
+     "loom": "https://www.loom.com/share/310434c445ce459ba195c52e1d189e47",
      "narration": null
     }
    ],
@@ -380,7 +380,7 @@
     {
      "text": "Slots - JS",
      "clip": "LANGGRAPH-react-27-Slots",
-     "loom": "https://www.loom.com/share/6c8f2c3363ad4604860046e679f0ee36",
+     "loom": "https://www.loom.com/share/27d18422422d4b3e987a370896afdf91",
      "narration": null
     }
    ],
@@ -406,7 +406,7 @@
     {
      "text": "Fully Headless UI - JS",
      "clip": "LANGGRAPH-react-28-HeadlessUI",
-     "loom": "https://www.loom.com/share/3e451f349bde4cd79728f78afae64b04",
+     "loom": "https://www.loom.com/share/54df181d08ae45218d27f4e130f07ac5",
      "narration": null
     }
    ],
@@ -545,7 +545,7 @@
     {
      "text": "Frontend Tools - JS",
      "clip": "LANGGRAPH-react-02-FrontendTools",
-     "loom": "https://www.loom.com/share/84dd1226e7a94827a17623b2b17e62e7",
+     "loom": "https://www.loom.com/share/bc7e8efedecb425fac2ee07d5d304335",
      "narration": null
     }
    ],
@@ -571,7 +571,7 @@
     {
      "text": "Components as Tools - JS",
      "clip": "LANGGRAPH-react-58-ComponentsAsTools",
-     "loom": "https://www.loom.com/share/6dac40dc67514e5c8ceeb33a7e6be450",
+     "loom": "https://www.loom.com/share/512f8d7582d04e8daf3f4a1d23e56092",
      "narration": null
     }
    ],
@@ -597,13 +597,13 @@
     {
      "text": "Tool Call Rendering - JS",
      "clip": "LANGGRAPH-react-09-ToolRendering",
-     "loom": "https://www.loom.com/share/de2429f917374abf97601525c90cb08f",
+     "loom": "https://www.loom.com/share/d72c6deff3e74ccb8df0d94f1b67e0dc",
      "narration": null
     },
     {
      "text": "Default catch-all - JS",
      "clip": "LANGGRAPH-react-10-ToolRenderingDefault",
-     "loom": "https://www.loom.com/share/721bab804a18407e83bbbaec886f12aa",
+     "loom": "https://www.loom.com/share/15ff6645138644a38e0e49df1f674f9e",
      "narration": null
     },
     {
@@ -635,7 +635,7 @@
     {
      "text": "State Rendering - JS",
      "clip": "LANGGRAPH-react-59-StateRendering",
-     "loom": "https://www.loom.com/share/12f447e76ed24f98b53edf6440c1ddb6",
+     "loom": "https://www.loom.com/share/6a9cebe6e9074c4b8f08b2632d4ea73a",
      "narration": null
     }
    ],
@@ -794,7 +794,7 @@
     {
      "text": "Issue",
      "clip": "LANGGRAPH-react-43-ComponentsSurfaces",
-     "loom": "https://www.loom.com/share/6e094e8d1214464ba0d74355dc55be49",
+     "loom": "https://www.loom.com/share/007e1f334c34417cb55734d00ec4c4e9",
      "narration": "narration/scripts/LANGGRAPH-react-43-ComponentsSurfaces.json"
     }
    ],
@@ -824,7 +824,7 @@
     {
      "text": "Issue",
      "clip": "LANGGRAPH-react-42-ComponentsCatalogs",
-     "loom": "https://www.loom.com/share/2f6a94aba7864c56a70240e57218a5c5",
+     "loom": "https://www.loom.com/share/59321cea09be4451b6ed0d9d2553f3ae",
      "narration": "narration/scripts/LANGGRAPH-react-42-ComponentsCatalogs.json"
     }
    ],
@@ -906,7 +906,7 @@
     {
      "text": "Theming - JS",
      "clip": "LANGGRAPH-react-44-ComponentsTheming",
-     "loom": "https://www.loom.com/share/d081e407c9254b0da79eb1d668f6a2ed",
+     "loom": "https://www.loom.com/share/91ebdf4bf4804fe29ab1f48283c6c94e",
      "narration": null
     }
    ],
@@ -962,7 +962,7 @@
     {
      "text": "Markdown mode - JS",
      "clip": "LANGGRAPH-react-47-ComponentsMarkdownMode",
-     "loom": "https://www.loom.com/share/47c65aef9a094bd0bf4daeee14393556",
+     "loom": "https://www.loom.com/share/c9ccd73dc33b416888fd7d3a6a4f37d0",
      "narration": null
     }
    ],
@@ -1077,7 +1077,7 @@
     {
      "text": "Fixed Schema -JS",
      "clip": "LANGGRAPH-react-40-A2UIFixedSchema",
-     "loom": "https://www.loom.com/share/04e77dba8dac4113a05675054ab129cf",
+     "loom": "https://www.loom.com/share/8b4f32036dea4d6e9577c0f2b65657d9",
      "narration": null
     }
    ],
@@ -1164,7 +1164,7 @@
     {
      "text": "JSON Render -JS",
      "clip": "LANGGRAPH-react-34-JsonRender",
-     "loom": "https://www.loom.com/share/2ef013c6d06d49fcb8df1685f39104a3",
+     "loom": "https://www.loom.com/share/82c44338058b40d081426e92ea442508",
      "narration": null
     }
    ],
@@ -1190,7 +1190,7 @@
     {
      "text": "Hashbrown -JS",
      "clip": "LANGGRAPH-react-35-Hashbrown",
-     "loom": "https://www.loom.com/share/8a8c4802ed0349aa89687005e6e14708",
+     "loom": "https://www.loom.com/share/63918557026e4317b65ba0e9bf404fd2",
      "narration": null
     }
    ],
@@ -1349,7 +1349,7 @@
     {
      "text": "Agent read-only context -JS",
      "clip": "LANGGRAPH-react-48-AgentReadOnly",
-     "loom": "https://www.loom.com/share/f8ec90b8e1ad47e1ab6efa94dc68615f",
+     "loom": "https://www.loom.com/share/ce3fd1e2622a4667aaebf6814c2e9c72",
      "narration": null
     }
    ],
@@ -1496,7 +1496,7 @@
     {
      "text": "HITL-JS",
      "clip": "LANGGRAPH-react-03-HumanInTheLoop",
-     "loom": "https://www.loom.com/share/5fd5420fde9240998721d59f7b10587a",
+     "loom": "https://www.loom.com/share/83146d3ca6fb45e8ad9f7d7190bed4df",
      "narration": null
     }
    ],
@@ -1615,7 +1615,7 @@
     {
      "text": "Governed Actions Approval",
      "clip": "LANGGRAPH-react-53-GovernedActions",
-     "loom": "https://www.loom.com/share/91bca95be9094d82b514a0bb1502bf94",
+     "loom": "https://www.loom.com/share/2c67ecd030484cb9889ce7b9526fe550",
      "narration": null
     }
    ],
@@ -1725,7 +1725,7 @@
     {
      "text": "Readables - Custom Graph -JS",
      "clip": "LANGGRAPH-react-54-AgentAppContext",
-     "loom": "https://www.loom.com/share/976480fba0114148be36c7c3fbc86420",
+     "loom": "https://www.loom.com/share/fe17e180c7724e61ad3714da64f29a2a",
      "narration": null
     }
    ],
@@ -1753,7 +1753,7 @@
     {
      "text": "Readables -Prebuilt agent -JS",
      "clip": "LANGGRAPH-react-63-ReadablesPrebuilt",
-     "loom": "https://www.loom.com/share/67640a0d580c452dac99c3dde9c0d11d",
+     "loom": "https://www.loom.com/share/28999b36b1184111a7092fa337c49892",
      "narration": null
     }
    ],
