@@ -269,8 +269,12 @@
    "docPath": "prebuilt-components/copilot-threads-drawer",
    "reachable": "sidebar",
    "status": "✅",
-   "findings": [],
-   "notes": [],
+   "findings": [
+    41
+   ],
+   "notes": [
+    "Note: needs CopilotKit Intelligence and an agent named default, which the quickstart doesn't register; recorded on the Intelligence route with a default agent."
+   ],
    "block": null,
    "links": [
     {
@@ -295,8 +299,12 @@
    "docPath": "headless-threads",
    "reachable": "sidebar",
    "status": "✅",
-   "findings": [],
-   "notes": [],
+   "findings": [
+    35
+   ],
+   "notes": [
+    "Note: server.ts uses agent and verifyAppSession without defining them, and useThreads asks for \"my-agent\" while the runtime registers \"default\"; recorded with harness stand-ins."
+   ],
    "block": null,
    "links": [
     {
@@ -511,16 +519,20 @@
    "child": false,
    "docPath": "voice",
    "reachable": "sidebar",
-   "status": "✅",
-   "findings": [],
-   "notes": [],
+   "status": "❌",
+   "findings": [
+    36
+   ],
+   "notes": [
+    "Issue: page.tsx imports VoiceChat from ./voice-chat, but the page never shows that file, so the app doesn't compile (Module not found). Works only with the showcase's voice-chat.tsx."
+   ],
    "block": null,
    "links": [
     {
-     "text": "Voice - JS",
+     "text": "Not Working",
      "clip": "LANGGRAPH-react-67-Voice",
      "loom": "https://www.loom.com/share/1da2764e80884c229da22510b444802b",
-     "narration": null
+     "narration": "narration/scripts/LANGGRAPH-react-67-Voice.json"
     }
    ],
    "review": {
@@ -590,8 +602,12 @@
    "docPath": "generative-ui/tool-rendering",
    "reachable": "sidebar",
    "status": "✅",
-   "findings": [],
-   "notes": [],
+   "findings": [
+    6
+   ],
+   "notes": [
+    "Note: the custom catch-all uses CustomCatchallRenderer and useSuggestions, which the page never shows (copied from the showcase)."
+   ],
    "block": null,
    "links": [
     {
@@ -750,7 +766,7 @@
    "child": false,
    "docPath": "generative-ui/components",
    "reachable": "sidebar",
-   "status": "⚠️",
+   "status": "❌",
    "findings": [
     9,
     10
@@ -761,7 +777,7 @@
    "block": null,
    "links": [
     {
-     "text": "Issue",
+     "text": "Not Working",
      "clip": "LANGGRAPH-react-13-Components",
      "loom": "https://www.loom.com/share/7f850953b84b4f008a47c2d89b7fe02a",
      "narration": "narration/scripts/LANGGRAPH-react-13-Components.json"
@@ -843,8 +859,12 @@
    "docPath": "generative-ui/components/standard-catalog",
    "reachable": "sidebar",
    "status": "✅",
-   "findings": [],
-   "notes": [],
+   "findings": [
+    25
+   ],
+   "notes": [
+    "Note: the page shows no LangGraph JS agent; recorded with a small harness graph that passes the run's tools and context."
+   ],
    "block": null,
    "links": [
     {
@@ -868,7 +888,7 @@
    "child": false,
    "docPath": "generative-ui/components/state-and-actions",
    "reachable": "sidebar",
-   "status": "⚠️",
+   "status": "❌",
    "findings": [
     32
    ],
@@ -878,7 +898,7 @@
    "block": null,
    "links": [
     {
-     "text": "Issue",
+     "text": "Not Working",
      "clip": "LANGGRAPH-react-46-ComponentsStateActions",
      "loom": "https://www.loom.com/share/98e26065cb2645998eb8a9fd44181aae",
      "narration": "narration/scripts/LANGGRAPH-react-46-ComponentsStateActions.json"
@@ -899,8 +919,12 @@
    "docPath": "generative-ui/components/theming",
    "reachable": "sidebar",
    "status": "✅",
-   "findings": [],
-   "notes": [],
+   "findings": [
+    25
+   ],
+   "notes": [
+    "Note: the page shows no LangGraph JS agent; recorded with a small harness graph that passes the run's tools and context."
+   ],
    "block": null,
    "links": [
     {
@@ -924,18 +948,21 @@
    "child": false,
    "docPath": "generative-ui/components/transports",
    "reachable": "sidebar",
-   "status": "✅",
+   "status": "❌",
    "findings": [
-    25
+    25,
+    38
    ],
-   "notes": [],
+   "notes": [
+    "Issue: the card renders only some of the time (5 of 10 runs on 1.85.0). The other runs answer \"here's a card\" in text and no card renders."
+   ],
    "block": null,
    "links": [
     {
-     "text": "Transports - JS",
+     "text": "Issue",
      "clip": "LANGGRAPH-react-45-ComponentsTransports",
      "loom": "https://www.loom.com/share/31d4783a48d245ddb5e3adcdc5e6eecb",
-     "narration": null
+     "narration": "narration/scripts/LANGGRAPH-react-45-ComponentsTransports.json"
     }
    ],
    "review": {
@@ -952,18 +979,21 @@
    "child": false,
    "docPath": "generative-ui/components/markdown-mode",
    "reachable": "sidebar",
-   "status": "✅",
+   "status": "❌",
    "findings": [
-    25
+    25,
+    38
    ],
-   "notes": [],
+   "notes": [
+    "Issue: the card renders only some of the time (3 of 5 runs on 1.85.0). The other runs answer \"here's a card\" in text and no card renders."
+   ],
    "block": null,
    "links": [
     {
-     "text": "Markdown mode - JS",
+     "text": "Issue",
      "clip": "LANGGRAPH-react-47-ComponentsMarkdownMode",
      "loom": "https://www.loom.com/share/c9ccd73dc33b416888fd7d3a6a4f37d0",
-     "narration": null
+     "narration": "narration/scripts/LANGGRAPH-react-47-ComponentsMarkdownMode.json"
     }
    ],
    "review": {
@@ -980,16 +1010,20 @@
    "child": false,
    "docPath": "generative-ui/components/from-a2ui",
    "reachable": "sidebar",
-   "status": "✅",
-   "findings": [],
-   "notes": [],
+   "status": "❌",
+   "findings": [
+    39
+   ],
+   "notes": [
+    "Issue: the converted catalog almost never renders (1 of 5 runs on 1.85.0): the chat stays empty, the agent's render_ui call renders nothing."
+   ],
    "block": null,
    "links": [
     {
-     "text": "Adopt from A2UI - JS",
+     "text": "Not Working",
      "clip": "LANGGRAPH-react-61-ComponentsFromA2UI",
      "loom": "https://www.loom.com/share/831b323018e04cc4adfb356caa4c73b8",
-     "narration": null
+     "narration": "narration/scripts/LANGGRAPH-react-61-ComponentsFromA2UI.json"
     }
    ],
    "review": {
@@ -1044,7 +1078,7 @@
     34
    ],
    "notes": [
-    "Issue: the generated Card and BarChart fail to render: \"Unable to display Card: title: Invalid input\" / \"Unable to display BarChart: description: Invalid input\"."
+    "Issue: no dashboard renders; the chat shows \"A2UI render error: Cannot read properties of undefined (reading 'map')\"."
    ],
    "block": null,
    "links": [
@@ -1238,7 +1272,9 @@
    "findings": [
     12
    ],
-   "notes": [],
+   "notes": [
+    "Note: the runtime snippet uses mcpAppsAgent and headlessCompleteAgent without defining them; recorded on the showcase route with the Code tab's agent."
+   ],
    "block": null,
    "links": [
     {
@@ -1289,13 +1325,17 @@
    "child": false,
    "docPath": "shared-state/rendering-in-app",
    "reachable": "sidebar",
-   "status": "✅",
-   "findings": [],
-   "notes": [],
+   "status": "❌",
+   "findings": [
+    37
+   ],
+   "notes": [
+    "Issue: the page's code uses the \"default\" agent and never names one, so on the quickstart app it crashes (useAgent: Agent 'default' not found). Works with agent=\"sample_agent\" on the provider."
+   ],
    "block": null,
    "links": [
     {
-     "text": "Render agent state in your app - JS",
+     "text": "Not Working",
      "clip": "LANGGRAPH-react-62-RenderAgentState",
      "loom": "https://www.loom.com/share/3da1867dc49a40d3acaa7401b6966e8e",
      "narration": "narration/scripts/LANGGRAPH-react-62-RenderAgentState.json"
@@ -1316,8 +1356,12 @@
    "docPath": "shared-state/streaming",
    "reachable": "sidebar",
    "status": "✅",
-   "findings": [],
-   "notes": [],
+   "findings": [
+    40
+   ],
+   "notes": [
+    "Note: the step snippet is a fragment; the full agent is in the demo's Code tab, recorded on that file."
+   ],
    "block": null,
    "links": [
     {
@@ -1516,18 +1560,19 @@
    "reachable": "sidebar",
    "status": "✅",
    "findings": [
-    1,
     7,
     16
    ],
-   "notes": [],
+   "notes": [
+    "Note: the page never shows a complete interrupt agent (the snippet stops after the tool); recorded on the showcase interrupt agent."
+   ],
    "block": null,
    "links": [
     {
      "text": "Pausing the agent state for input - JS",
      "clip": "LANGGRAPH-react-04-UseInterrupt",
      "loom": "https://www.loom.com/share/f7133862c686469aa807fc99d501a9ed",
-     "narration": "narration/scripts/LANGGRAPH-react-04-UseInterrupt.json"
+     "narration": null
     }
    ],
    "review": {
@@ -1546,10 +1591,12 @@
    "reachable": "sidebar",
    "status": "✅",
    "findings": [
-    1,
+    7,
     16
    ],
-   "notes": [],
+   "notes": [
+    "Note: no backend on the page; recorded on the showcase interrupt agent from the useInterrupt page."
+   ],
    "block": null,
    "links": [
     {
@@ -1666,15 +1713,17 @@
    "child": false,
    "docPath": "webmcp",
    "reachable": "sidebar",
-   "status": "✅",
+   "status": "❌",
    "findings": [
     18
    ],
-   "notes": [],
+   "notes": [
+    "Issue: the agent never calls the page's searchOrders tool. Asked which orders are shipped, it answers that it has no access to the orders."
+   ],
    "block": null,
    "links": [
     {
-     "text": "Web MCP - JS",
+     "text": "Not Working",
      "clip": "LANGGRAPH-react-17-WebMCP",
      "loom": "https://www.loom.com/share/ab50859936194ff682d0b7822eeb2a42",
      "narration": "narration/scripts/LANGGRAPH-react-17-WebMCP.json"
@@ -1833,18 +1882,13 @@
    "child": false,
    "docPath": "subgraphs",
    "reachable": "sidebar",
-   "status": "✅",
+   "status": "N/A",
    "findings": [],
-   "notes": [],
-   "block": null,
-   "links": [
-    {
-     "text": "SubGraphs - JS",
-     "clip": "LANGGRAPH-react-64-Subgraphs",
-     "loom": "https://www.loom.com/share/f9f1360fea834b36af0478054a67125f",
-     "narration": null
-    }
+   "notes": [
+    "Note: no runnable code on the page"
    ],
+   "block": null,
+   "links": [],
    "review": {
     "verdict": null,
     "approvedAt": null,
@@ -1881,8 +1925,12 @@
    "docPath": "multi-agent/subagents",
    "reachable": "sidebar",
    "status": "✅",
-   "findings": [],
-   "notes": [],
+   "findings": [
+    40
+   ],
+   "notes": [
+    "Note: the step snippets never build a graph; the full agent is only in the demo's Code tab, recorded on that file."
+   ],
    "block": null,
    "links": [
     {
