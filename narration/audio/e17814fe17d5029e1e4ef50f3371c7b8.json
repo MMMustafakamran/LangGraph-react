@@ -1,0 +1,9 @@
+{
+ "text": "The reply stays empty, umm, and no product cards render in the chat.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 5.341,
+ "file": "e17814fe17d5029e1e4ef50f3371c7b8.mp3",
+ "clip": "LANGGRAPH-react-42-ComponentsCatalogs",
+ "at": "error"
+}

@@ -1179,7 +1179,7 @@ const genuiTake: PageActionHandler = async (page, config, _root, ctx) => {
   if (await last.isVisible().catch(() => false)) await glideTo(page, last, 2500);
   else await sleep(2500);
   await idleNudge(page);
-  await sleep(4500);
+  await sleep(5500); // the error line (up to ~7.5 s of audio) must end before the failure terminal
   const seen = seenWarn.text;
   ctx.fail(
     seen

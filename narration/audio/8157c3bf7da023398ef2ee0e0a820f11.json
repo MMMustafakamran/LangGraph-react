@@ -1,0 +1,9 @@
+{
+ "text": "So I sent the doc's prompt, compare the Starter, Team and Enterprise plans in a table.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 5.991,
+ "file": "8157c3bf7da023398ef2ee0e0a820f11.mp3",
+ "clip": "LANGGRAPH-react-13-Components",
+ "at": "action"
+}

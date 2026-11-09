@@ -1,0 +1,9 @@
+{
+ "text": "Alright, so please get this one fixed.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 2.601,
+ "file": "03d45db7591afd557b9b8d059b116a5f.mp3",
+ "clip": "LANGGRAPH-react-61-ComponentsFromA2UI",
+ "at": "failure"
+}

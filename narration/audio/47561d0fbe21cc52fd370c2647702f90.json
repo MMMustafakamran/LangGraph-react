@@ -1,0 +1,9 @@
+{
+ "text": "So following the page, it crashes with agent default not found. Once you pass sample agent, the canvas works fine.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 8.731,
+ "file": "47561d0fbe21cc52fd370c2647702f90.mp3",
+ "clip": "LANGGRAPH-react-62-RenderAgentState",
+ "at": "+"
+}

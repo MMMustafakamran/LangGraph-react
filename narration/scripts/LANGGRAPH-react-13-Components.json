@@ -17,10 +17,14 @@
   },
   {
    "at": "action",
-   "text": "So I sent the doc's prompt, compare the Starter, Team and Enterprise plans in a table. Umm, the agent replies, but no table component renders, not in the chat and not in the inspector."
+   "text": "So I sent the doc's prompt, compare the Starter, Team and Enterprise plans in a table."
   },
   {
-   "at": "+",
+   "at": "error",
+   "text": "The agent just answers in text, umm, and no table component renders."
+  },
+  {
+   "at": "failure",
    "text": "So kindly look into it."
   }
  ]

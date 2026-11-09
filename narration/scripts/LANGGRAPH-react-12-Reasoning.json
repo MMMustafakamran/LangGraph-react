@@ -28,7 +28,7 @@
   },
   {
    "at": "evidence#2",
-   "text": "And this line says no configuration is needed, the card just appears. Basically that's not what happens here."
+   "text": "And this line says no configuration is needed, the card just appears. Not what happens here."
   },
   {
    "at": "notepad",
@@ -40,11 +40,7 @@
   },
   {
    "at": "failure",
-   "text": "And this is the terminal with the frontend log. Yeah, it's the same error there, cannot send run finished while text messages are still active."
-  },
-  {
-   "at": "+",
-   "text": "Umm, the runtime calls it an incomplete stream, so the run never finishes cleanly, even though the answer was already on screen. And it happens on every answer, not just this one."
+   "text": "And this is the terminal with the frontend log. Yeah, same error there, cannot send run finished while text messages are still active."
   },
   {
    "at": "+",

@@ -17,10 +17,14 @@
   },
   {
    "at": "action",
-   "text": "So I asked it to show cheap running shoes in the featured products area. The agent replies, but uh, nothing renders, not in the chat and not in the inspector's generative UI tab."
+   "text": "So I asked it to show cheap running shoes in the featured products area."
   },
   {
-   "at": "+",
+   "at": "error",
+   "text": "The reply is empty, and uh, the featured row still shows the fallback products."
+  },
+  {
+   "at": "failure",
    "text": "That's the problem here, please have a look."
   }
  ]

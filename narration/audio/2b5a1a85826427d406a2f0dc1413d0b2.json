@@ -1,0 +1,9 @@
+{
+ "text": "So basically, the page shows no TypeScript agent, so I used a small harness graph that passes the run's tools and context.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 10.217,
+ "file": "2b5a1a85826427d406a2f0dc1413d0b2.mp3",
+ "clip": "LANGGRAPH-react-45-ComponentsTransports",
+ "at": "notepad"
+}

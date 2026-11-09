@@ -5,19 +5,19 @@
  "segments": [
   {
    "at": "doc",
-   "text": "Ok so, this is the configurable page in the CopilotKit docs, for LangGraph TypeScript. There's no demo for this one, just the page itself, and uh, the part that matters is the TypeScript tab down here."
+   "text": "Ok so, this is the configurable page in the CopilotKit docs, for LangGraph TypeScript, and I have implemented this page. There's no demo for this one, umm, the part that matters is the TypeScript tab."
   },
   {
    "at": "evidence#1",
-   "text": "This tab only says to set the runtime context where your backend invokes the graph."
+   "text": "So this tab only says to set the runtime context where your backend invokes the graph."
   },
   {
    "at": "evidence#2",
-   "text": "And the code is just this graph invoke. Umm, there's no frontend code at all, so you can't wire it up from a CopilotKit app."
+   "text": "And the code is just this graph invoke, nothing for the frontend."
   },
   {
    "at": "+",
-   "text": "So yeah, please fix it."
+   "text": "So yeah, kindly check this and fix it."
   }
  ]
 }

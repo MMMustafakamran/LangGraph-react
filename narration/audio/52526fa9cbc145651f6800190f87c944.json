@@ -1,0 +1,9 @@
+{
+ "text": "Ok so, this is the configurable page in the CopilotKit docs, for LangGraph TypeScript, and I have implemented this page. There's no demo for this one, umm, the part that matters is the TypeScript tab.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 14.211,
+ "file": "52526fa9cbc145651f6800190f87c944.mp3",
+ "clip": "LANGGRAPH-react-65-Configurable",
+ "at": "doc"
+}

@@ -1,0 +1,9 @@
+{
+ "text": "So I asked it, which of my orders are shipped. It should call the search orders tool for that.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 6.594,
+ "file": "e062a980dc1a094c3d9b97962537a38c.mp3",
+ "clip": "LANGGRAPH-react-17-WebMCP",
+ "at": "action"
+}

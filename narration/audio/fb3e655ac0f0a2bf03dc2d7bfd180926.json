@@ -1,0 +1,9 @@
+{
+ "text": "So I asked it to show my flight from SFO to JFK, with the airport and arrow components.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 7.895,
+ "file": "fb3e655ac0f0a2bf03dc2d7bfd180926.mp3",
+ "clip": "LANGGRAPH-react-61-ComponentsFromA2UI",
+ "at": "action"
+}

@@ -21,11 +21,11 @@
   },
   {
    "at": "error",
-   "text": "The heading shows up, but the cards don't. Each one says unable to display card, title, invalid input. So no dashboard."
+   "text": "No dashboard shows up, just a red A2UI render error, cannot read properties of undefined."
   },
   {
-   "at": "+",
-   "text": "Alright, that's the issue, kindly sort it out."
+   "at": "failure",
+   "text": "And the agent still says it showed the dashboard. Alright, that's the issue, kindly sort it out."
   }
  ]
 }

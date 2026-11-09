@@ -17,10 +17,14 @@
   },
   {
    "at": "action",
-   "text": "So I asked for product cards for shoe one, Runner, and shoe two, Trail. The reply is just empty, no card renders, so there's no cart count or add to cart button to try."
+   "text": "So I asked for product cards for shoe one, Runner, and shoe two, Trail."
   },
   {
-   "at": "+",
+   "at": "error",
+   "text": "The reply is just empty, umm, no card, so no cart count or add to cart button."
+  },
+  {
+   "at": "failure",
    "text": "So this needs a fix, kindly check it."
   }
  ]

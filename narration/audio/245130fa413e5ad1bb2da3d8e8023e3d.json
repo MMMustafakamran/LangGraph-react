@@ -1,0 +1,9 @@
+{
+ "text": "No dashboard shows up, just a red A2UI render error, cannot read properties of undefined.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 6.827,
+ "file": "245130fa413e5ad1bb2da3d8e8023e3d.mp3",
+ "clip": "LANGGRAPH-react-39-A2UIDynamicSchema",
+ "at": "error"
+}

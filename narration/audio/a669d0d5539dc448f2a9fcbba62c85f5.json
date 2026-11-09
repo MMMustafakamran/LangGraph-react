@@ -1,0 +1,9 @@
+{
+ "text": "The agent says here's a card, but uh, no card renders in the chat.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 6.13,
+ "file": "a669d0d5539dc448f2a9fcbba62c85f5.mp3",
+ "clip": "LANGGRAPH-react-47-ComponentsMarkdownMode",
+ "at": "error"
+}

@@ -1,0 +1,9 @@
+{
+ "text": "This is my project with the code from the doc. The page imports a voice chat component, and umm, that file is never shown, so the last tab is a copy from the showcase.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 12.957,
+ "file": "6d9b3f1a815c42cd5c15390fc1f6d2dd.mp3",
+ "clip": "LANGGRAPH-react-67-Voice",
+ "at": "ide"
+}

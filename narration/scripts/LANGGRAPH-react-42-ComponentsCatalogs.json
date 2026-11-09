@@ -17,10 +17,14 @@
   },
   {
    "at": "action",
-   "text": "So I asked for two running shoes as product cards in a grid. The agent runs, but no product cards render, umm, not in the chat and not in the inspector either."
+   "text": "So I asked for two running shoes as product cards in a grid."
   },
   {
-   "at": "+",
+   "at": "error",
+   "text": "The reply stays empty, umm, and no product cards render in the chat."
+  },
+  {
+   "at": "failure",
    "text": "So yeah, please take a look and fix this."
   }
  ]

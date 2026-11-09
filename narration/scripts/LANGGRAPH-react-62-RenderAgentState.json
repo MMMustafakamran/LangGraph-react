@@ -1,37 +1,50 @@
 {
  "clip": "LANGGRAPH-react-62-RenderAgentState",
+ "finding": "37",
  "segments": [
   {
    "at": "doc",
-   "text": "So this is the render agent state in your app page, for LangGraph TypeScript, and I have implemented this page."
+   "text": "Ok so, this is the render agent state in your app page, for LangGraph TypeScript, and I have implemented this page in my project."
   },
   {
    "at": "ide",
-   "text": "This is the canvas component and the page from the doc, uh, as they are, nothing changed."
+   "text": "This is my project, the canvas and the page from the doc, and umm, a second copy with the agent set."
   },
   {
    "at": "demo",
-   "text": "So when the page loads, umm, it crashes. It says agent default was not found."
+   "text": "Moving on to the demo."
   },
   {
-   "at": "+",
-   "text": "Then with the agent set to sample agent, the page loads, and the chat answers fine. So the state rendering works once it has an agent."
-  },
-  {
-   "at": "evidence",
-   "text": "So this is the part. Use agent is called with no id, and uh, the provider has no agent either."
-  },
-  {
-   "at": "notepad",
-   "text": "So noting it. No agent anywhere, so it looks for default."
-  },
-  {
-   "at": "+",
-   "text": "And the quickstart only has sample agent, so it crashes."
+   "at": "action",
+   "text": "So this is the doc's page, umm, on the quickstart app."
   },
   {
    "at": "error",
-   "text": "Same issue as the frontend cards page, ahh, so please have a look at it."
+   "text": "The canvas stays untitled, and then the page crashes. Agent default not found."
+  },
+  {
+   "at": "demo#2",
+   "text": "Then the copy with the agent set to sample agent. Here the canvas shows project launch, and the chat answers."
+  },
+  {
+   "at": "evidence#1",
+   "text": "Back on the doc. The canvas calls use agent with no id, so uh, it wants an agent called default."
+  },
+  {
+   "at": "evidence#2",
+   "text": "And the page's provider has no agent either."
+  },
+  {
+   "at": "notepad",
+   "text": "So basically, the quickstart only registers sample agent, and nothing on this page names an agent."
+  },
+  {
+   "at": "+",
+   "text": "So following the page, it crashes with agent default not found. Once you pass sample agent, the canvas works fine."
+  },
+  {
+   "at": "failure",
+   "text": "That's it for this one, kindly look into this issue."
   }
  ]
 }

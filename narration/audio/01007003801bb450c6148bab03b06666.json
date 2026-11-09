@@ -1,0 +1,9 @@
+{
+ "text": "So with that copy, the sample audio button drops the phrase into the chat, and the agent answers with the weather in Tokyo. But that only works with the file from the showcase.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 11.378,
+ "file": "01007003801bb450c6148bab03b06666.mp3",
+ "clip": "LANGGRAPH-react-67-Voice",
+ "at": "action"
+}

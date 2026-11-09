@@ -1,0 +1,46 @@
+{
+ "clip": "LANGGRAPH-react-61-ComponentsFromA2UI",
+ "finding": "39",
+ "segments": [
+  {
+   "at": "doc",
+   "text": "Ok so, this is the adopt from A2UI page in the CopilotKit docs, for LangGraph TypeScript, and I have implemented this page in my project."
+  },
+  {
+   "at": "ide",
+   "text": "My project, the doc's catalog, plus the two components it never shows."
+  },
+  {
+   "at": "demo",
+   "text": "Moving on to the demo."
+  },
+  {
+   "at": "action",
+   "text": "So I asked it to show my flight from SFO to JFK, with the airport and arrow components."
+  },
+  {
+   "at": "error",
+   "text": "The chat just stays empty, no flight card renders."
+  },
+  {
+   "at": "evidence#1",
+   "text": "Back on the doc, it says the runtime needs nothing, the render UI tool comes with the catalog."
+  },
+  {
+   "at": "evidence#2",
+   "text": "And these renderers, airport and arrow, uh, are never shown on the page."
+  },
+  {
+   "at": "notepad",
+   "text": "So basically, only one out of five runs rendered anything. The other runs show nothing at all."
+  },
+  {
+   "at": "+",
+   "text": "And the browser log says the agent called render UI, and no renderer is registered, so it rendered nothing."
+  },
+  {
+   "at": "failure",
+   "text": "Alright, so please get this one fixed."
+  }
+ ]
+}

@@ -1,0 +1,9 @@
+{
+ "text": "The chat just stays empty, no flight card renders.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 3.39,
+ "file": "74f23949abf8ae65b2b2f987c2132853.mp3",
+ "clip": "LANGGRAPH-react-61-ComponentsFromA2UI",
+ "at": "error"
+}

@@ -1,0 +1,9 @@
+{
+ "text": "So basically, the page as written doesn't compile, module not found, can't resolve voice chat.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 6.78,
+ "file": "227d51c9e810cb46819c3ae45a832533.mp3",
+ "clip": "LANGGRAPH-react-67-Voice",
+ "at": "notepad"
+}

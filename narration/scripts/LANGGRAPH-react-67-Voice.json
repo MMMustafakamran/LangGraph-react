@@ -1,0 +1,42 @@
+{
+ "clip": "LANGGRAPH-react-67-Voice",
+ "finding": "36",
+ "segments": [
+  {
+   "at": "doc",
+   "text": "Ok so, this is the voice page in the CopilotKit docs, for LangGraph TypeScript, and I have implemented this page in my project."
+  },
+  {
+   "at": "ide",
+   "text": "This is my project with the code from the doc. The page imports a voice chat component, and umm, that file is never shown, so the last tab is a copy from the showcase."
+  },
+  {
+   "at": "demo",
+   "text": "Moving on to the demo."
+  },
+  {
+   "at": "action",
+   "text": "So with that copy, the sample audio button drops the phrase into the chat, and the agent answers with the weather in Tokyo. But that only works with the file from the showcase."
+  },
+  {
+   "at": "evidence#1",
+   "text": "Back on the doc, this is the import, voice chat from dot slash voice chat."
+  },
+  {
+   "at": "evidence#2",
+   "text": "And this sentence is all the page says about that component. There's no code for it."
+  },
+  {
+   "at": "notepad",
+   "text": "So basically, the page as written doesn't compile, module not found, can't resolve voice chat."
+  },
+  {
+   "at": "+",
+   "text": "Uh, you'd have to write the whole chat component yourself, or copy it from the showcase like I did."
+  },
+  {
+   "at": "+",
+   "text": "So umm, this one needs fixing, please look into it."
+  }
+ ]
+}

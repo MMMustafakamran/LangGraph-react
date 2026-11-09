@@ -1,0 +1,9 @@
+{
+ "text": "The canvas stays untitled, and then the page crashes. Agent default not found.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 6.13,
+ "file": "6be3c5b9f1719033827de6a429fe89b6.mp3",
+ "clip": "LANGGRAPH-react-62-RenderAgentState",
+ "at": "error"
+}
