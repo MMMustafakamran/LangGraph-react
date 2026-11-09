@@ -5,7 +5,10 @@ import { Canvas } from "@/components/Canvas";
 
 export default function Page() {
   return (
-    <CopilotKit runtimeUrl="/api/copilotkit">
+    // HARNESS: doc runtimeUrl is "/api/copilotkit". This harness's /api/copilotkit also registers
+    // a `default` alias for other pages; /api/copilotkit-quickstart is the quickstart route as
+    // published (sample_agent only), i.e. what a reader following the docs has. FINDINGS.md #37.
+    <CopilotKit runtimeUrl="/api/copilotkit-quickstart">
       <div className="app-shell">
         {/* Your app UI, driven by agent.state */}
         <Canvas />

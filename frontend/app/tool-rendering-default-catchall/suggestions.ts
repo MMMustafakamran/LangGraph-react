@@ -1,4 +1,5 @@
 "use client";
+// HARNESS: helper the Tool Call Rendering page imports but never shows; copied from the showcase (reference/showcase). FINDINGS.md #6.
 
 import { useConfigureSuggestions } from "@copilotkit/react-core/v2";
 

@@ -1,3 +1,4 @@
+import { join } from 'node:path';
 import { type Locator, type Page } from 'playwright';
 import { type PageActionHandler, type PageRecordConfig, type ActionContext } from '../core/types';
 import { sendPrompt, waitForAgentResponseCompletion } from '../core/actions';
@@ -889,6 +890,7 @@ type Step =
   | { waitText: string; timeoutMs?: number }
   | { waitGone: string; timeoutMs?: number }
   | { press: string; holdMs?: number }
+  | { attach: string; holdMs?: number }
   | { holdMs: number };
 
 const BASE = process.env.FRONTEND_URL || 'http://localhost:3050';
@@ -916,6 +918,20 @@ function scripted(steps: Step[]): PageActionHandler {
         await page.locator('textarea').first().focus().catch(() => {});
         await tracked('press', s.press, () => page.keyboard.press(s.press));
         await sleep(s.holdMs ?? 1500);
+      } else if ('attach' in s) {
+        // The doc's own path: the chat's + button -> "Add attachments" -> pick a file (repo-relative).
+        mark('click', 'attach');
+        await glideClick(page, page.locator('[data-testid="copilot-add-menu-button"]').first());
+        await sleep(900);
+        const chooser = page.waitForEvent('filechooser', { timeout: 15000 });
+        await glideClick(page, page.getByRole('menuitem', { name: /add attachments/i }).first());
+        const fc = await chooser;
+        await tracked('attach', s.attach, () => fc.setFiles(join(root, s.attach)));
+        const chip = await page.locator('[data-testid="copilot-attachment-queue"] img').first()
+          .waitFor({ state: 'visible', timeout: 15000 }).then(() => true).catch(() => false);
+        void checkpoint('attach', 'attachment preview above the input', async () => (chip ? s.attach : null));
+        if (!chip) ctx.fail(`The attachment ${s.attach} never showed in the input.`);
+        await sleep(s.holdMs ?? 2500);
       } else if ('prompt' in s) {
         await keyboardSend(page, { ...config, prompt: s.prompt }, root, ctx);
       } else if ('waitText' in s) {
@@ -945,8 +961,10 @@ export const SCRIPTED: Record<string, PageActionHandler> = {
     { select: 2, value: 'detailed' },
     { prompt: 'Explain what an API is.' },
   ])),
+  // The doc's attach path (+ button, pick a file), not the showcase's "Try with sample image"
+  // button (CI 2026-11-09: that click attached nothing). 5 of 5 probes replied about the image.
   multimodal: scripted([
-    { click: 'Try with sample image', holdMs: 3000 },
+    { attach: 'frontend/public/demo-files/sample.png', holdMs: 2500 },
     { prompt: 'What is in this image?' },
   ]),
   'in-app-write': scripted([
@@ -966,24 +984,19 @@ export const SCRIPTED: Record<string, PageActionHandler> = {
     { click: 'Simulate deployment message', holdMs: 1000 },
     { waitText: 'Deployment finished', timeoutMs: 15000 },
   ])),
-  // ✅ working clip (owner 2026-11-08): demo unchanged, no finding tail.
-  'rendering-in-app': scripted([
-    { goto: '/shared-state/rendering-in-app', holdMs: 12000 },
-    { goto: '/shared-state/rendering-in-app/harness', holdMs: 6000 },
-    { waitText: 'Project launch', timeoutMs: 30000 },
-    { prompt: 'Hi! What can you see?' },
-  ]),
+  // rendering-in-app (#37): see renderingInAppTake below (❌, level 1).
   // Voice: the doc's "Try a sample audio" button drops the sample phrase into the composer.
   // The root layout's CopilotKitProvider (quickstart providers.tsx) mounts its own web inspector
   // over the sample button, the overlap the doc's enableInspector comment describes. A person
   // hides it with the inspector's own "Hide Inspector for a day" control, then clicks the button.
-  voice: scripted([
+  // ❌ #36 (level 1): demo on the harness voice-chat.tsx, then the doc evidence + Notepad.
+  voice: withFinding(scripted([
     { holdMs: 4000 },
     { click: 'Try a sample audio', holdMs: 1500 },
     { click: 'Hide Inspector for a day', holdMs: 1500 },
     { click: 'Try a sample audio', holdMs: 2500 },
-    { press: 'Enter', holdMs: 40000 },
-  ]),
+    { press: 'Enter', holdMs: 25000 },
+  ])),
   'a2ui-advanced': scripted([
     { prompt: 'Show me my sales dashboard for this quarter.' },
     { waitGone: 'Building interface', timeoutMs: 300000 },
@@ -1053,6 +1066,50 @@ Object.assign(FINDING_EVIDENCE, {
   ],
 });
 
+// Transports + Markdown mode (#38) and Adopt from A2UI (#39): ❌ level 1 (2026-11-09, 5-10 probes
+// each). Team doc: Transports / Markdown mode ✅, Adopt from A2UI empty, so full clips (evidence + Notepad) when the take fails.
+Object.assign(FINDING_NOTES, {
+  'components-transports': [
+    'transports',
+    'page only says what a langgraph python agent needs, add CopilotKitMiddleware',
+    'nothing for a langgraph js agent, so i used a harness graph that passes the runs tools + context',
+    'asked for a card with a seats slider and a price label, markdown transport like the page',
+    'only 5 of 10 runs render the card',
+    'the others just answer in text, heres a card with a slider, and no card shows up',
+  ].join('\n'),
+  'components-markdown-mode': [
+    'markdown mode',
+    'provider set to the markdown transport like the page says',
+    'page says any other agent just needs the runs context entries in its system prompt',
+    'did that in a small harness langgraph js graph, the docs dont show one',
+    'asked for a card with a seats slider and a price label',
+    'only 3 of 5 runs render the card, the others say heres a card and nothing shows up',
+  ].join('\n'),
+  'components-from-a2ui': [
+    'adopt from a2ui',
+    'catalog converted the way the page says, Airport + Arrow',
+    'the page never shows the Airport and Arrow components, had to write them',
+    'asked for my flight sfo to jfk with the airport and arrow components',
+    'chat stays empty, only 1 of 5 runs rendered anything',
+    'log says the agent called render_ui and no renderer is registered, so it rendered nothing',
+    GENUI_HARNESS_LINE,
+  ].join('\n'),
+});
+Object.assign(FINDING_EVIDENCE, {
+  'components-transports': [
+    { text: 'Your agent must use the tools and the context entries of the run.', caption: 'Only a LangGraph Python agent is covered' },
+    { text: 'Set transport: "markdown"', caption: 'Markdown transport as shown - the card renders only half the time' },
+  ],
+  'components-markdown-mode': [
+    { text: 'The UI is plain text, so this works with any AG-UI agent that streams text.', caption: 'Promised: works with any agent' },
+    { text: "Any other agent needs one thing: put the run's context entries into its system prompt.", caption: 'Done in the harness graph - the card renders 3 of 5 runs' },
+  ],
+  'components-from-a2ui': [
+    { text: 'Nothing: a run that carries a catalog gets the render_ui tool and the guide.', caption: 'Promised: no runtime option needed - render_ui renders nothing' },
+    { text: 'const renderers = { Airport, Arrow };', caption: 'Airport and Arrow are never shown' },
+  ],
+});
+
 const SURFACE_SEL = '[data-generative-ui-surface], .a2ui-surface';
 const surfaceCount = (page: Page) =>
   page.evaluate((sel) => document.querySelectorAll(sel).length, SURFACE_SEL).catch(() => 0);
@@ -1115,12 +1172,14 @@ const genuiTake: PageActionHandler = async (page, config, _root, ctx) => {
     await sleep(2500);
     return;
   }
-  // Rest on the result so the viewer can see that nothing rendered.
+  // Rest on the result so the viewer can see that nothing rendered. 'error' starts the segment the
+  // narration's outcome line hangs on, so the voice never states the result before it shows.
+  mark('error');
   const last = page.locator(SELECTORS.assistantMessage).last();
   if (await last.isVisible().catch(() => false)) await glideTo(page, last, 2500);
   else await sleep(2500);
   await idleNudge(page);
-  await sleep(1500);
+  await sleep(4500);
   const seen = seenWarn.text;
   ctx.fail(
     seen
@@ -1170,10 +1229,9 @@ Object.assign(FINDING_NOTES, {
   'a2ui-dynamic': [
     'dynamic schema a2ui (#34)',
     'asked "show my team performance", doc says the cards render as data comes in',
-    'only the title and intro text show up',
-    'the generated components fail instead, eg',
-    '"unable to display Card: title: invalid input: expected string, received undefined"',
-    '(other runs: BarChart fails the same way on description)',
+    'no dashboard shows up, the chat shows a red box instead',
+    '"A2UI render error: Cannot read properties of undefined (reading map)"',
+    'and the agent still says it showed the dashboard',
     'catalog + provider are the doc code as is',
   ].join('\n'),
 });
@@ -1187,7 +1245,7 @@ Object.assign(FINDING_EVIDENCE, {
   ],
   'a2ui-dynamic': [
     { text: 'the agent can render any UI for any request without pre-defined schemas.', caption: 'Promised: any UI renders' },
-    { text: 'renders cards progressively as data items arrive.', caption: 'Promised: cards render - Card / BarChart fail validation' },
+    { text: 'renders cards progressively as data items arrive.', caption: 'Promised: cards render - A2UI render error instead' },
   ],
 });
 
@@ -1273,9 +1331,12 @@ const reasoningTake: PageActionHandler = async (page, config, _root, ctx) => {
 };
 export const runReasoningFindingAction = withFindingOnFailure(reasoningTake);
 
-const UNABLE_RE = /Unable to display/i;
+// #34: on 1.85.0 the renderer fails with "A2UI render error: Cannot read properties of undefined
+// (reading 'map')" (CI 2026-11-09); older runs showed "Unable to display Card ...". Either one is
+// the failure, and either one starts the 'error' segment the narration hangs on.
+const UNABLE_RE = /Unable to display|A2UI render error/i;
 
-/** Dynamic Schema A2UI: the generated surface must render without "Unable to display" errors. */
+/** Dynamic Schema A2UI: the generated surface must render without A2UI render errors. */
 const a2uiDynamicTake: PageActionHandler = async (page, config, _root, ctx) => {
   const done = await sendAndAwaitRun(page, config.prompt, 180000);
   // The surface finishes rendering after the stream closes: wait until the chat stops changing.
@@ -1292,7 +1353,7 @@ const a2uiDynamicTake: PageActionHandler = async (page, config, _root, ctx) => {
     const s = await surfaceCount(page);
     return s > 0 ? `${s} surface(s)` : null;
   });
-  void checkpoint('render', 'no "Unable to display" component errors', async () => (quotes.length ? quotes.join(' | ') : null), {
+  void checkpoint('render', 'no A2UI render errors ("A2UI render error" / "Unable to display")', async () => (quotes.length ? quotes.join(' | ') : null), {
     ok: (seen) => !seen,
   });
   if (quotes.length) {
@@ -1304,7 +1365,7 @@ const a2uiDynamicTake: PageActionHandler = async (page, config, _root, ctx) => {
     await glideTo(page, first, 3000);
     await idleNudge(page);
     if (n > 1) await glideTo(page, errs.nth(n - 1), 3000);
-    await sleep(2000);
+    await sleep(4500); // room for the narration's 'error' line before the failure terminal
     ctx.fail(`Generated components failed to render: ${quotes.join(' | ').slice(0, 300)}`);
     return;
   }
@@ -1313,6 +1374,145 @@ const a2uiDynamicTake: PageActionHandler = async (page, config, _root, ctx) => {
   await sleep(3000);
 };
 export const runA2uiDynamicFindingAction = withFindingOnFailure(a2uiDynamicTake);
+
+/**
+ * Open Generative UI (✅): the visualiser streams in for a minute or more ("Building ..." /
+ * "Rendering bars ..." over a spinner). The CI take of 2026-11-09 stopped on the first streamed
+ * line. Wait for the whole agent run (its POST), then for the chat and the iframe to settle, so the
+ * clip ends on the finished visualiser.
+ */
+const openGenUiTake: PageActionHandler = async (page, config, _root, ctx) => {
+  const done = await sendAndAwaitRun(page, config.prompt, 300000);
+  await waitForQuiet(page, 8000, 90000);
+  const frame = page.locator('iframe').last();
+  const hasFrame = await frame.isVisible().catch(() => false);
+  if (hasFrame) {
+    // The iframe paints its content after the HTML lands; give it time, then rest on it.
+    await sleep(8000);
+    await glideTo(page, frame, 2500);
+    await idleNudge(page);
+  }
+  void checkpoint('run', 'agent run finished', async () => done);
+  void checkpoint('surface', 'visualiser iframe rendered', async () => (hasFrame ? 'iframe visible' : null));
+  void checkpoint('reply', 'agent reply rendered', lastReply(page));
+  if (!done) ctx.fail('The agent run never finished (5 min).');
+  else if (!hasFrame) ctx.fail('The run finished but no generated UI (iframe) is on screen.');
+  await sleep(5000);
+};
+export const runOpenGenUiAction: PageActionHandler = openGenUiTake;
+
+// ---------------------------------------------------------------------------------------------
+// Render agent state in your app (#37), ❌ level 1 (2026-11-09). The demo route is the doc's page
+// on the quickstart runtime (sample_agent only): Canvas calls useAgent() with no id, nothing names
+// an agent, and the page crashes ("useAgent: Agent 'default' not found after runtime sync") about
+// 15-20 s after load. Then the harness copy (agent="sample_agent") shows the canvas working.
+// ---------------------------------------------------------------------------------------------
+const CRASH_TEXT = 'Reload to try again';
+const renderingInAppTake: PageActionHandler = async (page, config, root, ctx) => {
+  const crashed = await page.getByText(CRASH_TEXT).first()
+    .waitFor({ state: 'visible', timeout: 45000 }).then(() => true).catch(() => false);
+  void checkpoint('crash', 'the doc page crashes ("This page couldn\'t load")', () => probeText(page.getByText(CRASH_TEXT)));
+  if (crashed) {
+    mark('error');
+    await glideTo(page, page.getByText(CRASH_TEXT).first(), 2500);
+    await idleNudge(page);
+    await sleep(5000);
+    ctx.fail("The doc's page crashes: useAgent: Agent 'default' not found after runtime sync (quickstart registers only sample_agent).");
+  } else {
+    const title = await probeText(page.locator('main.canvas h1'));
+    ctx.warn(`The doc's page did not crash this time (canvas title: ${JSON.stringify(title)}).`);
+  }
+  await scripted([
+    { goto: '/shared-state/rendering-in-app/harness', holdMs: 6000 },
+    { waitText: 'Project launch', timeoutMs: 30000 },
+    { prompt: 'Hi! What can you see?' },
+  ])(page, config, root, ctx);
+};
+export const runRenderingInAppFindingAction = withFindingOnFailure(renderingInAppTake);
+
+Object.assign(FINDING_NOTES, {
+  'rendering-in-app': [
+    'render agent state in your app',
+    'Canvas calls useAgent() with no id, so it wants the agent named default',
+    'the page.tsx provider has no agent either, and the quickstart only registers sample_agent',
+    'so the page loads empty and then crashes, this page couldnt load',
+    'useAgent agent default not found after runtime sync',
+    'nothing on the page says to register a default agent or pass agentId',
+    'with agent=sample_agent on the provider the canvas shows project launch and works',
+  ].join('\n'),
+});
+Object.assign(FINDING_EVIDENCE, {
+  'rendering-in-app': [
+    { text: 'const { agent, isReady } = useAgent();', caption: 'useAgent() with no id: wants the "default" agent' },
+    { text: '<CopilotKit runtimeUrl="/api/copilotkit">', caption: 'Provider names no agent; the quickstart registers only sample_agent' },
+  ],
+});
+
+// ---------------------------------------------------------------------------------------------
+// WebMCP (#18), ❌ level 1 (2026-11-09): the page says the same handler works for the CopilotKit
+// agent, but the quickstart agent never calls searchOrders. The tool result would name order
+// A-1002 (the harness stub's only shipped order); a reply without it means the tool never ran.
+// ---------------------------------------------------------------------------------------------
+const webmcpTake: PageActionHandler = async (page, config, root, ctx) => {
+  let failed = false;
+  await promptOrError(page, config, root, { ...ctx, fail: (m: string) => { failed = true; ctx.fail(m); } });
+  if (failed) return;
+  const reply = (await lastReply(page)()) ?? '';
+  const called = /A-1002/.test(reply);
+  void checkpoint('tool', 'searchOrders result in the reply (order A-1002)', async () => (called ? 'A-1002' : null));
+  if (called) {
+    ctx.warn('The agent called searchOrders in this take: the known failure did not reproduce.');
+    return;
+  }
+  mark('error');
+  const last = page.locator(SELECTORS.assistantMessage).last();
+  if (await last.isVisible().catch(() => false)) await glideTo(page, last, 2500);
+  await idleNudge(page);
+  await sleep(4000);
+  ctx.fail(`The agent never called searchOrders. Reply: ${JSON.stringify(reply.slice(0, 160))}`);
+};
+export const runWebMcpFindingAction = withFindingOnFailure(webmcpTake);
+
+Object.assign(FINDING_NOTES, {
+  webmcp: [
+    'webmcp',
+    'page says the same handler then works for your copilotkit agent',
+    'asked which of my orders are shipped, agent says it doesnt have access to my orders',
+    'searchOrders is never called, the quickstart sample_agent doesnt bind the frontend tools',
+    'only the frontend tools page shows that wiring, this page never mentions it',
+    'also searchOrders itself is never defined on the page, had to stub it',
+  ].join('\n'),
+});
+Object.assign(FINDING_EVIDENCE, {
+  webmcp: [
+    { text: 'The same handler then works for your CopilotKit agent and for WebMCP-aware browser agents.', caption: 'Promised: the CopilotKit agent can call it - it never does' },
+    { text: 'const orders = await searchOrders(status);', caption: 'searchOrders is never defined on the page' },
+  ],
+});
+
+// ---------------------------------------------------------------------------------------------
+// Voice (#36), ❌ level 1 (2026-11-09): the page's page.tsx imports VoiceChat from "./voice-chat"
+// and never shows that file (only a sentence about what "the parent chat component" does). Without
+// it the route does not compile (Module not found: Can't resolve './voice-chat', and in Next dev the
+// error takes every route down, so it can't be filmed beside the working copy). The demo runs on a
+// harness copy of voice-chat.tsx from the showcase (shown in the IDE); the finding closes the take.
+// ---------------------------------------------------------------------------------------------
+Object.assign(FINDING_NOTES, {
+  voice: [
+    'voice',
+    'page.tsx on the page imports VoiceChat from ./voice-chat',
+    'that file is never shown anywhere on the page, theres just one sentence about the parent chat component',
+    'as written next dev fails, module not found cant resolve ./voice-chat',
+    'demo here runs on voice-chat.tsx copied from the showcase repo',
+    'with that the sample audio button + the reply work',
+  ].join('\n'),
+});
+Object.assign(FINDING_EVIDENCE, {
+  voice: [
+    { text: 'import { VoiceChat } from "./voice-chat";', caption: 'VoiceChat is imported but voice-chat.tsx is never shown' },
+    { text: 'The parent chat component can then drop that text into the composer', caption: 'Only a sentence about the missing component' },
+  ],
+});
 
 /** Doc-only finding (docOnlyAction): highlight the faulty text on the doc, then the Notepad note. */
 export const runDocOnlyFindingAction: PageActionHandler = async (page, config) => {

@@ -31,6 +31,9 @@ import {
   runA2uiDynamicFindingAction,
   runThreadsDrawerAction,
   runHeadlessThreadsAction,
+  runOpenGenUiAction,
+  runRenderingInAppFindingAction,
+  runWebMcpFindingAction,
   SCRIPTED,
 } from './langgraph.actions';
 
@@ -61,10 +64,14 @@ export const ACTION_MAP: Record<string, PageActionHandler> = {
   'components-surfaces': runGenuiFindingAction,
   'components-theming': runKeyboardSendAction,
   'components-standard-catalog': runKeyboardSendAction,
-  'components-from-a2ui': runKeyboardSendAction,
+  'components-from-a2ui': runGenuiFindingAction, // ❌ #39 (1 of 5 rendered)
   'components-state-actions': runGenuiFindingAction,
-  'components-markdown-mode': runKeyboardSendAction,
+  'components-markdown-mode': runGenuiFindingAction, // ❌ #38 (3 of 5 rendered)
+  'components-transports': runGenuiFindingAction, // ❌ #38 (5 of 10 rendered)
   'hashbrown': runKeyboardSendAction,
+  'rendering-in-app': runRenderingInAppFindingAction, // ❌ #37: doc page crashes, then harness copy
+  webmcp: runWebMcpFindingAction, // ❌ #18: the agent never calls searchOrders
+  'open-generative-ui': runOpenGenUiAction, // waits for the whole run so the clip ends on the visualiser
   display: runTempNoteAction,
   interactive: runTempNotePickSlotAction,
   'programmatic-control': runTempNotePickSlotAction,

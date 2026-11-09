@@ -34,6 +34,8 @@ export const SKIP_RECORDING: Record<string, string> = {
   'in-app-read': 'not in the team testing doc LangGraph list (owner, 2026-11-08)',
   'predictive-state': 'not in the team testing doc LangGraph list (owner, 2026-11-08)',
   'workflow-execution': 'not in the team testing doc LangGraph list (owner, 2026-11-08)',
+  guardrails: 'python-only page: report cell is "The code is written only in Python.", no clip (REPORT.md 3)',
+  subgraphs: 'no runnable code on the page (one useAgent snippet, no subgraph): report N/A, no clip',
 };
 
 export const PAGES = definePages([
@@ -447,9 +449,13 @@ export const PAGES = definePages([
   },
   {
     id: 'rendering-in-app', name: 'Shared State - Render agent state in your app', videoName: 'RenderAgentState',
-    docPath: 'shared-state/rendering-in-app', route: 'shared-state/rendering-in-app/harness',
-    ideFile: 'frontend/components/Canvas.tsx', startLine: 26, endLine: 55,
-    extraTabs: [{ filePath: 'frontend/app/shared-state/rendering-in-app/page.tsx', startLine: 1, endLine: 18 }],
+    // ❌ #37: the demo opens the doc's page (quickstart runtime, crashes), then the harness copy.
+    docPath: 'shared-state/rendering-in-app', route: 'shared-state/rendering-in-app',
+    ideFile: 'frontend/components/Canvas.tsx', startLine: 20, endLine: 55,
+    extraTabs: [
+      { filePath: 'frontend/app/shared-state/rendering-in-app/page.tsx', startLine: 1, endLine: 21 },
+      { filePath: 'frontend/app/shared-state/rendering-in-app/harness/page.tsx', startLine: 1, endLine: 16 },
+    ],
     prompt: "Hi! What can you see?",
   },
   {
@@ -485,6 +491,8 @@ export const PAGES = definePages([
     extraTabs: [
       { filePath: 'frontend/app/api/copilotkit-voice/[[...slug]]/route.ts', startLine: 1, endLine: 89 },
       { filePath: 'frontend/app/voice/sample-audio-button.tsx', startLine: 1, endLine: 17 },
+      // ❌ #36: the file the doc imports but never shows (HARNESS copy from the showcase).
+      { filePath: 'frontend/app/voice/voice-chat.tsx', startLine: 1, endLine: 20 },
     ],
     prompt: 'What is the weather in Tokyo?',
   },
