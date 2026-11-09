@@ -27,5 +27,7 @@ for (const [dir, pkg] of ROWS) {
   const installed = readJson(path.join(ROOT, dir, 'node_modules', pkg, 'package.json'))?.version ?? '-';
   md += `| ${dir} | ${pkg} | ${declared} | ${installed} |\n`;
 }
+// Never fail the job: write what we have.
+fs.mkdirSync(path.dirname(OUT), { recursive: true });
 fs.writeFileSync(OUT, md);
 console.log(`wrote ${path.relative(ROOT, OUT)}`);
