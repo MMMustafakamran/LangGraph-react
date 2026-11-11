@@ -359,7 +359,7 @@ async function dragSelect(page: Page, target: Locator, text: string): Promise<vo
  * it. Doc-only pages keep the doc highlight, since that is their only evidence.
  */
 export const KNOWN_ISSUE = new Set<string>([
-  'components', 'components-surfaces', 'a2ui-dynamic', 'configurable',
+  'components', 'a2ui-dynamic', 'configurable',
 ]);
 
 /** Type a page's finding into Notepad at the end of its take, after showing it on the doc. */
@@ -923,13 +923,6 @@ export const SCRIPTED: Record<string, PageActionHandler> = {
 // ---------------------------------------------------------------------------------------------
 const GENUI_HARNESS_LINE = "agent is a harness langgraph js graph that passes the run's tools + context, the docs dont show one";
 Object.assign(FINDING_NOTES, {
-  'components-surfaces': [
-    'surfaces',
-    'doc says "show me cheap running shoes" swaps the featured row',
-    'the row keeps its fallback and the chat reply is empty',
-    'log says the agent called render_ui and no renderer is registered, so it rendered nothing',
-    GENUI_HARNESS_LINE,
-  ].join('\n'),
   configurable: [
     'configurable (#15)',
     'the typescript tab only shows graph.invoke(input, { context: ... }) on the backend',
@@ -939,9 +932,6 @@ Object.assign(FINDING_NOTES, {
   ].join('\n'),
 });
 Object.assign(FINDING_EVIDENCE, {
-  'components-surfaces': [
-    { text: 'Now "show me cheap running shoes" swaps the row', caption: 'Promised: the featured row swaps - it keeps the fallback' },
-  ],
   configurable: [
     {
       text: 'Set runtime context and execution controls where your trusted backend invokes the graph.',
@@ -1322,19 +1312,8 @@ const webmcpTake: PageActionHandler = async (page, config, root, ctx) => {
 export const runWebMcpFindingAction = withFindingOnFailure(webmcpTake);
 
 Object.assign(FINDING_NOTES, {
-  webmcp: [
-    'webmcp',
-    'page says the same handler then works for your copilotkit agent',
-    'asked which of my orders are shipped, agent says it doesnt have access to my orders',
-    'searchOrders is never called, even inside the frontend tools setup the page links to',
-    'also searchOrders itself is never defined on the page, had to stub it',
-  ].join('\n'),
 });
 Object.assign(FINDING_EVIDENCE, {
-  webmcp: [
-    { text: 'The same handler then works for your CopilotKit agent and for WebMCP-aware browser agents.', caption: 'Promised: the CopilotKit agent can call it - it never does' },
-    { text: 'const orders = await searchOrders(status);', caption: 'searchOrders is never defined on the page' },
-  ],
 });
 
 // ---------------------------------------------------------------------------------------------

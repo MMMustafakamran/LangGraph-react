@@ -10,12 +10,6 @@ Stack: `@copilotkit/react-core`/`runtime` 1.85.0, `@copilotkit/sdk-js` 1.85.0 (d
 - **Error:** on the quickstart app (agent `sample_agent`), the page crashes with "This page couldn't load": `useAgent: Agent 'default' not found after runtime sync (runtimeUrl=/api/copilotkit)`.
 - **Harness:** with `agentId` set, the quickstart agent asks for plan details and renders nothing. The frontend-tools agent, which binds `state.copilotkit.actions`, answers with a Markdown table. Neither gives a `standardUI` component. The page never says how a LangGraph JS graph should receive the run's `render_ui` tool and its context.
 
-### [Surfaces](https://docs.copilotkit.ai/langgraph-typescript/generative-ui/components/surfaces)
-**#33 The agent's response is not rendering in the chatbot area or in the Generative UI (Inspector).**
-- **Doc:** the page's catalog + `<CopilotChat>` setup with the featured-products surface ("Now "show me cheap running shoes" swaps the row").
-- **Result:** the agent run succeeds, but the reply bubble is empty and no card renders. Browser log: `[CopilotKit] The agent called the tool "render_ui", and no renderer is registered for it, so that message rendered nothing.` Same symptom as the QA team's reported issue for this group.
-- **Rate (1.85.0, 2026-11-09, 5 probes; CI 2026-11-10 failed too):** the surface rendered 1/5. Every failed run's `render_ui` call nested component props in a `props` object; every rendered run used flat props. The page never tells the agent which shape the catalog expects. The page shows no LangGraph JS agent (#25), so the agent is the harness graph `genui.harness.ts`.
-
 ### [Reasoning](https://docs.copilotkit.ai/langgraph-typescript/generative-ui/reasoning)
 **#11 After every answer the chat shows an error: "Cannot send RUN_FINISHED while text messages are still active".**
 - **Doc:** the demo's Code tab (`page.tsx`, `suggestions.ts`, `src/agent/reasoning-agent.ts`), and "No configuration is needed; if your model emits reasoning tokens, the card appears automatically". The harness runs the Code tab's `reasoning-agent.ts` verbatim (its `./openai-headers` helper is not shown).
@@ -25,11 +19,6 @@ Stack: `@copilotkit/react-core`/`runtime` 1.85.0, `@copilotkit/sdk-js` 1.85.0 (d
 **#34 The generated dashboard fails to render: the chat shows an A2UI render error.**
 - **Doc:** "the agent can render any UI for any request without pre-defined schemas" and "renders cards progressively as data items arrive"; catalog + provider as on the page.
 - **Result (1.85.0, CI 2026-11-09):** asking "Show my team performance." renders no dashboard. The chat shows a red box `A2UI render error: Cannot read properties of undefined (reading 'map')` (browser console: `[A2UI] processMessages error: TypeError: Cannot read properties of undefined (reading 'map') at PayloadValidator.validateComponent`), and the agent still replies "I've shown your team performance dashboard."
-
-### [WebMCP](https://docs.copilotkit.ai/langgraph-typescript/webmcp)
-**#18 The CopilotKit agent never calls the page's frontend tool.**
-- **Doc:** "CopilotKit can publish an existing frontend tool to `document.modelContext`. The same handler then works for your CopilotKit agent and for WebMCP-aware browser agents." `OrderSearch.tsx` registers `searchOrders` with `useFrontendTool` and calls an undefined `searchOrders()` (harness stub with three orders).
-- **Result:** with the quickstart agent (`sample_agent`), "Which of my orders are shipped?" gets "I can check that, but I don't have access to your order history here...": `searchOrders` is never called (CI 2026-11-10 and earlier). The page says to add `webmcp` to "the tool you already register" inside "your existing CopilotKitProvider" and links Frontend tools, whose agent binds `state.copilotkit.actions`: re-check pending on that agent (harness now uses `frontend_tools`). The WebMCP side needs `document.modelContext`, which the recorder's Chromium doesn't have.
 
 ### [Voice](https://docs.copilotkit.ai/langgraph-typescript/voice)
 **#36 The page imports a `VoiceChat` component it never shows.**
@@ -71,5 +60,6 @@ Stack: `@copilotkit/react-core`/`runtime` 1.85.0, `@copilotkit/sdk-js` 1.85.0 (d
 - #32 [State and actions](https://docs.copilotkit.ai/langgraph-typescript/generative-ui/components/state-and-actions) and [Catalogs](https://docs.copilotkit.ai/langgraph-typescript/generative-ui/components/catalogs): the product cards render in some runs only (Catalogs 3/5 probes on 2026-11-09); failed runs leave an empty reply (`The agent called the tool "render_ui", and no renderer is registered for it`). The latest CI takes rendered. Runs on the harness agent (#25).
 - #38 [Transports](https://docs.copilotkit.ai/langgraph-typescript/generative-ui/components/transports) / [Markdown mode](https://docs.copilotkit.ai/langgraph-typescript/generative-ui/components/markdown-mode): with the markdown transport the Seats & Price card rendered in about half the probe runs (5/10 and 3/5, 1.85.0); the others answer "Here's a card..." in text only. Flaky on the harness agent (#25).
 - #39 [Adopt from A2UI](https://docs.copilotkit.ai/langgraph-typescript/generative-ui/components/from-a2ui): the converted `Airport` / `Arrow` catalog rendered in some runs only (1/5 probes on 2026-11-09; the latest CI take rendered); failed runs log the `render_ui` "no renderer is registered" warning. Runs on the harness agent (#25).
+- #33 [Surfaces](https://docs.copilotkit.ai/langgraph-typescript/generative-ui/components/surfaces): the featured row swaps in some runs only (1/5 probes on 2026-11-09, CI 2026-11-10 failed, CI 2026-11-11 rendered); failed runs leave the fallback row and an empty reply (`render_ui` "no renderer is registered"; those runs nested the props in a `props` object, which the page never specifies). Runs on the harness agent (#25).
 
 ## Build-only (`tsc` / `next build`; `npm run dev` runs fine)

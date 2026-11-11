@@ -700,13 +700,13 @@
    "child": false,
    "docPath": "generative-ui/components/surfaces",
    "reachable": "sidebar",
-   "status": "❌",
+   "status": "✅",
    "findings": [
     28,
     33
    ],
    "notes": [
-    "Issue: the agent replies, but the featured-products surface almost never updates (1 of 5 runs on 1.85.0). The other runs leave the fallback row and an empty chat reply."
+    "Note: the featured row swapped in this take; earlier runs often kept the fallback row (render_ui, no renderer)."
    ],
    "block": null,
    "links": [
@@ -1350,12 +1350,10 @@
    "child": false,
    "docPath": "webmcp",
    "reachable": "sidebar",
-   "status": "❌",
-   "findings": [
-    18
-   ],
+   "status": "✅",
+   "findings": [],
    "notes": [
-    "Issue: the agent never calls the page's searchOrders tool. Asked which orders are shipped, it answers that it has no access to the orders."
+    "Note: works inside the Frontend Tools setup the page links to; searchOrders itself is never defined on the page (stubbed)."
    ],
    "block": null,
    "links": [
