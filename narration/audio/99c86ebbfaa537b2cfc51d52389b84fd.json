@@ -1,0 +1,9 @@
+{
+ "text": "And the agent is the exact reasoning agent from the page's code tab, so uh, it's the doc's own setup that breaks here.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 8.731,
+ "file": "99c86ebbfaa537b2cfc51d52389b84fd.mp3",
+ "clip": "LANGGRAPH-react-12-Reasoning",
+ "at": "+"
+}

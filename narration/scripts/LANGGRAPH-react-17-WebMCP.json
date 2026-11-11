@@ -36,7 +36,7 @@
   },
   {
    "at": "+",
-   "text": "The quickstart agent doesn't pass the frontend tools to the model, and umm, this page never mentions that. Only the frontend tools page shows that part."
+   "text": "And I ran it inside the frontend tools setup that this page links to, and uh, it still never calls the tool."
   },
   {
    "at": "failure",

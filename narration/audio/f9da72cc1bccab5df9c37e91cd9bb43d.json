@@ -1,0 +1,9 @@
+{
+ "text": "So I asked it what is seventeen times twenty-three, think step by step. The agent behind it is the reasoning agent file from the page's code tab, as it is.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 10.913,
+ "file": "f9da72cc1bccab5df9c37e91cd9bb43d.mp3",
+ "clip": "LANGGRAPH-react-12-Reasoning",
+ "at": "action"
+}

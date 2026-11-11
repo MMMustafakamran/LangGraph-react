@@ -1,4 +1,4 @@
-// HARNESS: showcase route copied; the doc snippet uses mcpAppsAgent/headlessCompleteAgent without defining them and omits imports + handler. mcpApps config matches the doc verbatim.
+// Verbatim from the MCP Apps page Code tab (copilotkit-mcp-apps/[[...slug]]/route.ts). HARNESS: only the region markers below are added.
 // CopilotKit runtime for the MCP Apps cell — shared by two demos:
 //   - headless-complete (cell exercises MCP Apps rendering via a hand-rolled
 //     useRenderActivityMessage in use-rendered-messages.tsx)

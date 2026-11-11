@@ -1,0 +1,9 @@
+{
+ "text": "So with that copy the page at least loads, and I tried the sample audio button. But that's only with the file from the showcase.",
+ "model": "s2.1-pro-free",
+ "refSha256": "2c9d0ecf4608feacc07c88e869cd4dec601481306a939b7be92fc1bff521a727",
+ "duration": 9.195,
+ "file": "cf95320b68885273bdfa05509c38fa05.mp3",
+ "clip": "LANGGRAPH-react-67-Voice",
+ "at": "action"
+}

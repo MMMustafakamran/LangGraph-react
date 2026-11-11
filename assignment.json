@@ -273,7 +273,7 @@
     41
    ],
    "notes": [
-    "Note: needs CopilotKit Intelligence and an agent named default, which the quickstart doesn't register; recorded on the Intelligence route with a default agent."
+    "Note: needs CopilotKit Intelligence (the page says so); the provider snippet has no agentId, so it needs an agent named default, which the quickstart doesn't register."
    ],
    "block": null,
    "links": [
@@ -437,7 +437,7 @@
     11
    ],
    "notes": [
-    "Issue: after every answer the chat shows an error card: \"Cannot send RUN_FINISHED while text messages are still active\"."
+    "Issue: after the answer the chat shows an error card: \"Cannot send RUN_FINISHED while text messages are still active\"."
    ],
    "block": null,
    "links": [
@@ -467,7 +467,7 @@
     30
    ],
    "notes": [
-    "Issue: same as Reasoning, RUN_FINISHED error banner after the answer. No backend code on the page."
+    "Issue: same as Reasoning, RUN_FINISHED error banner after the answer."
    ],
    "block": null,
    "links": [
@@ -524,7 +524,7 @@
     36
    ],
    "notes": [
-    "Issue: page.tsx imports ./voice-chat, which the page never shows; in the demo the sample audio text is never sent and no reply comes back."
+    "Issue: page.tsx imports ./voice-chat, which the page never shows (not in the Code tab either), so the page does not compile as written."
    ],
    "block": null,
    "links": [
@@ -606,7 +606,7 @@
     6
    ],
    "notes": [
-    "Note: the custom catch-all uses CustomCatchallRenderer and useSuggestions, which the page never shows (copied from the showcase)."
+    "Note: the custom catch-all imports ./suggestions (useSuggestions), which the page never shows (copied from the showcase)."
    ],
    "block": null,
    "links": [
@@ -662,103 +662,6 @@
    }
   },
   {
-   "id": "generative-ui-display",
-   "label": "Display components",
-   "kind": "guide",
-   "group": "Controlled",
-   "child": true,
-   "docPath": "generative-ui/display",
-   "reachable": "none",
-   "status": "✅",
-   "findings": [
-    1
-   ],
-   "notes": [
-    "Note: the agent code on the page has temperature: 0, gpt-5-mini rejects it (400). The demo agent runs without it."
-   ],
-   "block": null,
-   "links": [
-    {
-     "text": "Display components - JS",
-     "clip": "LANGGRAPH-react-31-Display",
-     "loom": "https://www.loom.com/share/488ce536c380437ebb2188cb84eaf53d",
-     "narration": null
-    }
-   ],
-   "review": {
-    "verdict": null,
-    "approvedAt": null,
-    "by": null
-   },
-   "excluded": "not in the team testing doc's LangGraph list (owner, 2026-11-08)"
-  },
-  {
-   "id": "generative-ui-interactive",
-   "label": "Interactive components",
-   "kind": "guide",
-   "group": "Controlled",
-   "child": true,
-   "docPath": "generative-ui/interactive",
-   "reachable": "none",
-   "status": "✅",
-   "findings": [
-    1,
-    24
-   ],
-   "notes": [
-    "Note: the agent code on the page has temperature: 0, gpt-5-mini rejects it (400). The demo agent runs without it.",
-    "Note: the page says \"Not supported on LangGraph (TypeScript)\" but it works."
-   ],
-   "block": null,
-   "links": [
-    {
-     "text": "Interactive components - JS",
-     "clip": "LANGGRAPH-react-32-Interactive",
-     "loom": "https://www.loom.com/share/63894776df6b45d9bbe8dec7560b4469",
-     "narration": null
-    }
-   ],
-   "review": {
-    "verdict": null,
-    "approvedAt": null,
-    "by": null
-   },
-   "excluded": "not in the team testing doc's LangGraph list (owner, 2026-11-08)"
-  },
-  {
-   "id": "generative-ui-frontend-cards",
-   "label": "Frontend-Driven Cards",
-   "kind": "guide",
-   "group": "Controlled",
-   "child": true,
-   "docPath": "generative-ui/frontend-cards",
-   "reachable": "none",
-   "status": "❌",
-   "findings": [
-    22
-   ],
-   "notes": [
-    "Issue: page.tsx has no agent, so CopilotChat looks for \"default\" and the page crashes.",
-    "DeploymentWatcher is never mounted and connects to wss://example.com (404), so no card is ever added.",
-    "Works with agent=\"sample_agent\" and a button that calls agent.addMessage."
-   ],
-   "block": null,
-   "links": [
-    {
-     "text": "Issue",
-     "clip": "LANGGRAPH-react-33-FrontendCards",
-     "loom": "https://www.loom.com/share/49b84bc4e4bd4463b1de35592e3b9f01",
-     "narration": "narration/scripts/LANGGRAPH-react-33-FrontendCards.json"
-    }
-   ],
-   "review": {
-    "verdict": null,
-    "approvedAt": null,
-    "by": null
-   },
-   "excluded": "not in the team testing doc's LangGraph list (owner, 2026-11-08)"
-  },
-  {
    "id": "generative-ui-components",
    "label": "Components and Surfaces",
    "kind": "guide",
@@ -768,8 +671,8 @@
    "reachable": "sidebar",
    "status": "❌",
    "findings": [
-    9,
-    10
+    10,
+    9
    ],
    "notes": [
     "Issue: the agent replies, but no component renders, neither in the chat nor in the Inspector's Generative UI tab."
@@ -830,10 +733,10 @@
    "reachable": "sidebar",
    "status": "✅",
    "findings": [
-    33
+    32
    ],
    "notes": [
-    "Note: cards rendered in this take; earlier runs on 1.85.0 often rendered nothing (render_ui, no renderer)."
+    "Note: cards rendered in this take; some earlier runs on 1.85.0 rendered nothing (render_ui, no renderer)."
    ],
    "block": null,
    "links": [
@@ -893,7 +796,7 @@
     32
    ],
    "notes": [
-    "Note: product cards render in this take."
+    "Note: product cards render in this take; some earlier runs rendered nothing."
    ],
    "block": null,
    "links": [
@@ -979,13 +882,13 @@
    "child": false,
    "docPath": "generative-ui/components/markdown-mode",
    "reachable": "sidebar",
-   "status": "❌",
+   "status": "✅",
    "findings": [
     25,
     38
    ],
    "notes": [
-    "Issue: the card renders only some of the time (3 of 5 runs on 1.85.0). The other runs answer \"here's a card\" in text and no card renders."
+    "Note: card rendered in about half of the earlier runs; the others answered in text only. The page shows no LangGraph JS agent (harness graph)."
    ],
    "block": null,
    "links": [
@@ -1042,7 +945,6 @@
    "reachable": "sidebar",
    "status": "⚠️",
    "findings": [
-    21,
     26
    ],
    "notes": [
@@ -1120,67 +1022,6 @@
     "approvedAt": null,
     "by": null
    }
-  },
-  {
-   "id": "generative-ui-a2ui-advanced",
-   "label": "A2UI Advanced",
-   "kind": "guide",
-   "group": "A2UI",
-   "child": false,
-   "docPath": "generative-ui/a2ui/advanced",
-   "reachable": "none",
-   "status": "✅",
-   "findings": [],
-   "notes": [
-    "Note: step 3 page.tsx uses CopilotChat without importing it."
-   ],
-   "block": null,
-   "links": [
-    {
-     "text": "A2UI Advanced - JS",
-     "clip": "LANGGRAPH-react-38-A2UIAdvanced",
-     "loom": "https://www.loom.com/share/56cdc4a545d64aafb8b7d83809ebae65",
-     "narration": null
-    }
-   ],
-   "review": {
-    "verdict": null,
-    "approvedAt": null,
-    "by": null
-   },
-   "excluded": "not in the team testing doc's LangGraph list (owner, 2026-11-08)"
-  },
-  {
-   "id": "generative-ui-a2ui-styling",
-   "label": "A2UI Styling",
-   "kind": "guide",
-   "group": "A2UI",
-   "child": false,
-   "docPath": "generative-ui/a2ui/styling",
-   "reachable": "none",
-   "status": "❌",
-   "findings": [
-    21
-   ],
-   "notes": [],
-   "block": {
-    "area": "A2UI Styling",
-    "problem": "Dark mode CSS is invalid (@media inside a selector list): \"Parsing CSS source code failed\" and the app 500s. Variable names also differ from the A2UI page."
-   },
-   "links": [
-    {
-     "text": "Issue",
-     "clip": "LANGGRAPH-react-41-A2UIStyling",
-     "loom": "https://www.loom.com/share/e30f2976fc914d94ac927f97ecc82d90",
-     "narration": "narration/scripts/LANGGRAPH-react-41-A2UIStyling.json"
-    }
-   ],
-   "review": {
-    "verdict": null,
-    "approvedAt": null,
-    "by": null
-   },
-   "excluded": "not in the team testing doc's LangGraph list (owner, 2026-11-08)"
   },
   {
    "id": "generative-ui-json-render",
@@ -1273,7 +1114,7 @@
     12
    ],
    "notes": [
-    "Note: the runtime snippet uses mcpAppsAgent and headlessCompleteAgent without defining them; recorded on the showcase route with the Code tab's agent."
+    "Note: the runtime snippet's Excalidraw URL (mcp.excalidraw.com) redirects (308), so no tools load; the .../mcp URL further down works."
    ],
    "block": null,
    "links": [
@@ -1360,7 +1201,7 @@
     40
    ],
    "notes": [
-    "Note: the step snippet is a fragment; the full agent is in the demo's Code tab, recorded on that file."
+    "Note: the full agent in the demo's Code tab imports ./openai-headers, which no tab shows."
    ],
    "block": null,
    "links": [
@@ -1404,124 +1245,6 @@
    }
   },
   {
-   "id": "shared-state-in-app-agent-read",
-   "label": "In-app agent read",
-   "kind": "guide",
-   "group": "Shared State",
-   "child": false,
-   "docPath": "shared-state/in-app-agent-read",
-   "reachable": "none",
-   "status": "✅",
-   "findings": [],
-   "notes": [
-    "Minor Issue: RunnableConfig used without import, node body elided."
-   ],
-   "block": null,
-   "links": [
-    {
-     "text": "In-app agent read - JS",
-     "clip": "LANGGRAPH-react-49-InAppAgentRead",
-     "loom": "https://www.loom.com/share/b28e5002127d4bd994eca8d560adf2e3",
-     "narration": null
-    }
-   ],
-   "review": {
-    "verdict": null,
-    "approvedAt": null,
-    "by": null
-   },
-   "excluded": "not in the team testing doc's LangGraph list (owner, 2026-11-08)"
-  },
-  {
-   "id": "shared-state-in-app-agent-write",
-   "label": "In-app agent write",
-   "kind": "guide",
-   "group": "Shared State",
-   "child": false,
-   "docPath": "shared-state/in-app-agent-write",
-   "reachable": "none",
-   "status": "⚠️",
-   "findings": [
-    31
-   ],
-   "notes": [
-    "Issue: Toggle Language (agent.setState) shows \"spanish\" for a moment, then the state flips back to \"english\"; the agent still answers in English."
-   ],
-   "block": null,
-   "links": [
-    {
-     "text": "Issue",
-     "clip": "LANGGRAPH-react-50-InAppAgentWrite",
-     "loom": "https://www.loom.com/share/f61565d9bfe948d09e04871fbd4547a9",
-     "narration": null
-    }
-   ],
-   "review": {
-    "verdict": null,
-    "approvedAt": null,
-    "by": null
-   }
-  },
-  {
-   "id": "shared-state-predictive-state-updates",
-   "label": "Predictive state updates",
-   "kind": "guide",
-   "group": "Shared State",
-   "child": false,
-   "docPath": "shared-state/predictive-state-updates",
-   "reachable": "none",
-   "status": "✅",
-   "findings": [],
-   "notes": [],
-   "block": null,
-   "links": [
-    {
-     "text": "Predictive state updates - JS",
-     "clip": "LANGGRAPH-react-51-PredictiveState",
-     "loom": "https://www.loom.com/share/18d8ceafb712429a81c0bc3498f576e3",
-     "narration": null
-    }
-   ],
-   "review": {
-    "verdict": null,
-    "approvedAt": null,
-    "by": null
-   },
-   "excluded": "not in the team testing doc's LangGraph list (owner, 2026-11-08)"
-  },
-  {
-   "id": "shared-state-workflow-execution",
-   "label": "Workflow Execution",
-   "kind": "guide",
-   "group": "Shared State",
-   "child": false,
-   "docPath": "shared-state/workflow-execution",
-   "reachable": "none",
-   "status": "❌",
-   "findings": [
-    20
-   ],
-   "notes": [],
-   "block": {
-    "area": "Workflow Execution",
-    "problem": "TS agent has missing imports (ReferenceError: StateGraph is not defined), calls an undefined modelWithTools, and the \"Divide state to Input and Output\" step is empty."
-   },
-   "links": [
-    {
-     "text": "Issue",
-     "clip": "LANGGRAPH-react-52-WorkflowExecution",
-     "loom": "https://www.loom.com/share/0e27258a29b2406bac88162194bb8299",
-     "narration": "narration/scripts/LANGGRAPH-react-52-WorkflowExecution.json"
-    }
-   ],
-   "review": {
-    "verdict": null,
-    "approvedAt": null,
-    "by": null
-   },
-   "excluded": "not in the team testing doc's LangGraph list (owner, 2026-11-08)"
-  },
-  {
    "id": "human-in-the-loop",
    "label": "Human in the Loop",
    "kind": "guide",
@@ -1531,8 +1254,7 @@
    "reachable": "sidebar",
    "status": "✅",
    "findings": [
-    8,
-    16
+    8
    ],
    "notes": [],
    "block": null,
@@ -1558,23 +1280,13 @@
    "child": true,
    "docPath": "human-in-the-loop/useInterrupt",
    "reachable": "sidebar",
-   "status": "✅",
-   "findings": [
-    7,
-    16
-   ],
+   "status": "N/A",
+   "findings": [],
    "notes": [
-    "Note: the doc shows 'Not supported on LangGraph (TypeScript)'; works only on the showcase interrupt agent."
+    "Note: Not available for LangGraph (TypeScript) (the page says \"LangGraph (TypeScript) doesn't support Human in the Loop: Interrupts\")"
    ],
    "block": null,
-   "links": [
-    {
-     "text": "Pausing the agent state for input - JS",
-     "clip": "LANGGRAPH-react-04-UseInterrupt",
-     "loom": "https://www.loom.com/share/f7deff33bf1c4dcab876fb86a60a71b1",
-     "narration": null
-    }
-   ],
+   "links": [],
    "review": {
     "verdict": null,
     "approvedAt": null,
@@ -1589,60 +1301,18 @@
    "child": true,
    "docPath": "human-in-the-loop/headless",
    "reachable": "sidebar",
-   "status": "✅",
-   "findings": [
-    7,
-    16
-   ],
+   "status": "N/A",
+   "findings": [],
    "notes": [
-    "Note: the doc shows 'Not supported on LangGraph (TypeScript)'; works only on the showcase interrupt agent."
+    "Note: Not available for LangGraph (TypeScript) (the page says \"LangGraph (TypeScript) doesn't support Human in the Loop: Headless Interrupts\")"
    ],
    "block": null,
-   "links": [
-    {
-     "text": "Headless Interrupts - JS",
-     "clip": "LANGGRAPH-react-05-HeadlessInterrupts",
-     "loom": "https://www.loom.com/share/2d85ed97eb494092aa5e4c22b9930113",
-     "narration": null
-    }
-   ],
+   "links": [],
    "review": {
     "verdict": null,
     "approvedAt": null,
     "by": null
    }
-  },
-  {
-   "id": "human-in-the-loop-interrupt-flow",
-   "label": "Interrupt Flow",
-   "kind": "guide",
-   "group": "Shared State",
-   "child": true,
-   "docPath": "human-in-the-loop/interrupt-flow",
-   "reachable": "none",
-   "status": "❌",
-   "findings": [
-    14,
-    16
-   ],
-   "notes": [
-    "Issue: TS agent uses RunnableConfig without import and builds no graph; agentId \"starterAgent\" vs quickstart \"sample_agent\". Works once added."
-   ],
-   "block": null,
-   "links": [
-    {
-     "text": "Issue",
-     "clip": "LANGGRAPH-react-06-InterruptFlow",
-     "loom": "https://www.loom.com/share/3f3674cb6d314077b7f4ae512837c591",
-     "narration": "narration/scripts/LANGGRAPH-react-06-InterruptFlow.json"
-    }
-   ],
-   "review": {
-    "verdict": null,
-    "approvedAt": null,
-    "by": null
-   },
-   "excluded": "not in the team testing doc's LangGraph list (owner, 2026-11-08)"
   },
   {
    "id": "human-in-the-loop-governed-actions",
@@ -1671,39 +1341,6 @@
     "approvedAt": null,
     "by": null
    }
-  },
-  {
-   "id": "programmatic-control",
-   "label": "Programmatic Control",
-   "kind": "guide",
-   "group": "Shared State",
-   "child": false,
-   "docPath": "programmatic-control",
-   "reachable": "none",
-   "status": "✅",
-   "findings": [
-    1,
-    24
-   ],
-   "notes": [
-    "Note: the agent code on the page has temperature: 0, gpt-5-mini rejects it (400). The demo agent runs without it.",
-    "Note: \"Not supported on LangGraph (TypeScript)\" banner, but it works."
-   ],
-   "block": null,
-   "links": [
-    {
-     "text": "Programmatic Control - JS",
-     "clip": "LANGGRAPH-react-57-ProgrammaticControl",
-     "loom": "https://www.loom.com/share/20141a79caeb4ca19db61434303e370a",
-     "narration": null
-    }
-   ],
-   "review": {
-    "verdict": null,
-    "approvedAt": null,
-    "by": null
-   },
-   "excluded": "not in the team testing doc's LangGraph list (owner, 2026-11-08)"
   },
   {
    "id": "webmcp",
@@ -1819,14 +1456,10 @@
    "group": "LangGraph",
    "child": false,
    "docPath": "agent-config",
-   "reachable": "none",
+   "reachable": "in-content",
    "status": "✅",
-   "findings": [
-    19
-   ],
-   "notes": [
-    "Note: the agent on the page has temperature: 0.4, gpt-5-mini rejects it (400). Recorded with it removed."
-   ],
+   "findings": [],
+   "notes": [],
    "block": null,
    "links": [
     {
@@ -1841,7 +1474,8 @@
     "approvedAt": null,
     "by": null
    },
-   "excluded": "not in the team testing doc's LangGraph list (owner, 2026-11-08)"
+   "excluded": "not in the team testing doc's LangGraph list (owner, 2026-11-08)",
+   "reachableFrom": "Configurable (\"see Agent Config\"), Inspector"
   },
   {
    "id": "configurable",
@@ -1929,7 +1563,7 @@
     40
    ],
    "notes": [
-    "Note: the step snippets never build a graph; the full agent is only in the demo's Code tab, recorded on that file."
+    "Note: the full agent in the demo's Code tab imports ./openai-headers, which no tab shows."
    ],
    "block": null,
    "links": [

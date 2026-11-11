@@ -16,7 +16,7 @@
   },
   {
    "at": "action",
-   "text": "So I asked it what is seventeen times twenty-three, think step by step. Umm, the page only gives the frontend part, so the agent behind it is the showcase reasoning agent. It's a reasoning model, so it thinks for a bit first, and that's exactly what this page is about."
+   "text": "So I asked it what is seventeen times twenty-three, think step by step. The agent behind it is the reasoning agent file from the page's code tab, as it is."
   },
   {
    "at": "error",
@@ -24,11 +24,7 @@
   },
   {
    "at": "evidence#1",
-   "text": "Back on the doc, this is the only code. It uses the reasoning default agent, but uh, the page never shows that agent or its model."
-  },
-  {
-   "at": "evidence#2",
-   "text": "And this line says no configuration is needed, the card just appears. Not what happens here."
+   "text": "Back on the doc, this line says no configuration is needed, the card just appears. Umm, not what happens here."
   },
   {
    "at": "notepad",
@@ -36,7 +32,7 @@
   },
   {
    "at": "+",
-   "text": "And since the page only has the frontend part, I had to use the showcase reasoning agent, which is gpt five mini on the responses API. Umm, nothing on the page tells you how to set up the backend for it, so you can't really build this from the page alone."
+   "text": "And the agent is the exact reasoning agent from the page's code tab, so uh, it's the doc's own setup that breaks here."
   },
   {
    "at": "failure",

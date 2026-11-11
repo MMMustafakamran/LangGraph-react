@@ -28,15 +28,6 @@ export const TYPING = { charDelayMs: 34, jitter: 0.65, thinkChance: 0.05 };
 export const FINDING_NOTES: Record<string, string> = {
   // frontend-tools, human-in-the-loop, subagents, tool-based: working clips since the docs moved
   // to gpt-6-luna (2026-11-08), which accepts temperature: 0 (FINDINGS.md #1 closed).
-  'interrupt-flow': [
-    'interrupt flow (#14)',
-    '',
-    'ts agent uses RunnableConfig but never imports it',
-    'and theres no graph built or exported, had to add both',
-    'frontend uses agentId "starterAgent" but quickstart registers "sample_agent"',
-    '',
-    'once thats wired up it works, asks for a name and uses it',
-  ].join('\n'),
   // reasoning (#11): see the block next to runReasoningFindingAction.
   // Owner 2026-11-08: blockers only. The clip explains the render failure, nothing else.
   components: [
@@ -66,14 +57,6 @@ export interface DocEvidence {
 const T0 = 'temperature: 0, model: "gpt-5-mini"';
 
 export const FINDING_EVIDENCE: Record<string, DocEvidence[]> = {
-  'interrupt-flow': [
-    {
-      text: 'async function chat_node(state: AgentState, config: RunnableConfig)',
-      caption: 'RunnableConfig is never imported, and no graph is built or exported',
-      clickTab: 'TypeScript',
-    },
-    { text: 'agentId: "starterAgent"', caption: '"starterAgent" - the quickstart registers "sample_agent"' },
-  ],
   components: [
     { text: 'The table fills in while the agent writes it.', caption: 'The doc promises a real table component' },
     {
@@ -376,8 +359,7 @@ async function dragSelect(page: Page, target: Locator, text: string): Promise<vo
  * it. Doc-only pages keep the doc highlight, since that is their only evidence.
  */
 export const KNOWN_ISSUE = new Set<string>([
-  'components', 'components-surfaces', 'components-catalogs', 'components-state-actions',
-  'a2ui-dynamic', 'configurable',
+  'components', 'components-surfaces', 'a2ui-dynamic', 'configurable',
 ]);
 
 /** Type a page's finding into Notepad at the end of its take, after showing it on the doc. */
@@ -607,7 +589,7 @@ export const runFrontendToolsAction: PageActionHandler = frontendTools;
 export const runHitlAction: PageActionHandler = pickSlot;
 export const runUseInterruptAction: PageActionHandler = pickSlot; // ✅ working clip, no finding tail
 export const runHeadlessInterruptAction: PageActionHandler = pickSlot; // ✅ working clip, no finding tail
-export const runInterruptFlowAction = withFinding(interruptFlow);
+export const runInterruptFlowAction: PageActionHandler = interruptFlow; // unreachable page (QA-RULES §9): no finding tail
 export const runSharedStateAction: PageActionHandler = sharedState;
 export const runInspectorAction: PageActionHandler = inspector;
 
@@ -711,87 +693,16 @@ const TEMP_NOTE_TAIL = [
   'gpt-5-mini only takes the default temp so openai 400s the run, same issue as frontend tools (#1)',
 ];
 Object.assign(FIX_NOTES, {
-  display: [
-    'display components - works',
-    '',
-    'just a note, the agent code on this page (frontend-tools.ts) has temperature: 0',
-    ...TEMP_NOTE_TAIL,
-    'the demo agent runs without it and the chart renders fine',
-  ].join('\n'),
-  interactive: [
-    'interactive components - works',
-    '',
-    'note: the frontend-tools.ts agent on this page has temperature: 0',
-    ...TEMP_NOTE_TAIL,
-    'demo runs without it, picker shows and the booking goes through',
-    'also the page says not supported on langgraph ts but it works (#16)',
-  ].join('\n'),
-  'programmatic-control': [
-    'programmatic control - works',
-    '',
-    'note: the agent snippet on this page has temperature: 0',
-    ...TEMP_NOTE_TAIL,
-    'without it the headless picker shows and the run resumes',
-    'page also has the not supported on langgraph ts banner, it works tho (#16)',
-  ].join('\n'),
-  'agent-config': [
-    'agent config - works after removing the temperature (#19)',
-    '',
-    'agent-config.ts on this page has temperature: 0.4',
-    'gpt-5-mini only takes the default so every run 400s',
-    'removed it (FIX comment in the file) and tone / expertise / length all apply',
-  ].join('\n'),
 });
 Object.assign(FIX_EVIDENCE, {
-  display: [TEMP_LINE],
-  interactive: [TEMP_LINE],
-  'programmatic-control': [TEMP_LINE],
-  'agent-config': [{ text: 'temperature: 0.4', caption: 'temperature: 0.4 is rejected by gpt-5-mini' }],
 });
-export const runTempNoteAction = withFix(promptOrError);
-export const runTempNotePickSlotAction = withFix(pickSlot);
+// gpt-6-luna accepts temperature (FINDINGS.md #1, #19 closed): plain working takes, no fix note.
+export const runTempNoteAction: PageActionHandler = promptOrError;
+export const runTempNotePickSlotAction: PageActionHandler = pickSlot;
 
 Object.assign(FINDING_NOTES, {
-  'frontend-cards': [
-    'frontend cards (#22)',
-    '',
-    'the page.tsx on the doc has no agent so CopilotChat looks for "default" and the page crashes',
-    'DeploymentWatcher is never mounted anywhere, and it opens wss://example.com/deployments which 404s',
-    'so following the page nothing ever adds a card',
-    '',
-    'with the quickstart agent + a button that calls agent.addMessage the card shows up fine',
-  ].join('\n'),
-  'workflow-execution': [
-    'workflow execution (#20)',
-    '',
-    'ts agent uses StateGraph, START etc without importing them -> ReferenceError: StateGraph is not defined',
-    'it also calls modelWithTools which is never defined, and new ChatOpenAI() has no model',
-    'and the "divide state to input and output" step has empty tabs, theres no code at all',
-    '',
-    'added the imports + model.invoke and it runs',
-  ].join('\n'),
-  'a2ui-styling': [
-    'a2ui styling (#21)',
-    '',
-    'the dark mode css is invalid, it puts @media inside a selector list',
-    'next fails with "Parsing CSS source code failed" and the whole app 500s till you remove it',
-    'also this page uses --primary / --card etc, the a2ui page uses --a2ui-color-surface, --a2ui-primary-color',
-    'the a2ui renderer reads the --a2ui-* ones',
-  ].join('\n'),
 });
 Object.assign(FINDING_EVIDENCE, {
-  'frontend-cards': [
-    { text: 'renderActivityMessages={[eventCardRenderer]}', caption: 'No agent on the provider: CopilotChat looks for "default"' },
-    { text: 'wss://example.com/deployments', caption: 'Placeholder socket; DeploymentWatcher is never mounted' },
-  ],
-  'workflow-execution': [
-    { text: 'modelWithTools', caption: 'modelWithTools is never defined; StateGraph etc never imported' },
-    { text: 'Divide state to Input and Output', caption: 'This step has empty tabs' },
-  ],
-  'a2ui-styling': [
-    { text: '.dark .a2ui-surface,', caption: 'Invalid CSS: @media inside a selector list' },
-    { text: '--primary: #111111;', caption: 'Different variable names from the A2UI page' },
-  ],
 });
 
 /** Frontend Cards (harness route): click the simulate button, the card must appear. */
@@ -806,7 +717,7 @@ const frontendCards: PageActionHandler = async (page, _config, _root, ctx) => {
   if (!ok) ctx.fail('The activity card did not appear after the button click.');
   await sleep(3000);
 };
-export const runFrontendCardsAction = withFinding(frontendCards);
+export const runFrontendCardsAction: PageActionHandler = frontendCards; // unreachable page (QA-RULES §9)
 
 // Rows from the team testing doc that weren't in the first batch-2 list.
 // use-interrupt, headless-interrupts, mcp-apps, rendering-in-app: now ✅ under the owner's blockers-only rule
@@ -817,11 +728,11 @@ Object.assign(FINDING_NOTES, {
     '',
     'same as the reasoning page, the reasoning block + answer show up',
     'but then the chat throws "Cannot send RUN_FINISHED while text messages are still active"',
-    'and the page doesnt show the backend agent at all, had to use the showcase one',
+    'agent is the reasoning-agent.ts from the code tab',
   ].join('\n'),
 });
 Object.assign(FINDING_EVIDENCE, {
-  'reasoning-messages': [{ text: 'agent={AGENT_ID}', caption: 'Frontend only - no agent/model shown' }],
+  'reasoning-messages': [{ text: 'agent={AGENT_ID}', caption: 'Demo wiring as shown - the run ends in a RUN_FINISHED error' }],
 });
 
 /**
@@ -955,12 +866,12 @@ function scripted(steps: Step[]): PageActionHandler {
 }
 
 export const SCRIPTED: Record<string, PageActionHandler> = {
-  'agent-config': withFix(scripted([
+  'agent-config': scripted([
     { select: 0, value: 'enthusiastic' },
     { select: 1, value: 'beginner' },
     { select: 2, value: 'detailed' },
     { prompt: 'Explain what an API is.' },
-  ])),
+  ]),
   // The doc's attach path (+ button, pick a file), not the showcase's "Try with sample image"
   // button (CI 2026-11-09: that click attached nothing). 5 of 5 probes replied about the image.
   multimodal: scripted([
@@ -978,12 +889,12 @@ export const SCRIPTED: Record<string, PageActionHandler> = {
     { goto: '/prebuilt-components/chat-controls/feedback', holdMs: 5000 },
     { prompt: 'Give me a link to the React docs and a short heading.' },
   ]),
-  'frontend-cards': withFinding(scripted([
+  'frontend-cards': scripted([
     { goto: '/generative-ui/frontend-cards', holdMs: 12000 },
     { goto: '/generative-ui/frontend-cards/harness', holdMs: 6000 },
     { click: 'Simulate deployment message', holdMs: 1000 },
     { waitText: 'Deployment finished', timeoutMs: 15000 },
-  ])),
+  ]),
   // rendering-in-app (#37): see renderingInAppTake below (❌, level 1).
   // Voice: the doc's "Try a sample audio" button drops the sample phrase into the composer.
   // The root layout's CopilotKitProvider (quickstart providers.tsx) mounts its own web inspector
@@ -1012,24 +923,10 @@ export const SCRIPTED: Record<string, PageActionHandler> = {
 // ---------------------------------------------------------------------------------------------
 const GENUI_HARNESS_LINE = "agent is a harness langgraph js graph that passes the run's tools + context, the docs dont show one";
 Object.assign(FINDING_NOTES, {
-  'components-catalogs': [
-    'catalogs (same problem as #32)',
-    'asked for two running shoes as product cards',
-    'the reply bubble stays empty and no ProductCard renders',
-    'log says the agent called render_ui and no renderer is registered, so it rendered nothing',
-    GENUI_HARNESS_LINE,
-  ].join('\n'),
   'components-surfaces': [
-    'surfaces (same problem as #32)',
+    'surfaces',
     'doc says "show me cheap running shoes" swaps the featured row',
     'the row keeps its fallback and the chat reply is empty',
-    'log says the agent called render_ui and no renderer is registered, so it rendered nothing',
-    GENUI_HARNESS_LINE,
-  ].join('\n'),
-  'components-state-actions': [
-    'state and actions (#32)',
-    'asked for product cards for shoe-1 and shoe-2',
-    'the reply is empty and no ProductCard renders, so no cart count and no add to cart',
     'log says the agent called render_ui and no renderer is registered, so it rendered nothing',
     GENUI_HARNESS_LINE,
   ].join('\n'),
@@ -1042,19 +939,8 @@ Object.assign(FINDING_NOTES, {
   ].join('\n'),
 });
 Object.assign(FINDING_EVIDENCE, {
-  'components-catalogs': [
-    { text: 'The agent gets the descriptions and the schemas.', caption: 'The agent should get the catalog and render from it' },
-    { text: 'generativeUI={{ ui: shopUI }}', caption: 'The catalog is given to the provider as shown - nothing renders' },
-  ],
   'components-surfaces': [
     { text: 'Now "show me cheap running shoes" swaps the row', caption: 'Promised: the featured row swaps - it keeps the fallback' },
-  ],
-  'components-state-actions': [
-    {
-      text: 'It must show how many of the product are in the cart, add to the cart when the user clicks',
-      caption: 'Promised: a product card with cart count and add to cart - no card renders',
-    },
-    { text: 'useGenerativeUIState(shopUI, "cart", { items: cart.items });', caption: 'State given as shown - no card to bind it to' },
   ],
   configurable: [
     {
@@ -1069,45 +955,8 @@ Object.assign(FINDING_EVIDENCE, {
 // Transports + Markdown mode (#38) and Adopt from A2UI (#39): ❌ level 1 (2026-11-09, 5-10 probes
 // each). Team doc: Transports / Markdown mode ✅, Adopt from A2UI empty, so full clips (evidence + Notepad) when the take fails.
 Object.assign(FINDING_NOTES, {
-  'components-transports': [
-    'transports',
-    'page only says what a langgraph python agent needs, add CopilotKitMiddleware',
-    'nothing for a langgraph js agent, so i used a harness graph that passes the runs tools + context',
-    'asked for a card with a seats slider and a price label, markdown transport like the page',
-    'only 5 of 10 runs render the card',
-    'the others just answer in text, heres a card with a slider, and no card shows up',
-  ].join('\n'),
-  'components-markdown-mode': [
-    'markdown mode',
-    'provider set to the markdown transport like the page says',
-    'page says any other agent just needs the runs context entries in its system prompt',
-    'did that in a small harness langgraph js graph, the docs dont show one',
-    'asked for a card with a seats slider and a price label',
-    'only 3 of 5 runs render the card, the others say heres a card and nothing shows up',
-  ].join('\n'),
-  'components-from-a2ui': [
-    'adopt from a2ui',
-    'catalog converted the way the page says, Airport + Arrow',
-    'the page never shows the Airport and Arrow components, had to write them',
-    'asked for my flight sfo to jfk with the airport and arrow components',
-    'chat stays empty, only 1 of 5 runs rendered anything',
-    'log says the agent called render_ui and no renderer is registered, so it rendered nothing',
-    GENUI_HARNESS_LINE,
-  ].join('\n'),
 });
 Object.assign(FINDING_EVIDENCE, {
-  'components-transports': [
-    { text: 'Your agent must use the tools and the context entries of the run.', caption: 'Only a LangGraph Python agent is covered' },
-    { text: 'Set transport: "markdown"', caption: 'Markdown transport as shown - the card renders only half the time' },
-  ],
-  'components-markdown-mode': [
-    { text: 'The UI is plain text, so this works with any AG-UI agent that streams text.', caption: 'Promised: works with any agent' },
-    { text: "Any other agent needs one thing: put the run's context entries into its system prompt.", caption: 'Done in the harness graph - the card renders 3 of 5 runs' },
-  ],
-  'components-from-a2ui': [
-    { text: 'Nothing: a run that carries a catalog gets the render_ui tool and the guide.', caption: 'Promised: no runtime option needed - render_ui renders nothing' },
-    { text: 'const renderers = { Airport, Arrow };', caption: 'Airport and Arrow are never shown' },
-  ],
 });
 
 const SURFACE_SEL = '[data-generative-ui-surface], .a2ui-surface';
@@ -1223,8 +1072,8 @@ Object.assign(FINDING_NOTES, {
     'asked it 17 times 23, think step by step',
     'the answer shows up but then the run ends with an error in the chat',
     '"cannot send RUN_FINISHED while text messages are still active"',
-    'the page only shows frontend code, no agent or model behind "reasoning-default"',
-    'so i used the showcase reasoning agent (gpt-5-mini, responses api)',
+    'agent is the reasoning-agent.ts from the pages code tab, as is',
+    'page says no config needed, the card just shows up if the model emits reasoning',
   ].join('\n'),
   'a2ui-dynamic': [
     'dynamic schema a2ui (#34)',
@@ -1237,7 +1086,6 @@ Object.assign(FINDING_NOTES, {
 });
 Object.assign(FINDING_EVIDENCE, {
   reasoning: [
-    { text: 'const AGENT_ID = "reasoning-default";', caption: 'Only frontend code - the page never shows the agent or model behind it' },
     {
       text: 'No configuration is needed; if your model emits reasoning tokens, the card appears automatically:',
       caption: 'Promised zero-config - the run ends in a RUN_FINISHED error',
@@ -1478,8 +1326,7 @@ Object.assign(FINDING_NOTES, {
     'webmcp',
     'page says the same handler then works for your copilotkit agent',
     'asked which of my orders are shipped, agent says it doesnt have access to my orders',
-    'searchOrders is never called, the quickstart sample_agent doesnt bind the frontend tools',
-    'only the frontend tools page shows that wiring, this page never mentions it',
+    'searchOrders is never called, even inside the frontend tools setup the page links to',
     'also searchOrders itself is never defined on the page, had to stub it',
   ].join('\n'),
 });
@@ -1503,8 +1350,7 @@ Object.assign(FINDING_NOTES, {
     'page.tsx on the page imports VoiceChat from ./voice-chat',
     'that file is never shown anywhere on the page, theres just one sentence about the parent chat component',
     'as written next dev fails, module not found cant resolve ./voice-chat',
-    'demo here runs on voice-chat.tsx copied from the showcase repo',
-    'with that the sample audio button + the reply work',
+    'demo here runs on voice-chat.tsx copied from the showcase repo just so it compiles',
   ].join('\n'),
 });
 Object.assign(FINDING_EVIDENCE, {

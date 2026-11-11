@@ -1,5 +1,5 @@
 "use client";
-// HARNESS: helper the Tool Call Rendering page imports but never shows; copied from the showcase (reference/showcase). FINDINGS.md #6.
+// Verbatim from the Tool Call Rendering page Code tab (custom-catchall-renderer.tsx); this HARNESS line is the only addition.
 
 import React from "react";
 import {

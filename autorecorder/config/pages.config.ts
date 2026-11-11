@@ -34,6 +34,9 @@ export const SKIP_RECORDING: Record<string, string> = {
   'in-app-read': 'not in the team testing doc LangGraph list (owner, 2026-11-08)',
   'predictive-state': 'not in the team testing doc LangGraph list (owner, 2026-11-08)',
   'workflow-execution': 'not in the team testing doc LangGraph list (owner, 2026-11-08)',
+  'use-interrupt': 'N/A: the page says "Not supported on LangGraph (TypeScript)" (owner, 2026-11-11)',
+  'headless-interrupts': 'N/A: the page says "Not supported on LangGraph (TypeScript)" (owner, 2026-11-11)',
+  'in-app-write': 'unreachable page: not in the sidebar, not linked (QA-RULES 9)',
   guardrails: 'python-only page: report cell is "The code is written only in Python.", no clip (REPORT.md 3)',
   subgraphs: 'no runnable code on the page (one useAgent snippet, no subgraph): report N/A, no clip',
 };
